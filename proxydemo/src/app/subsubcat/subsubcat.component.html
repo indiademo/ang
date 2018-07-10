@@ -1,0 +1,40 @@
+<form class="form-group form-control" >
+    
+  <select class="form-control" style="width:200px;" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
+    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+   
+    </select> 
+
+    <select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropscatid">
+      <option *ngFor="let x of subcatdata" value={{x.catid}}>{{x.subcat}}</option>
+     
+    </select> 
+
+  
+  <input type="text" name="input1"  class="form-control" style="width:200px;" [(ngModel)]="ssubc">
+  <br>
+  <input type="button" value="save" (click)=funssscat_insert() class="btn btn-primary">
+    
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+     <!-- <th>id</th>-->
+      <th>Category</th>
+      <th>Subcategory</th>
+      
+    </tr>
+  </thead>
+  <tbody  *ngFor="let x of subcatdata">
+    <tr>
+      <!-- <td>{{x._id}}</td>-->
+      <td>{{x.catname}}</td>
+      <td>{{x.subcat}}</td>
+      <td><input type="button" value="Delete" (click)="fundel(x._id)">
+
+    
+    </tr>      
+   
+  </tbody>
+</table>

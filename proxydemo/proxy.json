@@ -1,0 +1,26 @@
+{
+    "/catser/*":{
+        "target":"http://localhost:2222"
+    },
+
+    "/catgett/*":{
+        "target":"http://localhost:2222"
+    },
+    "/dcet/*":{
+        "target":"http://localhost:2222"
+    },
+    "/dceto/*":{
+        "target":"http://localhost:2222"
+    },
+    "/subcats/*":{
+        "target":"http://localhost:2222"
+    },
+    "/subcatget/*":{
+        "target":"http://localhost:2222"
+    },
+    "/subsubcats/*":{
+        "target":"http://localhost:2222"
+    }
+
+    
+}

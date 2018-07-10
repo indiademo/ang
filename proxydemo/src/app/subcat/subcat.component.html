@@ -1,0 +1,57 @@
+
+<form class="form-group form-control" >
+    
+  <select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropcat" >
+    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+   
+      
+      
+     </select> 
+  <input type="text" name="input1" [(ngModel)]="subc" class="form-control" style="width:200px;">
+  <br>
+  <input type="button" value="save" (click)=funscat_insert() class="btn btn-primary">
+    
+</form>
+
+<table class="table">
+    <thead>
+      <tr>
+       <th>S.no</th>
+       
+        <th>Subcategory</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+    <tbody  *ngFor="let x of subcatdata">
+      <tr>
+        <td *ngIf="tmp!=x._id">{{x._id}}</td>
+        <td *ngIf="tmp!=x._id">{{x.subcat}}</td>
+        <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
+       
+      <!--<td><input type="button" value="Delete" (click)="fundel(x._id)">-->
+          <td *ngIf="tmp!=x._id;"><input type="button" value="update" (click)="funupdate(x)">
+
+      
+      </tr>      
+     
+    </tbody>
+  </table>
+  <ng-template #falsyTemplate >
+      
+       
+            <td>{{tmp}}</td> 
+            <td ><input type="text" [(ngModel)]="t1"></td>
+            <td ><select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropcatt" >
+                <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+               
+                 </select> 
+                </td>
+            <td><input type="button" value="save" (click)="funsave(x)">
+            <td ></td>
+         
+  </ng-template>
+
+
+  
+  {{tmp}}
+  

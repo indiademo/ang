@@ -1,0 +1,29 @@
+<p>
+  cat works!
+</p>
+<form class="form-group" >
+<input type="text" name="input1" [(ngModel)]="txt1" >
+<br>
+<input type="button" value="enter" (click)=funcat_insert() class="btn btn-primary">
+<input type="button" value="deleteall" (click)=fundelete() class="btn btn-primary">
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Category Name</th>
+      
+    </tr>
+  </thead>
+  <tbody  *ngFor="let x of data">
+    <tr>
+      <td>{{x._id}}</td>
+      <td>{{x.catname}}</td>
+      <td><input type="button" value="Delete" (click)="fundel(x._id)">
+
+    
+    </tr>      
+   
+  </tbody>
+</table>
