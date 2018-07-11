@@ -8,22 +8,37 @@
 <input type="button" value="deleteall" (click)=fundelete() class="btn btn-primary">
 </form>
 
-<table class="table">
+<table class="table" >
   <thead>
     <tr>
       <th>id</th>
       <th>Category Name</th>
+      <th>Update / Delete</th>
       
     </tr>
   </thead>
   <tbody  *ngFor="let x of data">
     <tr>
-      <td>{{x._id}}</td>
-      <td>{{x.catname}}</td>
-      <td><input type="button" value="Delete" (click)="fundel(x._id)">
+      
+      <td *ngIf="tmp!=x._id">{{x._id}}</td>
+      <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
+      <td *ngIf="tmp!=x._id"><input type="button" value="Update" (click)="funucatupdate(x)">
+      <input type="button" value="Delete" (click)="fundelcat(x._id)">
 
     
     </tr>      
    
   </tbody>
 </table>
+
+<ng-template #falsyTemplate >
+      
+       
+  <td>{{tmp}}</td> 
+  <td ><input type="text" [(ngModel)]="t1"></td>
+  
+  <td *ngIf="tmp!=0"><input type="button" value="save" (click)="funcatsave(x)">
+    <input type="button" value="Cancel" (click)="funccancel(x)">
+  </td>
+       
+</ng-template>

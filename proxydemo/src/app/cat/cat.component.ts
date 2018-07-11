@@ -11,20 +11,10 @@ export class CatComponent implements OnInit {
   constructor(@Inject(Http) public obj) { }
   txt1="" 
   data;
+  tmp=0;
+  t1;
 
- /* fun1(){
-    this.obj.get("filepath/met1").subscribe( function (dt){
-      
-      alert(dt._body)
-    })
-  }
-
-  fun2(){
-    this.obj.get("cat/met2").subscribe( function (dtt){
-      
-      alert(dtt._body)
-    })
-  }*/
+ ///////////////////////////////////////////////////////////////////////////////////////////////////
 
   funcat_insert(){
     var obj={uname:this.txt1}
@@ -35,7 +25,36 @@ export class CatComponent implements OnInit {
       alert(obj._body)
       this.fun2()
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    funucatupdate(ob){
+      //this.gloobj={subcat:ob,catid:cid}
+       this.tmp=ob._id;
+       this.t1=ob.catname;
+      
+       alert(this.t1)
+    
+    }
 
+    funcatsave(){
+      
+      var udata={_id:this.tmp,catname:this.t1}
+      var arr=[udata]
+      this.obj.post("catser/save_cat",arr).subscribe(this.caback11)
+            
+      this.tmp=0;
+      
+    }
+    caback11=(obj)=>{
+      
+      alert(obj._body)
+      this.fun2()
+      
+    }
+
+    funccancel(){
+      this.tmp=0;
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////
     fun2(){
      
       this.obj.get("catgett/getcat").subscribe(this.cback2)
@@ -47,25 +66,26 @@ export class CatComponent implements OnInit {
       console.log(this.data)
     }   
 
-    fundelete(){
-      var obj={uname:this.txt1}
-      this.obj.delete("catgett/deletecat").subscribe(this.cbackd)
-    }
-
-    cbackd=(obj)=>{
-      //alert("hii")
-      alert(obj._body)
-      this.fun2()
-    }
-    // delete one
-    // fundel(un){
-    //   var ob={uname:un}
-    //   this.obj.delete("dceto/delrec",ob).subscribe(this.cb2)
-    //   }
-    //  cb2=(x)=>{
-    //   alert(x._body)
-    
+    // fundelete(){
+    //   var obj={uname:this.txt1}
+    //   this.obj.delete("catgett/deletecat").subscribe(this.cbackd)
     // }
+
+    // cbackd=(obj)=>{
+    //   //alert("hii")
+    //   alert(obj._body)
+    //   this.fun2()
+    // }
+    
+    fundelcat(un){
+      var ob={_id:un}
+      this.obj.post("catgett/delcat",ob).subscribe(this.cb2)
+      this.fun2()
+      }
+     cb2=(x)=>{
+      alert(x._body)
+      //this.funget()
+    }
 
   ngOnInit() {
     this.fun2()

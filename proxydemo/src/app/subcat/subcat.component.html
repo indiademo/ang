@@ -30,7 +30,9 @@
         <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
        
       <!--<td><input type="button" value="Delete" (click)="fundel(x._id)">-->
-          <td *ngIf="tmp!=x._id;"><input type="button" value="update" (click)="funupdate(x)">
+          <td *ngIf="tmp!=x._id;"><input type="button" value="Update" (click)="funupdate(x)">
+          <input type="button" value="Deactive" (click)="active(x)">
+          <input type="button" value="Delete" (click)="fundeletesubcat(x._id)">
 
       
       </tr>      

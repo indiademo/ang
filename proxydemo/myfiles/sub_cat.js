@@ -23,7 +23,7 @@ router.post("/ins_scat",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_subcat.insert({_id:iid,subcat:ob.subcat,catid:ob.catid})
+        conn.tbl_subcat.insert({_id:iid,subcat:ob.subcat,catid:ob.catid,active:1})
         res.send("Inserted")
     })
 })
@@ -73,6 +73,13 @@ router.post("/save_scat",function(req,res){
     console.log(x)
     conn.tbl_subcat.save(x[0],x[1])
     res.send("Updated...")
+})
+
+router.post("/del_scat",function(req,res){
+	reqdata=req.body
+	console.log(reqdata)
+	conn.tbl_subcat.remove(reqdata)
+	res.send("Deleted")
 })
     
 module.exports=router;

@@ -21,7 +21,7 @@ var id=conn.tbl_cat.find().sort({_id:-1}).limit(1,function(err,result){
         }
    
     console.log(iid)
-    conn.tbl_cat.insert({_id:iid,catname:ob.uname})
+    conn.tbl_cat.insert({_id:iid,catname:ob.uname,active:1})
     res.send("Inserted")
 })
 
@@ -76,7 +76,21 @@ rt.get("/getcat",function(req,res){
 // }) 
 
 
+rt.post("/save_cat",function(req,res){
+    x=req.body
+    console.log(x)
+    conn.tbl_cat.save(x[0],x[1])
+    res.send("Updated...")
+})
 
+
+
+rt.post("/delcat",function(req,res){
+	reqdata=req.body
+	console.log(reqdata)
+	conn.tbl_cat.remove(reqdata)
+	res.send("Deleted")
+})
 
 
 module.exports=rt;
