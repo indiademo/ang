@@ -65,4 +65,14 @@ router.post("/get_scat",function(req,res){
     })
   
 })
+
+
+
+router.post("/save_scat",function(req,res){
+    x=req.body
+    console.log(x)
+    conn.tbl_subcat.save(x[0],x[1])
+    res.send("Updated...")
+})
+    
 module.exports=router;

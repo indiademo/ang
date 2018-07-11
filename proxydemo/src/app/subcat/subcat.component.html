@@ -20,6 +20,7 @@
        
         <th>Subcategory</th>
         <th>Category</th>
+        <th>Edit/Update</th>
       </tr>
     </thead>
     <tbody  *ngFor="let x of subcatdata">
@@ -39,19 +40,17 @@
   <ng-template #falsyTemplate >
       
        
-            <td>{{tmp}}</td> 
-            <td ><input type="text" [(ngModel)]="t1"></td>
-            <td ><select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropcatt" >
-                <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-               
-                 </select> 
-                </td>
-            <td><input type="button" value="save" (click)="funsave(x)">
-            <td ></td>
+    <td>{{tmp}}</td> 
+    <td ><input type="text" [(ngModel)]="t1"></td>
+    <td ><select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropcatt" >
+          <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+        </select> 
+    </td>
+    <td *ngIf="tmp!=0"><input type="button" value="save" (click)="funsave(x)">
+    <td ></td>
          
   </ng-template>
 
 
-  
-  {{tmp}}
+
   

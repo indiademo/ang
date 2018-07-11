@@ -15,18 +15,21 @@ export class SubcatComponent implements OnInit {
   dropcat;
   subcatdata;
   tmp=0;
-
+  dropcatt;
+  gloobj;
+ 
+  ////////////////////////////// INSERT SUB CAT  ///////////////////////////////////////////////////
   funscat_insert(){
     var obj={subcat:this.subc,catid:this.dropcat}
     this.obj.post("subcats/ins_scat",obj).subscribe(this.caback1)
-  
+    this.funsubcatget();
     }
     caback1=(obj)=>{
       
       alert(obj._body)
       //this.fun2()
     }
-
+    ////////////////////////////// DISPLAY SUB CAT /////////////////////////////////////////////////
     funsubcatget(){
      
       this.obj.get("subcats/getscat").subscribe(this.cback2)
@@ -38,16 +41,42 @@ export class SubcatComponent implements OnInit {
       this.subcatdata=JSON.parse(obj._body)
       //alert(obj._body)
     }   
+    
+    //////////////////////////////////////// END ////////////////////////////////////////////////////
 
+
+    ////////////////////////////// SUB CAT UPDATE ///////////////////////////////////////////////////
     funupdate(ob){
+      //this.gloobj={subcat:ob,catid:cid}
        this.tmp=ob._id;
        this.t1=ob.subcat;
+       this.dropcatt=ob.catid;
+      
        
-       alert(this.tmp)
+       
        alert(this.t1)
+       alert(this.dropcatt)
 
     }
 
+    funsave(){
+      
+      var udata={_id:this.tmp,subcat:this.t1,catid:this.dropcatt}
+      var arr=[udata]
+      this.obj.post("subcats/save_scat",arr).subscribe(this.caback11)
+      
+      this.funsubcatget();
+      this.tmp=0;
+    }
+    caback11=(obj)=>{
+      
+      alert(obj._body)
+      //this.fun2()
+      
+    }
+    //////////////////////////////////////// END ////////////////////////////////////////////
+      
+    
 
   ngOnInit() {
     this.funsubcatget();
