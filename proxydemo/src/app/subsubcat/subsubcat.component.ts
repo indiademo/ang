@@ -14,11 +14,12 @@ export class SubsubcatComponent implements OnInit {
   dropscatid;
   
   dropcatid;
+  sscat;
   ///////////////////////////////// INSERT SUB SUB CATEGORY ///////////////////////////////////////////////////
   funssscat_insert(){
     var obj={subsubcat:this.ssubc,catid:this.dropcatid,scatid:this.dropscatid}
     this.obj.post("subsubcats/ins_sscat",obj).subscribe(this.caback1)
-  
+    this. funsubsubcat();
     }
     caback1=(obj)=>{
       
@@ -44,12 +45,22 @@ export class SubsubcatComponent implements OnInit {
   ///////////////////////////////////////////   END     /////////////////////////////////////////////////
 
   ///////////////////////////////// GET SUB SUB CATEGORY  /////////////////////////////////////////////////
+  
+  funsubsubcat(){
+     
+    this.obj.get("subsubcats/getsscat").subscribe(this.cbackk2)
+  }
 
+  cbackk2=(obj)=>{
+    //alert("hii")
+    this.sscat=JSON.parse(obj._body)
+    console.log(this.sscat)
+  }  
 
   ///////////////////////////////////////////  NG INIT  ///////////////////////////////////////////////
   
   ngOnInit() {
-    
+    this.funsubsubcat();
     this.obj.get("catgett/getcat").subscribe(this.cb2)
 
   }

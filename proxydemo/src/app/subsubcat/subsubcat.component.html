@@ -1,6 +1,7 @@
 <form class="form-group form-control" >
     
   <select class="form-control" style="width:200px;" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
+      <option value=""> Select Degree </option>
     <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
    
     </select> 
@@ -20,18 +21,22 @@
 <table class="table">
   <thead>
     <tr>
-     <!-- <th>id</th>-->
+      <th>id</th>
       <th>Category</th>
       <th>Subcategory</th>
+      <th>Subsubcategory</th>
+      <th>Update / Delete</th>
       
     </tr>
   </thead>
-  <tbody  *ngFor="let x of subcatdata">
+  <tbody  *ngFor="let x of sscat">
     <tr>
-      <!-- <td>{{x._id}}</td>-->
+       <td>{{x._id}}</td>
       <td>{{x.catname}}</td>
       <td>{{x.subcat}}</td>
-      <td><input type="button" value="Delete" (click)="fundel(x._id)">
+      <td>{{x.subsubcat}}</td>
+      <td><input type="button" value="Update" (click)="fundel(x._id)">
+      <input type="button" value="Delete" (click)="fundel(x._id)">
 
     
     </tr>      

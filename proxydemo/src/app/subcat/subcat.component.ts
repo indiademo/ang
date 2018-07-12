@@ -23,10 +23,10 @@ export class SubcatComponent implements OnInit {
   funscat_insert(){
     var obj={subcat:this.subc,catid:this.dropcat}
     this.obj.post("subcats/ins_scat",obj).subscribe(this.caback1)
-    this.funsubcatget();
+  
     }
     caback1=(obj)=>{
-      
+      this.funsubcatget();
       alert(obj._body)
       //this.fun2()
     }

@@ -28,30 +28,34 @@ router.post("/ins_sscat",function(req,res){
     })
 })
 
-router.get("/getscat",function(req,res){
-   
-    conn.tbl_subcat.find(function(err,result){
-        
-        conn.tbl_cat.find(function(err,catresult){
-            var arr=[]
-            
-            for(i=0;i<result.length;i++){
-                for(j=0;j<catresult.length;j++){
-                    if(result[i].catid==catresult[j]._id){
-                        obj=result[i]
-                        obj.catname=catresult[j].catname
-                       // console.log(obj)
-                        arr.push(obj)
-
-                    }
-
-                }
-            }
-            res.send(arr)
-            
-        })
-       
-    })
+router.get("/getsscat",function(req,res){
+   conn.tbl_subsubcat.find(function(req,ssresult){
+       conn.tbl_subcat.find(function(err,sresult){
+           conn.tbl_cat.find(function(err,cresult){
+               arr=[]
+               for(i=0;i<ssresult.length;i++){
+                   ob={}
+                   ob=ssresult[i]
+                   for(j=0;j<sresult.length;j++){
+                       if(ssresult[i].scatid==sresult[j]._id){
+                           ob.subcat=sresult[j].subcat
+                           break;
+                       }
+                   }
+                   for(k=0;k<cresult.length;k++){
+                       if(ssresult[i].catid==cresult[k]._id){
+                           ob.catname=cresult[k].catname
+                          // console.log(ob.catname)
+                           break;
+                       }
+                   }
+                   arr.push(ob)
+               }
+               res.send(arr)
+           })
+       })
+   })
+    
     
 })
 
