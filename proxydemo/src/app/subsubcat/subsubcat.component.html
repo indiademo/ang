@@ -1,13 +1,13 @@
 <form class="form-group form-control" >
     
   <select class="form-control" style="width:200px;" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
-      <option value=""> Select Degree </option>
+    
     <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
    
     </select> 
 
     <select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropscatid">
-      <option *ngFor="let x of subcatdata" value={{x.catid}}>{{x.subcat}}</option>
+      <option *ngFor="let x of subcatdata" value={{x._id}}>{{x.subcat}}</option>
      
     </select> 
 
@@ -30,12 +30,12 @@
     </tr>
   </thead>
   <tbody  *ngFor="let x of sscat">
-    <tr>
-       <td>{{x._id}}</td>
-      <td>{{x.catname}}</td>
-      <td>{{x.subcat}}</td>
-      <td>{{x.subsubcat}}</td>
-      <td><input type="button" value="Update" (click)="fundel(x._id)">
+    <tr class="animate-repeat">
+      <td>{{x._id}}</td>
+      <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
+      <td *ngIf="tmp!=x._id">{{x.subcat}}</td>
+      <td *ngIf="tmp!=x._id">{{x.subsubcat}}</td>
+      <td *ngIf="tmp!=x._id"><input type="button" value="Update" (click)="funsubsubupdate(x)">
       <input type="button" value="Delete" (click)="fundel(x._id)">
 
     
@@ -43,3 +43,27 @@
    
   </tbody>
 </table>
+
+<ng-template #falsyTemplate >
+      
+       
+   
+    
+    <td >
+        <select class="form-control" style="width:200px;" name="drop1"  [(ngModel)]="dropupdatecatid" (change)="funsubcatgetid()">
+    
+            <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+           
+            </select> 
+    </td>
+    <td >
+        <select class="form-control" style="width:200px;" name="drop2" [(ngModel)]="dropupdatescatid">
+            <option *ngFor="let x of subcatdat" value={{x._id}}>{{x.subcat}}</option>
+           
+          </select> 
+  </td>
+    <td ><input type="text" [(ngModel)]="t1"></td>
+    <td><input type="button" value="save" (click)="funsubsubcatsave(x)">
+    <td ></td>
+         
+  </ng-template>

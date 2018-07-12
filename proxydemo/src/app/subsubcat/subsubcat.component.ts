@@ -12,21 +12,50 @@ export class SubsubcatComponent implements OnInit {
   categorydata;
   subcatdata;
   dropscatid;
-  
+  subcatdat;
   dropcatid;
   sscat;
+  tmp=0;
+  dropupdatecatid;
+  dropupdatescatid;
+  t1;
   ///////////////////////////////// INSERT SUB SUB CATEGORY ///////////////////////////////////////////////////
   funssscat_insert(){
     var obj={subsubcat:this.ssubc,catid:this.dropcatid,scatid:this.dropscatid}
     this.obj.post("subsubcats/ins_sscat",obj).subscribe(this.caback1)
-    this. funsubsubcat();
+    
     }
     caback1=(obj)=>{
-      
+      this. funsubsubcat();
       alert(obj._body)
       //this.fun2()
     }
   ///////////////////////////////////////////      END   //////////////////////////////////////////////////
+
+  ///////////////////////////////// UPDATE SUB SUB CATEGORY ///////////////////////////////////////////////////
+
+  funsubsubupdate(up){
+    
+    this.tmp=up._id;
+    this.dropupdatecatid=up.catid;
+    this.funsubcatgetid();
+    this.dropupdatescatid=up.scatid;
+    this.t1=up.subsubcat
+    
+    alert(this.dropupdatescatid)
+  }
+
+  funsubsubcatsave(){
+    var usubsubdata={_id:this.tmp,subsubcat:this.t1,catid:this.dropupdatecatid,scatid:this.dropupdatescatid}
+    var updatesub=[usubsubdata]
+    this.obj.post("subsubcats/savesubsubcat",updatesub).subscribe(this.cbb)
+
+  }
+  cbb=(obj)=>{
+    alert(obj._body)
+  }
+
+  ///////////////////////////////////////////// END  //////////// ///////////////////////////////////////////////////
 
   /////////////////////////////////////////// GET SUB CATEGORY /////////////////////////////////////////////////  
   
@@ -41,6 +70,22 @@ export class SubsubcatComponent implements OnInit {
       
     this.subcatdata=JSON.parse(obj._body)
     alert(obj._body)
+  }
+  ///////////////////////////////////////////   END     /////////////////////////////////////////////////
+
+  /////////////////////////////////////////// GET SUB CATEGORY FOR UPDATE AND SAVE/////////////////////////////////////////////////  
+  
+  funsubcatgetid(){
+   
+    var dcatt={catid:this.dropupdatecatid}
+   
+    this.obj.post("subcats/get_scat",dcatt).subscribe(this.cb2)
+    
+  }
+  cb2=(obj)=>{
+      
+    this.subcatdat=JSON.parse(obj._body)
+    //alert(obj._body)
   }
   ///////////////////////////////////////////   END     /////////////////////////////////////////////////
 
@@ -61,11 +106,11 @@ export class SubsubcatComponent implements OnInit {
   
   ngOnInit() {
     this.funsubsubcat();
-    this.obj.get("catgett/getcat").subscribe(this.cb2)
+    this.obj.get("catgett/getcat").subscribe(this.cb22)
 
   }
 
-  cb2=(obj)=>{
+  cb22=(obj)=>{
     //alert("hii")
     this.categorydata=JSON.parse(obj._body)
    // alert(obj._body)

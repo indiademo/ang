@@ -59,4 +59,12 @@ router.get("/getsscat",function(req,res){
     
 })
 
+
+router.post("/savesubsubcat",function(req,res){
+    x=req.body
+    console.log(x)
+    conn.tbl_subsubcat.save(x[0],x[1])
+    res.send("Updated...")
+})
+
 module.exports=router;
