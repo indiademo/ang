@@ -1,0 +1,21 @@
+#msg{
+    height: 37px;
+    /* text-align: center; */
+    color: rgb(52, 58, 64);
+    margin-left: 3px;
+}
+
+
+.input-group-addon{
+    align-self: center;
+}
+#delete{
+    color: rgb(255, 255, 255);
+    background-color:rgb(197, 79, 79);
+}
+
+.btn{
+    width: 74px;
+    align-self: center;
+    height: 33px;
+}

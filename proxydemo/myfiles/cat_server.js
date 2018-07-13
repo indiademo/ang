@@ -92,5 +92,19 @@ rt.post("/delcat",function(req,res){
 	res.send("Deleted")
 })
 
+rt.post("/active",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_cat.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
+rt.post("/inactive",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_cat.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
 
 module.exports=rt;

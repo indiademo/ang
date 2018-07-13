@@ -77,6 +77,37 @@ export class SubcatComponent implements OnInit {
     }
     //////////////////////////////////////// END ////////////////////////////////////////////
 
+    /////////////////////////////////////////// ACTIVE ///////////////////////////////////////////
+  funactive(bb1,act){
+    bb1.active=0;
+    var old={_id:bb1._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("subcats/active",old).subscribe(this.cbac2)
+  
+  }
+  funinactive(bb2,act){
+    bb2.active=1;
+    var old={_id:bb2._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("subcats/inactive",old).subscribe(this.cbac3)
+    
+  }
+  cbac2=(obj)=>{
+      
+  // this.subsubdata=JSON.parse(obj._body)
+    alert(obj._body)
+  }
+  cbac3=(obj)=>{
+      
+    // this.subsubdata=JSON.parse(obj._body)
+      alert(obj._body)
+    }
+//////////////////////////////////////////////END////////////////////////////////////////
+
     ////////////////////////////////////////////////////////////////////////////////////////
 
 

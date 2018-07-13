@@ -19,6 +19,7 @@ export class SubsubcatComponent implements OnInit {
   dropupdatecatid;
   dropupdatescatid;
   t1;
+  tmpv;active;
   ///////////////////////////////// INSERT SUB SUB CATEGORY ///////////////////////////////////////////////////
   funssscat_insert(){
     var obj={subsubcat:this.ssubc,catid:this.dropcatid,scatid:this.dropscatid}
@@ -31,6 +32,36 @@ export class SubsubcatComponent implements OnInit {
       //this.fun2()
     }
   ///////////////////////////////////////////      END   //////////////////////////////////////////////////
+  /////////////////////////////////////////// ACTIVE ///////////////////////////////////////////
+  funactive(bb1,act){
+    bb1.active=0;
+    var old={_id:bb1._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("subsubcats/active",old).subscribe(this.cbac2)
+  
+  }
+  funinactive(bb2,act){
+    bb2.active=1;
+    var old={_id:bb2._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("subsubcats/inactive",old).subscribe(this.cbac3)
+    
+  }
+  cbac2=(obj)=>{
+      
+  // this.subsubdata=JSON.parse(obj._body)
+    alert(obj._body)
+  }
+  cbac3=(obj)=>{
+      
+    // this.subsubdata=JSON.parse(obj._body)
+      alert(obj._body)
+    }
+//////////////////////////////////////////////END////////////////////////////////////////
 
   ///////////////////////////////// UPDATE SUB SUB CATEGORY ///////////////////////////////////////////////////
 
@@ -49,10 +80,16 @@ export class SubsubcatComponent implements OnInit {
     var usubsubdata={_id:this.tmp,subsubcat:this.t1,catid:this.dropupdatecatid,scatid:this.dropupdatescatid}
     var updatesub=[usubsubdata]
     this.obj.post("subsubcats/savesubsubcat",updatesub).subscribe(this.cbb)
-
+    this.tmp=0;
+    this.funsubsubcat();
   }
   cbb=(obj)=>{
     alert(obj._body)
+  }
+
+
+  funccancel(){
+    this.tmp=0;
   }
 
   ///////////////////////////////////////////// END  //////////// ///////////////////////////////////////////////////

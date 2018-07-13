@@ -81,5 +81,19 @@ router.post("/del_scat",function(req,res){
 	conn.tbl_subcat.remove(reqdata)
 	res.send("Deleted")
 })
+
+router.post("/active",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_subcat.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
+router.post("/inactive",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_subcat.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
     
 module.exports=router;

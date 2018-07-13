@@ -31,7 +31,7 @@ export class CatComponent implements OnInit {
        this.tmp=ob._id;
        this.t1=ob.catname;
       
-       alert(this.t1)
+       //alert(this.t1)
     
     }
 
@@ -86,6 +86,37 @@ export class CatComponent implements OnInit {
       alert(x._body)
       //this.funget()
     }
+
+    /////////////////////////////////////////// ACTIVE ///////////////////////////////////////////
+  funactive(bb1,act){
+    bb1.active=0;
+    var old={_id:bb1._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("catgett/active",old).subscribe(this.cbac2)
+  
+  }
+  funinactive(bb2,act){
+    bb2.active=1;
+    var old={_id:bb2._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("catgett/inactive",old).subscribe(this.cbac3)
+    
+  }
+  cbac2=(obj)=>{
+      
+  // this.subsubdata=JSON.parse(obj._body)
+    alert(obj._body)
+  }
+  cbac3=(obj)=>{
+      
+    // this.subsubdata=JSON.parse(obj._body)
+      alert(obj._body)
+    }
+//////////////////////////////////////////////END////////////////////////////////////////
 
   ngOnInit() {
     this.fun2()

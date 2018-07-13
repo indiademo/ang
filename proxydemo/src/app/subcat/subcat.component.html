@@ -13,7 +13,7 @@
     
 </form>
 
-<table class="table">
+<table class="table table-responsive">
     <thead>
       <tr>
        <th>S.no</th>
@@ -23,17 +23,19 @@
         <th>Edit/Update</th>
       </tr>
     </thead>
-    <tbody  *ngFor="let x of subcatdata">
+    <tbody  *ngFor="let x of subcatdata; let i = index">
       <tr>
-        <td *ngIf="tmp!=x._id">{{x._id}}</td>
+        <td>{{i+1}}</td>
+        
         <td *ngIf="tmp!=x._id">{{x.subcat}}</td>
         <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
        
       <!--<td><input type="button" value="Delete" (click)="fundel(x._id)">-->
           <td *ngIf="tmp!=x._id;"><input type="button" value="Update" (click)="funupdate(x)">
-          <input type="button" value="Deactive" (click)="active(x)">
+          
           <input type="button" value="Delete" (click)="fundeletesubcat(x._id)">
-
+          <span *ngIf="x.active==1"><input type="button" value="inactive" (click)="funactive(x,0)"></span>
+          <span *ngIf="x.active==0"><input type="button" value="active" (click)="funinactive(x,1)"></span>
       
       </tr>      
      

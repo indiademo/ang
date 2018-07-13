@@ -23,7 +23,7 @@ router.post("/ins_sscat",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_subsubcat.insert({_id:iid,subsubcat:ob.subsubcat,catid:ob.catid,scatid:ob.scatid})
+        conn.tbl_subsubcat.insert({_id:iid,subsubcat:ob.subsubcat,catid:ob.catid,scatid:ob.scatid,active:1})
         res.send("Inserted")
     })
 })
@@ -64,6 +64,20 @@ router.post("/savesubsubcat",function(req,res){
     x=req.body
     console.log(x)
     conn.tbl_subsubcat.save(x[0],x[1])
+    res.send("Updated...")
+})
+
+router.post("/active",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_subsubcat.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
+router.post("/inactive",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_subsubcat.update({_id:act._id},{$set:{active:act.active}})
     res.send("Updated...")
 })
 

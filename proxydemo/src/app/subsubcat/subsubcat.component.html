@@ -18,10 +18,10 @@
     
 </form>
 
-<table class="table">
+<table class="table table-responsive">
   <thead>
     <tr>
-      <th>id</th>
+      <th>S.no</th>
       <th>Category</th>
       <th>Subcategory</th>
       <th>Subsubcategory</th>
@@ -29,14 +29,16 @@
       
     </tr>
   </thead>
-  <tbody  *ngFor="let x of sscat">
+  <tbody  *ngFor="let x of sscat; let i = index">
     <tr class="animate-repeat">
-      <td>{{x._id}}</td>
+      <td>{{i+1}}</td>
       <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
       <td *ngIf="tmp!=x._id">{{x.subcat}}</td>
       <td *ngIf="tmp!=x._id">{{x.subsubcat}}</td>
       <td *ngIf="tmp!=x._id"><input type="button" value="Update" (click)="funsubsubupdate(x)">
       <input type="button" value="Delete" (click)="fundel(x._id)">
+      <span *ngIf="x.active==1"><input type="button" value="inactive" (click)="funactive(x,0)"></span>
+      <span *ngIf="x.active==0"><input type="button" value="active" (click)="funinactive(x,1)"></span>
 
     
     </tr>      
@@ -64,6 +66,7 @@
   </td>
     <td ><input type="text" [(ngModel)]="t1"></td>
     <td><input type="button" value="save" (click)="funsubsubcatsave(x)">
+      <input type="button" value="Cancel" (click)="funccancel(x)">
     <td ></td>
          
   </ng-template>
