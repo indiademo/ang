@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms'
+import { FileSelectDirective } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { CatComponent } from './cat/cat.component';
@@ -36,7 +37,8 @@ var router= RouterModule.forRoot(rout)
     SubcatComponent,
     SubsubcatComponent,
     ProductComponent,
-    BrandComponent
+    BrandComponent,
+    FileSelectDirective
   
   ],
   imports: [

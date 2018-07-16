@@ -19,7 +19,7 @@
 </form>
 
 <table class="table table-responsive">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th>S.no</th>
       <th>Category</th>
@@ -35,10 +35,10 @@
       <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
       <td *ngIf="tmp!=x._id">{{x.subcat}}</td>
       <td *ngIf="tmp!=x._id">{{x.subsubcat}}</td>
-      <td *ngIf="tmp!=x._id"><input type="button" value="Update" (click)="funsubsubupdate(x)">
-      <input type="button" value="Delete" (click)="fundel(x._id)">
-      <span *ngIf="x.active==1"><input type="button" value="inactive" (click)="funactive(x,0)"></span>
-      <span *ngIf="x.active==0"><input type="button" value="active" (click)="funinactive(x,1)"></span>
+      <td *ngIf="tmp!=x._id"><input type="button"class="btn btn-primary btn-sm" value="Update" (click)="funsubsubupdate(x)">
+      <input type="button" value="Delete"class="btn btn-danger btn-sm" (click)="fundel(x._id)">
+      <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
+      <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
 
     
     </tr>      

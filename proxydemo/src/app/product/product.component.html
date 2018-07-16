@@ -1,3 +1,66 @@
-<p>
-  product works!
-</p>
+
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Select category</label>
+      <select class="form-control" id="inputEmail4" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
+        <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+      </select> 
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Select subcategory</label>
+      <select class="form-control" id="inputPassword4" name="drop1" [(ngModel)]="dropscatid" (change)="funsubsubcatget()">
+        <option *ngFor="let x of subcatdata" value={{x._id}}>{{x.subcat}}</option>
+      </select> 
+      
+    </div>
+    
+    <div class="form-group col-md-3">
+      <label for="inputPassword4">Select subsubcategory</label>
+      <select class="form-control" name="drop1" [(ngModel)]="dropscatidd">
+        <option *ngFor="let x of subcatdataa" value={{x._id}}>{{x.subsubcat}}</option>
+      </select>
+      
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputPassword4">Select brand</label>
+      <select class="form-control" name="drop1" [(ngModel)]="dropbrandid">
+        <option *ngFor="let x of branddata" value={{x._id}}>{{x.brand}}</option>
+      </select>
+      
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputproduct">Insert product</label>
+      <input type="text" class="form-control" id="inputPassword4" name="pro" [(ngModel)]="proname" placeholder="Enter product name">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="inputproduct">Quantity</label>
+      <input type="number" class="form-control" id="inputPassword4"name="proq"[(ngModel)]="proquantity" placeholder="No of product">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputPassword4">Select image</label>
+      <input type="file" name="photo"class="form-control"[(ngModel)]="proimage" ng2FileSelect [uploader]="uploader" />
+      
+    </div>
+    <div class="form-group col-md-2">
+      <label for="uploadimg">Click to upload image</label><br>
+      <button type="button" class="btn btn-success btn-s"id="upimage" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        upload
+       </button>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputAddress">Select product colour</label>
+        <input type="color" class="form-control"id="prcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000">
+        
+      </div>
+    <div class="form-group col-md-6">
+      <label for="inputAddress">Product description</label>
+      <textarea class="form-control" rows="5" id="description"name="prodesc"placeholder="Please enter about product"[(ngModel)]="prodesc"></textarea>
+    </div>
+    
+  </div>
+  
+  
+  <input type="button" value="Save product" (click)=funproductinsert() class="btn btn-primary">
+
+</form>

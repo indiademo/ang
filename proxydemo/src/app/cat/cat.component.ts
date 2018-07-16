@@ -13,6 +13,7 @@ export class CatComponent implements OnInit {
   data;
   tmp=0;
   t1;
+  act;
 
  ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -30,14 +31,14 @@ export class CatComponent implements OnInit {
       //this.gloobj={subcat:ob,catid:cid}
        this.tmp=ob._id;
        this.t1=ob.catname;
-      
+      this.act=ob.active;
        //alert(this.t1)
     
     }
 
     funcatsave(){
       
-      var udata={_id:this.tmp,catname:this.t1}
+      var udata={_id:this.tmp,catname:this.t1,active:this.act}
       var arr=[udata]
       this.obj.post("catser/save_cat",arr).subscribe(this.caback11)
             

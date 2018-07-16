@@ -1,20 +1,24 @@
 
-<form class="form-group form-control" >
+ 
+  <form>
+    <div class="form-group col-3">
+      <label for="cat">Select category:</label>
+      <select class="form-control" name="drop1" [(ngModel)]="dropcat" >
+        <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+      </select>
+    </div>
+    <div class="form-group col-3">
+      <label for="pwd">Enter subcategory:</label>
+      <input type="text" name="input1"id="innp" [(ngModel)]="subc" class="form-control"placeholder="Enter subcategory">
+    </div>
+    <input type="button" value="save" (click)=funscat_insert() class="btn btn-primary">
     
-  <select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropcat" >
-    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-   
-      
-      
-     </select> 
-  <input type="text" name="input1" [(ngModel)]="subc" class="form-control" style="width:200px;">
-  <br>
-  <input type="button" value="save" (click)=funscat_insert() class="btn btn-primary">
+  </form>
     
-</form>
+
 
 <table class="table table-responsive">
-    <thead>
+    <thead class="thead-dark">
       <tr>
        <th>S.no</th>
        
@@ -31,12 +35,12 @@
         <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
        
       <!--<td><input type="button" value="Delete" (click)="fundel(x._id)">-->
-          <td *ngIf="tmp!=x._id;"><input type="button" value="Update" (click)="funupdate(x)">
+          <td *ngIf="tmp!=x._id;"><input type="button"class="btn btn-primary btn-sm" value="Update" (click)="funupdate(x)">
           
-          <input type="button" value="Delete" (click)="fundeletesubcat(x._id)">
-          <span *ngIf="x.active==1"><input type="button" value="inactive" (click)="funactive(x,0)"></span>
-          <span *ngIf="x.active==0"><input type="button" value="active" (click)="funinactive(x,1)"></span>
-      
+          <input type="button"class="btn btn-sm" value="Delete" (click)="fundeletesubcat(x._id)">
+          <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
+          <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
+
       </tr>      
      
     </tbody>
@@ -44,13 +48,15 @@
   <ng-template #falsyTemplate >
       
        
-    <td>{{tmp}}</td> 
+    
     <td ><input type="text" [(ngModel)]="t1"></td>
-    <td ><select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropcatt" >
+    <td ><select class="form-control"  name="drop1" [(ngModel)]="dropcatt" >
           <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
         </select> 
     </td>
     <td *ngIf="tmp!=0"><input type="button" value="save" (click)="funsave(x)">
+      <input type="button" value="Cancel" (click)="funccancel(x)">
+
     <td ></td>
          
   </ng-template>

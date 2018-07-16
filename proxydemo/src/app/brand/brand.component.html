@@ -1,3 +1,36 @@
-<p>
-  brand works!
-</p>
+<form class="form-group form-inline" >
+  <div class="input-group">
+    <span class="input-group-addon">Insert brand</span>
+    <input id="msg" type="text" class="form-control" name="msg" placeholder="Please enter brand" [(ngModel)]="brandname">
+  </div>
+  <input type="button" value="enter" class="btn btn-default" (click)=funbrand_insert()>
+</form>
+
+<table class="table table-responsive table-hover" >
+  <thead class="thead-dark">
+    <tr>
+      <th>S.no</th>
+      <th>Category</th>
+      <th>Update / Delete</th>
+      
+    </tr>
+  </thead>
+  <tbody  *ngFor="let x of branddata; let i = index">
+    <tr class="something">
+      <td>{{i+1}}</td>
+      <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.brand}}</td>
+      <td *ngIf="tmp!=x._id"><input type="button" class="btn btn-success btn-sm" value="Update" (click)="funbrandupdate(x)">
+      <input type="button" class="btn btn-sm" id="delete"value="Delete" (click)="fundelcat(x._id)">
+      <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
+      <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
+    </tr>      
+   
+  </tbody>
+</table>
+
+<ng-template #falsyTemplate id="temp">
+  <td ><input type="text" class="form-control" [(ngModel)]="t1"></td>
+  <td *ngIf="tmp!=0"><input type="button" value="save" (click)="funbrandsave(x)">
+  <input type="button" value="Cancel" (click)="funccancel(x)">
+  </td>
+</ng-template>

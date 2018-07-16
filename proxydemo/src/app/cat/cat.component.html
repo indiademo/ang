@@ -1,23 +1,19 @@
-<p>
-  cat works!
-</p>
 <form class="form-group form-inline" >
     <div class="input-group">
-        <span class="input-group-addon">Insert Category</span>
-        <input id="msg" type="text" class="form-control" name="msg" placeholder="category" [(ngModel)]="txt1">
+        <strong> <span class="input-group-addon">Insert category</span></strong>
+        <input id="msg" type="text" class="form-control" name="msg" placeholder="Please enter category" [(ngModel)]="txt1">
     </div>
-<!-- <input type="text" name="input1" id="inputt" [(ngModel)]="txt1" > -->
 <br>
-<input type="button" value="enter" (click)=funcat_insert()  class="btn btn-default">
-<!-- <input type="button" value="deleteall" (click)=fundelete() class="btn btn-primary"> -->
+<input type="button" value="Enter" (click)=funcat_insert()  class="btn btn-default" id="enterbtn">
 </form>
 
-<table class="table table-responsive table-hover" >
+<table class="table table-responsive table-hover" id="tbl" >
   <thead class="thead-dark">
     <tr>
-      <th>S.no</th>
-      <th>Category</th>
-      <th>Update / Delete</th>
+      <th>s.no</th>
+      <th>category</th>
+      <th>update /  Delete</th>
+      
       
     </tr>
   </thead>
@@ -26,7 +22,7 @@
       <td>{{i+1}}</td>
       <!-- <td *ngIf="tmp!=x._id">{{x._id}}</td> -->
       <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
-      <td *ngIf="tmp!=x._id"><input type="button" class="btn btn-success btn-sm" value="Update" (click)="funucatupdate(x)">
+      <td *ngIf="tmp!=x._id"><input type="button" class="btn btn-primary btn-sm" value="Update" (click)="funucatupdate(x)">
       <input type="button" class="btn btn-sm" id="delete"value="Delete" (click)="fundelcat(x._id)">
       <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
       <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>

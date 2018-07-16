@@ -1,0 +1,14 @@
+.btn{
+    width: 74px;
+    align-self: center;
+    height: 33px;
+}
+.form-group{
+    /* width: 369px; */
+    border: none;
+}
+.table .thead-dark th {
+    color: #fff;
+    background-color: #a8a8a8;
+     border-color: #efeded; 
+}

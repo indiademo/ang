@@ -20,6 +20,7 @@ export class SubsubcatComponent implements OnInit {
   dropupdatescatid;
   t1;
   tmpv;active;
+  act;
   ///////////////////////////////// INSERT SUB SUB CATEGORY ///////////////////////////////////////////////////
   funssscat_insert(){
     var obj={subsubcat:this.ssubc,catid:this.dropcatid,scatid:this.dropscatid}
@@ -72,12 +73,13 @@ export class SubsubcatComponent implements OnInit {
     this.funsubcatgetid();
     this.dropupdatescatid=up.scatid;
     this.t1=up.subsubcat
+    this.act=up.active;
     
     alert(this.dropupdatescatid)
   }
 
   funsubsubcatsave(){
-    var usubsubdata={_id:this.tmp,subsubcat:this.t1,catid:this.dropupdatecatid,scatid:this.dropupdatescatid}
+    var usubsubdata={_id:this.tmp,subsubcat:this.t1,catid:this.dropupdatecatid,scatid:this.dropupdatescatid,active:this.act}
     var updatesub=[usubsubdata]
     this.obj.post("subsubcats/savesubsubcat",updatesub).subscribe(this.cbb)
     this.tmp=0;

@@ -20,6 +20,12 @@
     },
     "/subsubcats/*":{
         "target":"http://localhost:2222"
+    },
+    "/brandser/*":{
+        "target":"http://localhost:2222"
+    },
+    "/products/*":{
+        "target":"http://localhost:2222"
     }
 
     

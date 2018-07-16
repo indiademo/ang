@@ -1,0 +1,40 @@
+
+#divrout{
+	margin-top: 10px
+}
+
+
+
+.navbar-nav > li{
+	padding-left:0px;
+	padding-right:0px;
+  }
+
+  a{
+	 color: #ffffff;
+	
+  }
+
+  body {
+	font-family: 'Roboto', sans-serif;
+	padding: 0;
+	margin: 0;
+  }
+  
+ 
+
+  nav.circle ul li a {
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+  }
+  #trans-nav li a:hover { 
+	  color: #a3f1d7; 
+	}
+	#trans-nav li a {
+		display: block;
+		padding: 0 15px;
+		color: #fff;
+		text-decoration: none;
+	}
+
