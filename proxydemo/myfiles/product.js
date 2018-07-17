@@ -1,11 +1,9 @@
 exp = require("express")
 router = exp.Router()
+fup=require("express-fileupload")
 mj=require("mongojs")
 conn=mj("mongodb://localhost:27017/demo")
-
-var multer = require('multer');
-var DIR = './uploads/';
-var upload = multer({dest: DIR}).single('photo');
+app.use(fup())
 
 ///////////////////////////////////////// GET SUB SUB CATEGORY /////////////////////////////////////////////////////////////////////
 
@@ -39,7 +37,7 @@ router.post("/ins_product",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,imagepath:ob.image,productcolor:ob.procolor,productdescription:ob.prodesc})
+        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,image:ob.iname,productcolor:ob.procolor,productdescription:ob.prodesc})
         res.send("Inserted")
     })
     
@@ -65,4 +63,27 @@ router.post('/upload', function (req, res, next) {
 })
 
 /////////////////////////////////////////////////////  END  /////////////////////////////////////////////////////////
+router.post("/addimage",function(req,res){
+	var data=req.body
+	console.log(data)
+	conn.tbl_product.find({},{_id:1}).sort({_id:-1}).limit(1,function(err,result){
+if(result==0)
+imgid=1
+else
+ imgid=result[0]._id
+console.log(imgid)
+conn.tbl_product.update({_id:imgid},{$set:{image:data.image}})
+
+	})
+})
+
+
+
+
+
+
+
+
+
+
 module.exports=router;

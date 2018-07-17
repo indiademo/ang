@@ -23,3 +23,20 @@ app.use("/products",productt)
 
 app.listen(2222)
 console.log("2222")
+
+app.post("/upload",function(req,res){
+    console.log("hiii")
+    console.log(req.files.imgnm.name)
+    
+    iname=req.files.imgnm.name;
+    iref=req.files.imgnm
+    d= new Date()
+    d=d/1000
+    iname="img"+parseInt(d)+"-"+iname
+    console.log(iname)
+    iref.mv("src/assets/images/"+iname)
+    res.redirect("localhost:2222/product?res"+iname)
+
+
+
+})

@@ -29,15 +29,19 @@ export class ProductComponent implements OnInit {
   proimage="";
   procolor="";
   prodesc="";
+  iname=""
   /////////////////////////////////////////// INSERT PRODUCT ////////////////////////////////////////////////////////
 
   funproductinsert(){
-    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,image:this.proimage,procolor:this.procolor,prodesc:this.prodesc}
+    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,image:this.iname,procolor:this.procolor,prodesc:this.prodesc}
     this.obj.post("products/ins_product",obj).subscribe(this.caback1)
    
     }
     caback1=(obj)=>{
-      alert(obj._body)
+      
+      var imgins=<HTMLFormElement>document.getElementById("frmimg")
+               imgins.submit()
+               alert(obj._body)
       
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,13 +108,35 @@ export class ProductComponent implements OnInit {
     alert(this.branddata)
   }
   ///////////////////////////////////////////   END  /////////////////////////////////////////////////////////
+///////////////////////////////////////////  ////////////////////////////////////////////////////
+// funadd(){
+// var imgins=<HTMLFormElement>document.getElementById("frmimg")
+//                imgins.submit()
 
+//               }
+  ///////////////////////////////////////////   END  ////////////////////////////////////////////////////
   ngOnInit() {
     this.funsbrandget()
-    this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-      console.log("ImageUpload:uploaded:", item, status, response);
-    };
+
+    var arr=document.URL.split("?")
+    if(arr.length>1)
+    {
+      var iname=arr[1].split(".")
+      if(arr[0]=="res")
+      {
+        iname=iname[1]
+        this.obj.post("products/addimage",iname).subscribe(imd=>{
+          alert(imd._body)
+      })
+        alert(iname)
+      }
+    }
+
+
+    // this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
+    // this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+    //   console.log("ImageUpload:uploaded:", item, status, response);
+    // };
     this.obj.get("catgett/getcat").subscribe(this.c22)
    }
   c22=(obj)=>{

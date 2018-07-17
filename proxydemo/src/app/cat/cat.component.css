@@ -33,3 +33,6 @@
     background-color: #a8a8a8;
      border-color: #efeded; 
 }
+.form-control {
+    height: 33px;
+}

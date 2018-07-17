@@ -37,17 +37,24 @@
       <label for="inputproduct">Quantity</label>
       <input type="number" class="form-control" id="inputPassword4"name="proq"[(ngModel)]="proquantity" placeholder="No of product">
     </div>
-    <div class="form-group col-md-2">
+    <!-- <div class="form-group col-md-2">
       <label for="inputPassword4">Select image</label>
       <input type="file" name="photo"class="form-control"[(ngModel)]="proimage" ng2FileSelect [uploader]="uploader" />
       
-    </div>
+    </div> -->
     <div class="form-group col-md-2">
+        <label for="inputPassword4">Select image</label>
+      <form method="post"class="form-control" action="http://localhost:2222/upload" enctype="multipart/form-data" id="frmimg">
+        <input type="file" name="imgnm" id="t7"/>
+      </form>  
+    </div>
+
+    <!-- <div class="form-group col-md-2">
       <label for="uploadimg">Click to upload image</label><br>
       <button type="button" class="btn btn-success btn-s"id="upimage" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
         upload
        </button>
-      </div>
+      </div> -->
       <div class="form-group col-md-2">
         <label for="inputAddress">Select product colour</label>
         <input type="color" class="form-control"id="prcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000">
