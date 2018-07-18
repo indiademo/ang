@@ -1,5 +1,5 @@
 
-<form>
+<!-- <form> -->
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">Select category</label>
@@ -42,12 +42,13 @@
       <input type="file" name="photo"class="form-control"[(ngModel)]="proimage" ng2FileSelect [uploader]="uploader" />
       
     </div> -->
-    <div class="form-group col-md-2">
+    <!-- <div class="form-group col-md-2">
         <label for="inputPassword4">Select image</label>
-      <form method="post"class="form-control" action="http://localhost:2222/upload" enctype="multipart/form-data" id="frmimg">
-        <input type="file" name="imgnm" id="t7"/>
+      <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1">
+        <input type="file" name="f1" id="t7" class="form-control-file w-50"><br>
+      
       </form>  
-    </div>
+    </div> -->
 
     <!-- <div class="form-group col-md-2">
       <label for="uploadimg">Click to upload image</label><br>
@@ -66,8 +67,10 @@
     </div>
     
   </div>
+  <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1">
+    <input type="file" name="f1" id="t7" class="form-control-file w-50"><br>
   
   
   <input type="button" value="Save product" (click)=funproductinsert() class="btn btn-primary">
 
-</form>
+</form> 

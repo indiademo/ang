@@ -29,22 +29,20 @@ export class ProductComponent implements OnInit {
   proimage="";
   procolor="";
   prodesc="";
-  iname=""
+  //iname=""
+  img="";
   /////////////////////////////////////////// INSERT PRODUCT ////////////////////////////////////////////////////////
 
   funproductinsert(){
-    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,image:this.iname,procolor:this.procolor,prodesc:this.prodesc}
-    this.obj.post("products/ins_product",obj).subscribe(this.caback1)
-   
-    }
-    caback1=(obj)=>{
-      
-      var imgins=<HTMLFormElement>document.getElementById("frmimg")
-               imgins.submit()
-               alert(obj._body)
-      
-    }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,procolor:this.procolor,prodesc:this.prodesc}
+    this.obj.post("products/ins_product",obj).subscribe(obj=>{
+     alert(obj._body)
+    })
+
+    var imgins=<HTMLFormElement>document.getElementById("fm1")
+    imgins.submit()
+  }           
+  ////////////////////////////////////////////////////////////////////////////////////////////////
     
 
   /////////////////////////////////////////// GET SUB CATEGORY /////////////////////////////////////////////////  
@@ -119,32 +117,33 @@ export class ProductComponent implements OnInit {
     this.funsbrandget()
 
     var arr=document.URL.split("?")
-    if(arr.length>1)
-    {
-      var iname=arr[1].split(".")
-      if(arr[0]=="res")
-      {
-        iname=iname[1]
-        this.obj.post("products/addimage",iname).subscribe(imd=>{
-          alert(imd._body)
-      })
-        alert(iname)
+   
+    if(arr.length>1){
+     // alert("hiii")
+      var iname=arr[1].split("=")
+      if(iname[0]=="res"){
+         this.img=iname[1]
+        // alert("hiii")
+        var ob={image:this.img}
+        this.obj.post("products/addimage",ob).subscribe(
+          pi=>{
+            alert(pi._body)
+            
+          })
       }
-    }
-
+    } 
+   
 
     // this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
     // this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
     //   console.log("ImageUpload:uploaded:", item, status, response);
     // };
-    this.obj.get("catgett/getcat").subscribe(this.c22)
+    this.obj.get("catgett/getcat").subscribe( pi2=>{
+     
+      this.categorydata=JSON.parse(pi2._body)
+    })
    }
-  c22=(obj)=>{
-    //alert("hii")
-    this.categorydata=JSON.parse(obj._body)
-   // alert(obj._body)
 
-  } 
   
   
 

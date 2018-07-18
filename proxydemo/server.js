@@ -24,19 +24,30 @@ app.use("/products",productt)
 app.listen(2222)
 console.log("2222")
 
-app.post("/upload",function(req,res){
-    console.log("hiii")
-    console.log(req.files.imgnm.name)
+// app.post("/upload",function(req,res){
+//   //  console.log("hiii")
+//     console.log(req.files.imgnm.name)
     
-    iname=req.files.imgnm.name;
-    iref=req.files.imgnm
-    d= new Date()
-    d=d/1000
-    iname="img"+parseInt(d)+"-"+iname
-    console.log(iname)
-    iref.mv("src/assets/images/"+iname)
-    res.redirect("localhost:2222/product?res"+iname)
+//     iname=req.files.imgnm.name;
+//     iref=req.files.imgnm
+//     d= new Date()
+//     d=d/1000
+//     iname="img"+parseInt(d)+"-"+iname
+//     console.log(iname)
+//     iref.mv("src/assets/images/"+iname)
+//     res.redirect("localhost:2222/product?res"+iname)
 
 
 
-})
+// })
+
+app.post("/uploads",function(req,res){
+    iname=req.files.f1.name
+    iref=req.files.f1
+    var dt = new Date()
+    dt=dt/1000
+    iname=("img"+parseInt(dt)+"_"+iname)
+    iref.mv("images/"+iname)
+    res.redirect("http://localhost:2525/product?res="+iname)
+
+})    
