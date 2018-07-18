@@ -48,6 +48,7 @@ app.post("/uploads",function(req,res){
     dt=dt/1000
     iname=("img"+parseInt(dt)+"_"+iname)
     iref.mv("images/"+iname)
-    res.redirect("http://localhost:2525/product?res="+iname)
+    res.redirect("http://localhost:4200/product?res="+iname)
+    
 
 })    

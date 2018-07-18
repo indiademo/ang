@@ -26,7 +26,7 @@ router.post("/ins_product",function(req,res){
     
     ob=req.body
     
-    var id=conn.tbl_product.find().sort({_id:-1}).limit(1,function(err,result){
+     conn.tbl_product.find().sort({_id:-1}).limit(1,function(err,result){
     
             if (result.length==0)
             iid=1
@@ -82,7 +82,7 @@ router.post("/addimage",function(req,res){
     ob=req.body
     console.log(ob)
     conn.tbl_product.find().sort({_id:-1}).limit(1,function(err,result){
-       var id=result[0]._id
+        id=result[0]._id
         conn.tbl_product.update({_id:id},{$set:{pimg:ob.image}})
         res.send("inserted")
     })
