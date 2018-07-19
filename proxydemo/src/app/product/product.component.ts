@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit {
   proimage="";
   procolor="";
   prodesc="";
+  proprice="";
   //iname=""
   img="";
   prodata;
@@ -37,9 +38,9 @@ export class ProductComponent implements OnInit {
   /////////////////////////////////////////// INSERT PRODUCT ////////////////////////////////////////////////////////
 
   funproductinsert(){
-    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,procolor:this.procolor,prodesc:this.prodesc}
+    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,price:this.proprice,procolor:this.procolor,prodesc:this.prodesc}
     this.obj.post("products/ins_product",obj).subscribe(obj=>{
-     alert(obj._body)
+     //alert(obj._body)
      var imgins=<HTMLFormElement>document.getElementById("fm1")
      imgins.submit()
      
@@ -62,7 +63,7 @@ export class ProductComponent implements OnInit {
   cback2=(obj)=>{
       
     this.subcatdata=JSON.parse(obj._body)
-    alert(obj._body)
+    //alert(obj._body)
   }
   ///////////////////////////////////////////   END     /////////////////////////////////////////////////
 
@@ -87,14 +88,14 @@ export class ProductComponent implements OnInit {
   funsubsubcatget(){
    
     var dsscat={scatid:this.dropscatid}
-   alert(this.dropscatid)
+   //alert(this.dropscatid)
     this.obj.post("products/get_sscat",dsscat).subscribe(this.cbac2)
     
   }
   cbac2=(obj)=>{
       
     this.subcatdataa=JSON.parse(obj._body)
-    alert(this.subcatdataa)
+    //alert(this.subcatdataa)
   }
   ///////////////////////////////////////////   END ////////////////////////////////////////////////////////
 
@@ -108,7 +109,7 @@ export class ProductComponent implements OnInit {
   c2=(obj)=>{
       
     this.branddata=JSON.parse(obj._body)
-    alert(this.branddata)
+    //alert(this.branddata)
   }
   ///////////////////////////////////////////   END  /////////////////////////////////////////////////////////
 ///////////////////////////////////////////  ////////////////////////////////////////////////////
@@ -116,7 +117,7 @@ fungetpro(){
 this.obj.get("products/getproduct").subscribe(
   pr=>{
     this.prodata=JSON.parse(pr._body)
-    alert(pr._body)
+    //alert(pr._body)
     
   })
 

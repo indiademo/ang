@@ -25,7 +25,7 @@ router.post("/get_sscat",function(req,res){
 router.post("/ins_product",function(req,res){
     
     ob=req.body
-    
+    console.log(ob)
      conn.tbl_product.find().sort({_id:-1}).limit(1,function(err,result){
     
             if (result.length==0)
@@ -37,7 +37,7 @@ router.post("/ins_product",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,productcolor:ob.procolor,productdescription:ob.prodesc})
+        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc})
         res.send("Product added")
     })
     

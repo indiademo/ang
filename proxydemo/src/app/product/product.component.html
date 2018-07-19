@@ -1,13 +1,13 @@
 
   <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1">
     <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-2">
       <label for="inputEmail4">Select category</label>
       <select class="form-control" id="inputEmail4" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
         <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
       </select> 
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-2">
       <label for="inputPassword4">Select subcategory</label>
       <select class="form-control" id="inputPassword4" name="drop1" [(ngModel)]="dropscatid" (change)="funsubsubcatget()">
         <option *ngFor="let x of subcatdata" value={{x._id}}>{{x.subcat}}</option>
@@ -15,34 +15,38 @@
       
     </div>
     
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label for="inputPassword4">Select subsubcategory</label>
       <select class="form-control" name="drop1" [(ngModel)]="dropscatidd">
         <option *ngFor="let x of subcatdataa" value={{x._id}}>{{x.subsubcat}}</option>
       </select>
       
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label for="inputPassword4">Select brand</label>
       <select class="form-control" name="drop1" [(ngModel)]="dropbrandid">
         <option *ngFor="let x of branddata" value={{x._id}}>{{x.brand}}</option>
       </select>
       
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label for="inputproduct">Insert product</label>
       <input type="text" class="form-control" id="inputPassword4" name="pro" [(ngModel)]="proname" placeholder="Enter product name">
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
       <label for="inputproduct">Quantity</label>
       <input type="number" class="form-control" id="inputPassword4"name="proq"[(ngModel)]="proquantity" placeholder="No of product">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="productprice">Price</label>
+      <input type="number" class="form-control" id="inputprice"name="proq"[(ngModel)]="proprice" placeholder="Price">
     </div>
     <!-- <div class="form-group col-md-2">
       <label for="inputPassword4">Select image</label>
       <input type="file" name="photo"class="form-control"[(ngModel)]="proimage" ng2FileSelect [uploader]="uploader" />
       
     </div> -->
-     <div class="form-group col-md-2">
+     <div class="form-group col-md-3">
         <label for="inputPassword4">Select image</label>
       <!-- <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1"> -->
         <input type="file" name="f1" id="t7" class="form-control-file w-50"><br>      
@@ -60,7 +64,7 @@
         <input type="color" class="form-control"id="prcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000">
         
       </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-5">
       <label for="inputAddress">Product description</label>
       <textarea class="form-control" rows="5" id="description"name="prodesc"placeholder="Please enter about product"[(ngModel)]="prodesc"></textarea>
     </div>
@@ -78,17 +82,18 @@
   <thead class="thead-dark">
     <tr>
       <th>s.no</th>
-      <th>pimg</th>
-      <th>catid</th>
-      <th>subcatid</th>
-      <th>subsubcatid</th>
-      <th>brandid</th>
-      <th>pname</th>
-      <th>pcolor</th>
-      <th>pquantity</th>
-      <th>pdesc</th>
-      <!-- <th>prating</th>
-      <th>pprice</th> -->
+      <th>image</th>
+      <th>category</th>
+      <th>subcat</th>
+      <th>subsubcat</th>
+      <th>brand</th>
+      <th>product</th>
+      <th>color</th>
+      <th>quantity</th>
+      <th>price</th>
+      <th>description</th>
+      <!-- <th>prating</th>-->
+      <th>update / delete</th> 
       
       
     </tr>
@@ -103,17 +108,16 @@
       <td>{{x.subsubcat}}</td>
       <td>{{x.brand}}</td>
       <td>{{x.product}}</td>
-      <td> <input type="color" class="form-control"id="prcolor"name="procolor"value={{x.productcolor}} disabled>
+      <td> <input type="color" class="form-control"id="gSprcolor"name="procolor"value={{x.productcolor}} disabled>
         </td>
       <!-- <td>{{x.productcolor}}</td> -->
       <td>{{x.quantity}}</td>
+      <td>{{x.price}}</td>
       <td>{{x.productdescription}}</td>
-      <td>{{x.prating}}</td>
-      <td>{{x.pprice}}</td>
+      <!-- <td>{{x.prating}}</td>
+      <td>{{x.pprice}}</td> -->
 
     </tr>      
    
   </tbody>
 </table>    
-
-<img src="{{file}}"/>

@@ -3,8 +3,13 @@
 }
 
 #prcolor{
-    height: 44px;
+    height: 74px;
     width: 149px;
+}
+#gSprcolor{
+    height: 35px;
+    background-color: white;
+    border: none;
 }
 #upimage{
     height: 42px;
@@ -14,5 +19,5 @@
 }
 #tbl{
    
-    height: 204px;
+    height: 280px;
 }
