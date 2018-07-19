@@ -32,16 +32,20 @@ export class ProductComponent implements OnInit {
   //iname=""
   img="";
   prodata;
+
+  file="assets/images";
   /////////////////////////////////////////// INSERT PRODUCT ////////////////////////////////////////////////////////
 
   funproductinsert(){
     var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,procolor:this.procolor,prodesc:this.prodesc}
     this.obj.post("products/ins_product",obj).subscribe(obj=>{
      alert(obj._body)
+     var imgins=<HTMLFormElement>document.getElementById("fm1")
+     imgins.submit()
+     
     })
-
-    var imgins=<HTMLFormElement>document.getElementById("fm1")
-    imgins.submit()
+   
+   
   }           
   ////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -135,6 +139,7 @@ this.obj.get("products/getproduct").subscribe(
         this.obj.post("products/addimage",ob).subscribe(
           pi=>{
             alert(pi._body)
+            this.fungetpro();
             
           })
       }

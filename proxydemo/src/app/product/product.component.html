@@ -73,3 +73,47 @@
   <input type="button" value="Save product" (click)=funproductinsert() class="btn btn-primary">
 
 </form> 
+
+<table class="table table-responsive table-hover" id="tbl" >
+  <thead class="thead-dark">
+    <tr>
+      <th>s.no</th>
+      <th>pimg</th>
+      <th>catid</th>
+      <th>subcatid</th>
+      <th>subsubcatid</th>
+      <th>brandid</th>
+      <th>pname</th>
+      <th>pcolor</th>
+      <th>pquantity</th>
+      <th>pdesc</th>
+      <!-- <th>prating</th>
+      <th>pprice</th> -->
+      
+      
+    </tr>
+  </thead>
+  <tbody  *ngFor="let x of prodata; let i = index">
+    <tr class="something">
+      <td>{{i+1}}</td>
+      
+      <td>{{x.pimg}}</td>
+      <td>{{x.catname}}</td>
+      <td>{{x.subcat}}</td>
+      <td>{{x.subsubcat}}</td>
+      <td>{{x.brand}}</td>
+      <td>{{x.product}}</td>
+      <td> <input type="color" class="form-control"id="prcolor"name="procolor"value={{x.productcolor}} disabled>
+        </td>
+      <!-- <td>{{x.productcolor}}</td> -->
+      <td>{{x.quantity}}</td>
+      <td>{{x.productdescription}}</td>
+      <td>{{x.prating}}</td>
+      <td>{{x.pprice}}</td>
+
+    </tr>      
+   
+  </tbody>
+</table>    
+
+<img src="{{file}}"/>

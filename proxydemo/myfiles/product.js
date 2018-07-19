@@ -38,7 +38,7 @@ router.post("/ins_product",function(req,res){
        
         console.log(iid)
         conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,productcolor:ob.procolor,productdescription:ob.prodesc})
-        res.send("Inserted")
+        res.send("Product added")
     })
     
     
@@ -105,11 +105,11 @@ router.get("/getproduct",function(req,res){
                             ob={}
                            // console.log(proresult[i])
                             ob=proresult[i]
-                            console.log(ob)
+                            //console.log(ob)
                             for(j=0;j<brandresult.length;j++){
                                 if(proresult[i].brand==brandresult[j]._id){
                                     ob.brand=brandresult[j].brand
-                                 //   console.log(ob.brand)
+                                   // console.log(ob.brand)
                                 }
                             }
                             for(k=0;k<ssresult.length;k++){
@@ -119,18 +119,18 @@ router.get("/getproduct",function(req,res){
 
                                 }
                             }
-                            for(l=0;l<sresult.length;k++){
+                            for(l=0;l<sresult.length;l++){
                                 if(proresult[i].subcatid==sresult[l]._id){
-                                    ob.subcat=sresult[k].subcat
+                                    ob.subcat=sresult[l].subcat
                                  //console.log(ob.subcat)
                                 }
                             }
-                            // for(m=0;m<cresult.length;k++){
-                            //     if(proresult[i].catid==cresult[m]._id){
-                            //         ob.catname=cresult[k].catname
-                            //     // console.log(ob.catname)
-                            //     }
-                            // }
+                            for(m=0;m<cresult.length;m++){
+                                if(proresult[i].catid==cresult[m]._id){
+                                    ob.catname=cresult[m].catname
+                                 //console.log(ob.catname)
+                                }
+                            }
                             arr.push(ob)
                         }
                         res.send(arr)
@@ -147,7 +147,14 @@ router.get("/getproduct",function(req,res){
  ////////////////////////////////// END //////////////////////////////////////////////////////
 
 
-
+ router.get('/getimage', function(req, res) {
+        console.log("Get cake function");
+        tbl_product.find(function (err, doc) {
+            if (err) return next(err);
+        var base64 = (doc[0].img.data.toString('base64'));
+        res.send(base64);        
+        });
+    });
 
 
 
