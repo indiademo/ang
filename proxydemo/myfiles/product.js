@@ -85,11 +85,66 @@ router.post("/addimage",function(req,res){
         id=result[0]._id
         conn.tbl_product.update({_id:id},{$set:{pimg:ob.image}})
         res.send("inserted")
+       
     })
     
 })
 
+//////////////////////////////////// GET PRODUCT /////////////////////////////
 
+router.get("/getproduct",function(req,res){
+    
+    conn.tbl_product.find(function(req,proresult){       
+        conn.tbl_brand.find(function(req,brandresult){    
+            conn.tbl_subsubcat.find(function(req,ssresult){
+                conn.tbl_subcat.find(function(err,sresult){
+                    conn.tbl_cat.find(function(err,cresult){
+                        arr=[]
+                        
+                        for(i=0;i<proresult.length;i++){
+                            ob={}
+                           // console.log(proresult[i])
+                            ob=proresult[i]
+                            console.log(ob)
+                            for(j=0;j<brandresult.length;j++){
+                                if(proresult[i].brand==brandresult[j]._id){
+                                    ob.brand=brandresult[j].brand
+                                 //   console.log(ob.brand)
+                                }
+                            }
+                            for(k=0;k<ssresult.length;k++){
+                                if(proresult[i].subsubcatname==ssresult[k]._id){
+                                    ob.subsubcat=ssresult[k].subsubcat
+                                 //console.log(ob.subsubcat)
+
+                                }
+                            }
+                            for(l=0;l<sresult.length;k++){
+                                if(proresult[i].subcatid==sresult[l]._id){
+                                    ob.subcat=sresult[k].subcat
+                                 //console.log(ob.subcat)
+                                }
+                            }
+                            // for(m=0;m<cresult.length;k++){
+                            //     if(proresult[i].catid==cresult[m]._id){
+                            //         ob.catname=cresult[k].catname
+                            //     // console.log(ob.catname)
+                            //     }
+                            // }
+                            arr.push(ob)
+                        }
+                        res.send(arr)
+                        
+                    })
+                })
+            })
+        })    
+    })    
+     
+     
+ })
+
+ ////////////////////////////////// END //////////////////////////////////////////////////////
 
 
 

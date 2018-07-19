@@ -31,6 +31,7 @@ export class ProductComponent implements OnInit {
   prodesc="";
   //iname=""
   img="";
+  prodata;
   /////////////////////////////////////////// INSERT PRODUCT ////////////////////////////////////////////////////////
 
   funproductinsert(){
@@ -107,13 +108,19 @@ export class ProductComponent implements OnInit {
   }
   ///////////////////////////////////////////   END  /////////////////////////////////////////////////////////
 ///////////////////////////////////////////  ////////////////////////////////////////////////////
-// funadd(){
-// var imgins=<HTMLFormElement>document.getElementById("frmimg")
-//                imgins.submit()
+fungetpro(){
+this.obj.get("products/getproduct").subscribe(
+  pr=>{
+    this.prodata=JSON.parse(pr._body)
+    alert(pr._body)
+    
+  })
 
-//               }
+}
+              
   ///////////////////////////////////////////   END  ////////////////////////////////////////////////////
   ngOnInit() {
+    this.fungetpro();
     this.funsbrandget()
 
     var arr=document.URL.split("?")
