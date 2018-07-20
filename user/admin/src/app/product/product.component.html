@@ -101,8 +101,9 @@
   <tbody  *ngFor="let x of prodata; let i = index">
     <tr class="something">
       <td>{{i+1}}</td>
-      
-      <td>{{x.pimg}}</td>
+      <!-- <td>{{x.pimg}}</td> -->
+      <td><img src="D:/Newfolderaa/ang/ang/admin/src/assets/images/{{x.pimg}}">{{x.pimg}}</td>
+
       <td>{{x.catname}}</td>
       <td>{{x.subcat}}</td>
       <td>{{x.subsubcat}}</td>
