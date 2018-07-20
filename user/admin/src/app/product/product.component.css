@@ -7,14 +7,17 @@
     width: 149px;
 }
 #gSprcolor{
-    height: 35px;
+    height: 49px;
     background-color: white;
     border: none;
+    width: 56px;
+    
 }
 #upimage{
     height: 42px;
 }
 .thead-dark{
+    text-align: center;
     width: 100%;
 }
 #tbl{
