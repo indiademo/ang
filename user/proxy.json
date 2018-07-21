@@ -1,0 +1,7 @@
+{
+    "/catser/*":{
+        "target":"http://localhost:2244"
+    }
+
+    
+}
