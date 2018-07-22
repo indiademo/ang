@@ -1,5 +1,7 @@
+<span *ngIf="show==1"><input type="button" class="btn btn-primary btn-sm" value="Add product" (click)="funaadd(0)"></span>
+<span *ngIf="show==0"><input type="button" class="btn btn-success btn-sm" value="Back" (click)="funcan(1)"></span>
 
-  <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1">
+  <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1" *ngIf="!show">
     <div class="form-row">
     <div class="form-group col-md-2">
       <label for="inputEmail4">Select category</label>
@@ -49,7 +51,7 @@
      <div class="form-group col-md-3">
         <label for="inputPassword4">Select image</label>
       <!-- <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1"> -->
-        <input type="file" name="f1" id="t7" class="form-control-file w-50"><br>      
+        <input type="file" name="f1" id="t7" class="form-control-file w-50" ><br>      
       <!-- </form>   -->
     </div> 
 
@@ -102,26 +104,73 @@
     <tr class="something">
       <td>{{i+1}}</td>
       <!-- <td>{{x.pimg}}</td> -->
-      <td> 
+      <td *ngIf="tmp!=x._id;"> 
         <img class="img-responsive" src="http://localhost:2121/assets/images/{{x.pimg}}" alt="Chania" width="100" height="80"> 
         <!-- <img class="col-md-2" src="./assets/images/{{x.pimg}}"></td> -->
 
-      <td>{{x.catname}}</td>
-      <td>{{x.subcat}}</td>
-      <td>{{x.subsubcat}}</td>
-      <td>{{x.brand}}</td>
-      <td>{{x.product}}</td>
+      <td *ngIf="tmp!=x._id; else protemplate">{{x.catname}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.subcat}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.subsubcat}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.brand}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.product}}</td>
       
-      <td> <input type="color" class="form-control"id="gSprcolor"name="procolor"value={{x.productcolor}} disabled>
+      <td *ngIf="tmp!=x._id;"> <input type="color" class="form-control"id="gSprcolor"name="procolor"value={{x.productcolor}} disabled>
       </td>
       <!-- <td>{{x.productcolor}}</td> -->
-      <td>{{x.quantity}}</td>
-      <td>{{x.price}}</td>
-      <td>{{x.productdescription}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.quantity}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.price}}</td>
+      <td *ngIf="tmp!=x._id;">{{x.productdescription}}</td>
       <!-- <td>{{x.prating}}</td>
       <td>{{x.pprice}}</td> -->
+      <td *ngIf="tmp!=x._id;"><input type="button"class="btn btn-primary btn-sm" value="Update" (click)="funproupdate(x)">
+
+      <input type="button"class="btn btn-sm" value="Delete" (click)="fundeletesubcat(x._id)">
+      <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
+      <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
+
 
     </tr>      
    
   </tbody>
 </table>    
+
+<ng-template #protemplate class="table table-responsive">
+      
+       
+    <td ><input type="file" name="f1" id="t7" class="form-control-file w-50" ><br></td>  
+ 
+  <td >
+    <select class="form-control" class="form-control col-12" name="drop1" [(ngModel)]="dropcatt" >
+      <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+    </select> 
+  </td>
+  <td >
+    <select class="form-control"class="form-control col-12"  name="drop1" [(ngModel)]="dropscatt" >
+      <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+    </select> 
+</td>
+<td >
+  <select class="form-control" class="form-control col-12" name="drop1" [(ngModel)]="dropsscatt" >
+    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+  </select> 
+</td>
+<td >
+  <select class="form-control"class="form-control col-12"  name="drop1" [(ngModel)]="dropbrand" >
+    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+  </select> 
+</td>
+<td ><input type="text" class="form-control col-12"[(ngModel)]="pro"></td>
+<td ><input type="color" class="form-control"id="gSprcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000"></td>
+    
+ 
+<td ><input type="text"class="form-control col-12" [(ngModel)]="quantit"></td>
+<td ><input type="text"class="form-control col-12" [(ngModel)]="pric"></td>
+<td ><input type="text"class="form-control col-12" [(ngModel)]="desc"></td>
+
+ 
+<td *ngIf="tmp!=0"><input type="button" value="save" (click)="funsave(x)">
+<input type="button" value="Cancel" (click)="funccancel(x)">
+
+  <td ></td>
+       
+</ng-template>

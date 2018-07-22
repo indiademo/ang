@@ -1,6 +1,9 @@
 {
     "/catser/*":{
         "target":"http://localhost:2244"
+    },
+    "/subcatser/*":{
+        "target":"http://localhost:2244"
     }
 
     

@@ -37,7 +37,7 @@ router.post("/ins_product",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc})
+        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc,active:1})
         res.send("Product added")
     })
     
@@ -87,6 +87,7 @@ router.post("/addimage",function(req,res){
         res.send("inserted")
        
     })
+   
     
 })
 

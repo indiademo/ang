@@ -10,16 +10,18 @@ import { Http } from '@angular/http'
 
   constructor(@Inject(Http) public obj) { }
   catdata;
+  subcatdata;
 
 
   ngOnInit() {
     
-    this.fungetcat()
+    this.fungetcat();
+    this.fungetsubcat()
   }
 
    /////////////////////////////////////////////////////////////////////////////////////////////////
    fungetcat(){
-    alert("hii")
+    
     this.obj.get("catser/getcat").subscribe(this.cback2)
   }
 
@@ -27,7 +29,20 @@ import { Http } from '@angular/http'
     //alert("hii")
     this.catdata=JSON.parse(obj._body)
     console.log(this.catdata)
-    alert(this.catdata)
+    //alert(this.catdata)
   }  
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////
+   fungetsubcat(){
+    //alert("hii")
+    this.obj.get("subcatser/getscat").subscribe(this.cback3)
+  }
+
+  cback3=(obj)=>{
+    //alert("hii")
+    this.subcatdata=JSON.parse(obj._body)
+    console.log(this.subcatdata)
+    alert(this.subcatdata)
+  } 
 
 }

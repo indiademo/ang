@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms'
 import { FileSelectDirective } from 'ng2-file-upload';
 
+
 import { AppComponent } from './app.component';
 import { CatComponent } from './cat/cat.component';
 import { SubcatComponent } from './subcat/subcat.component';

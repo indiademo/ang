@@ -22,5 +22,12 @@
 }
 #tbl{
    
-    height: 280px;
+    height: 516px;
 }
+.btn{
+    width: 74px;
+    align-self: center;
+    height: 33px;
+}
+
+
