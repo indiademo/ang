@@ -100,7 +100,7 @@
       
     </tr>
   </thead>
-  <tbody  *ngFor="let x of prodata; let i = index">
+  <tbody  *ngFor="let x of prodata | paginate:{itemsPerPage:4,currentPage:pno} let i = index">
     <tr class="something">
       <td>{{i+1}}</td>
       <!-- <td>{{x.pimg}}</td> -->
@@ -133,6 +133,7 @@
    
   </tbody>
 </table>    
+<pagination-controls (pageChange)="pno=$event"></pagination-controls>
 
 <ng-template #protemplate class="table table-responsive">
       

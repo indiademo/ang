@@ -4,6 +4,9 @@
     },
     "/subcatser/*":{
         "target":"http://localhost:2244"
+    },
+    "/subsubcatser/*":{
+        "target":"http://localhost:2244"
     }
 
     

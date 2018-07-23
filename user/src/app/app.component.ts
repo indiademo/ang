@@ -11,12 +11,13 @@ import { Http } from '@angular/http'
   constructor(@Inject(Http) public obj) { }
   catdata;
   subcatdata;
-
+  sscat;
 
   ngOnInit() {
     
     this.fungetcat();
-    this.fungetsubcat()
+    this.fungetsubcat();
+    this. funsubsubcat();
   }
 
    /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,14 +36,28 @@ import { Http } from '@angular/http'
    /////////////////////////////////////////////////////////////////////////////////////////////////
    fungetsubcat(){
     //alert("hii")
-    this.obj.get("subcatser/getscat").subscribe(this.cback3)
+    this.obj.get("subcatser/get_scat").subscribe(this.cback3)
   }
 
   cback3=(obj)=>{
     //alert("hii")
     this.subcatdata=JSON.parse(obj._body)
     console.log(this.subcatdata)
-    alert(this.subcatdata)
-  } 
+    
+  }
+
+  ///////////////////////////////// GET SUB SUB CATEGORY  /////////////////////////////////////////////////
+  
+  funsubsubcat(){
+     
+    this.obj.get("subsubcatser/get_sscat").subscribe(this.cbackk2)
+  }
+
+  cbackk2=(obj)=>{
+    
+    this.sscat=JSON.parse(obj._body)
+    alert(obj._body)
+    
+  }
 
 }

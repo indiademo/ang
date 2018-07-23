@@ -1,58 +1,33 @@
+<nav class="navbar navbar-expand-md  navbar-dark bg-dark">
+    <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </span>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="#" style="color:white; font-size:15px;">Home</a>
+        </li>
+        <li class="nav-item dropdown" *ngFor="let cat of catdata">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:white; font-size:15px;">
+            {{cat.catname}}
+          </a>
+         
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+            <li class="dropdown-submenu" *ngFor="let subcat of subcatdata" >
+              <a class="dropdown-item" *ngIf="subcat.catid==cat._id">
+                {{subcat.subcat}}</a>
+                <ul class="dropdown-menu">
+                        <li class="dropdown-item" *ngFor="let subsub of sscat">
+                          <a *ngIf="subsub.scatid==subcat._id" [routerLink]="['product',subsub]">{{subsub.subsubcat}}</a>
+                        </li>
+                    </ul>
+            </li>
+          </ul>
 
-<div class="container">
-	<div class="row">
-		<div class="col-lg-12">
-            <div class="card my-3">
-                <!-- <div class="card-header">
-                    <div class="options float-right">
-                        <a class="settings"><i class="fa fa-cog"></i></a>
-                        <a href="#" class="collapse"> <i class="fa fa-chevron-up"></i></a>
-                        <a href="#" class="reload"><i class="fa fa-refresh"></i></a>
-                        <a href="#" class="fullscreen"><i class=" fa fa-expand"></i></a>
-                        <a href="#" class="remove"><i class="fa fa-times"></i></a>
-                    </div>
-                </div> -->
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="btn-group">
-                                <a *ngFor="let x of catdata" id="dLabel" role="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
-                                   href="">
-                                   {{x._id}}
-                                    {{x.catname}}
-                                </a>
-                                <ul    class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                                   
-                                    <li *ngFor="let xy of subcatdata" class="dropdown-submenu">
-                                        <a   class="dropdown-item" tabindex="-1" href="#">
-                                            {{xy.subcat}} 
-                                           
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" tabindex="-1" href="#">level 2</a></li>
-                                            <li class="dropdown-submenu">
-                                                <a class="dropdown-item" href="#">
-                                                    level 2
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">3rd level</a></li>
-                                                    <li><a class="dropdown-item" href="#">3rd level</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">level 2</a></li>
-                                            <li><a class="dropdown-item" href="#">level 2</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-	</div>
-</div>
+        </li>
+      </ul>
+      </div>
+  </nav>
+  <router-outlet>
+  </router-outlet>
 
-<div>
-
-</div>

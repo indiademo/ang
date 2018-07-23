@@ -36,6 +36,8 @@ export class ProductComponent implements OnInit {
   droppro;
   product;
   show=1;
+  pno=1;
+  
   
 
 
@@ -159,7 +161,7 @@ this.obj.get("products/getproduct").subscribe(
               
   ///////////////////////////////////////////   END  ////////////////////////////////////////////////////
   ngOnInit() {
-    
+    alert(this.pno)
     this.fungetpro();
     this.funsbrandget()
 
