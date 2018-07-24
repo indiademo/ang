@@ -1,6 +1,6 @@
 import { Component, OnInit ,Inject} from '@angular/core';
-import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
-import * as $ from 'jquery';
+// import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
 import { Http } from '@angular/http'
 
 const URL = 'products/upload';
@@ -11,7 +11,6 @@ const URL = 'products/upload';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  public uploader:FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
   constructor(@Inject(Http) public obj) { }
   subcatdata;
@@ -182,12 +181,7 @@ this.obj.get("products/getproduct").subscribe(
           })
       }
     } 
-   
 
-    // this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
-    // this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-    //   console.log("ImageUpload:uploaded:", item, status, response);
-    // };
     this.obj.get("catgett/getcat").subscribe( pi2=>{
      
       this.categorydata=JSON.parse(pi2._body)

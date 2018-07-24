@@ -7,6 +7,9 @@
     },
     "/subsubcatser/*":{
         "target":"http://localhost:2244"
+    },
+    "/productser/*":{
+        "target":"http://localhost:2244"
     }
 
     

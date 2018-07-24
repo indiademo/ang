@@ -29,7 +29,7 @@ import { Http } from '@angular/http'
   cback2=(obj)=>{
     //alert("hii")
     this.catdata=JSON.parse(obj._body)
-    console.log(this.catdata)
+    //console.log(this.catdata)
     //alert(this.catdata)
   }  
 
@@ -42,7 +42,7 @@ import { Http } from '@angular/http'
   cback3=(obj)=>{
     //alert("hii")
     this.subcatdata=JSON.parse(obj._body)
-    console.log(this.subcatdata)
+    //console.log(this.subcatdata)
     
   }
 
@@ -56,7 +56,7 @@ import { Http } from '@angular/http'
   cbackk2=(obj)=>{
     
     this.sscat=JSON.parse(obj._body)
-    alert(obj._body)
+    //alert(obj._body)
     
   }
 
