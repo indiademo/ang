@@ -1,13 +1,16 @@
-<nav class="navbar navbar-expand-md  navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md  navbar-default" style="height:56px;">
+  <div class="container-fluid">
     <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </span>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        
       <ul class="navbar-nav">
         <li class="nav-item ">
-          <a class="nav-link" href="#" style="color:white; font-size:15px;">Home</a>
+          <a class="nav-link font-italic" href="#" style="color:white; font-size:15px; color: white;margin-top: 12px;font-size: 23px;">Haatcart</a>
+          <img src="../assets/svgicon/telegram.svg"style="width:30px;margin-top: -70px;margin-left: 99px; ">
         </li>
-        <li class="nav-item dropdown" *ngFor="let cat of catdata">
+        <!-- <li class="nav-item dropdown" *ngFor="let cat of catdata">
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:white; font-size:15px;">
             {{cat.catname}}
           </a>
@@ -16,18 +19,270 @@
             <li class="dropdown-submenu" *ngFor="let subcat of subcatdata" >
               <a class="dropdown-item" *ngIf="subcat.catid==cat._id">
                 {{subcat.subcat}}</a>
-                <ul class="dropdown-menu">
-                        <li class="dropdown-item" *ngFor="let subsub of sscat">
-                          <a *ngIf="subsub.scatid==subcat._id" [routerLink]="['product',subsub]">{{subsub.subsubcat}}</a>
-                        </li>
-                    </ul>
+              <ul class="dropdown-menu">
+                <li class="dropdown-item" *ngFor="let subsub of sscat">
+                  <a *ngIf="subsub.scatid==subcat._id" [routerLink]="['product',subsub]">{{subsub.subsubcat}}</a>
+                </li>
+              </ul>
             </li>
           </ul>
+        </li> -->
+        <li class="nav-item">
+            <div class="form-group col input-mysize">
+                <input class="form-control" id="inputsm" type="text">
+                <span >
+                    <button style="margin-top: -43px;margin-left: 404px;"id="btnsrch" class="form-control" type="submit">
+                    <img src="../assets/svgicon/magnifying-glass.svg" style="width:20px;margin-left: 65px;margin-top: -17px;">
+                   
+                  </button>
+                </span>
+              </div>
+            
+              
+          </li>
 
+         
+          <!-- <li class="nav-item ">
+              <div class="input-group-btn">
+                  <button class="btn btn-default margintopbtn" type="submit">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button></div>
+            </li> -->
+        <!-- <li class="nav-item ">
+            <form class="navbar-form navbar-left navbar-nav" action="/action_page.php">
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
+                    <div class="input-group-btn">
+                      <button class="btn btn-default margintopbtn" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+
+            </form>
+            </li> -->
+      </ul>
+        
+      <ul class="nav navbar-nav navbar-right ml-auto ">
+        <li *ngIf="logvalue==0" class="nav-item nav-link">
+          <a class="nav-link" (click)="loginshide()" style="color:white; font-size:15px;">Login & Signup</a>
+          <!-- <li *ngIf="logvalue==1"><a class="nav-link" (click)="funlogout()"><span class="glyphicon glyphicon-log-in" style="color:white; font-size:15px;" ></span> Logout</a></li> -->
+        </li>
+        <div *ngIf="logvalue==1"> 
+         <div *ngFor="let pro of regdata">  
+            <li  class="dropdown nav-link">
+            
+              <a  href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{pro.username}} ok<span ></span></a>
+            
+              <ul class="dropdown-menu " style="width:100px">
+                <li class="dropdown-item"><a href="#">My profile</a>
+                </li>
+                <li class="dropdown-item"><a href="#">Order</a>
+                </li>
+                <li class="dropdown-item"><a href="#">Wishlist</a>
+                </li>
+                <!-- <li role="separator" class="divider"></li> -->
+                <li class="dropdown-item"><a href="#">Notificationk</a>
+                </li>
+                <li>
+                  <!-- <form>
+                    <button type="submit" class="btn btn-link btn-logout">Logout</button>
+                  </form> -->
+                  <li class="dropdown-item" (click)="funlogout()">Logout
+                </li>
+              </ul>
+            </li>
+         </div> 
+       </div>
+
+        <li class="nav-item dropdown nav-link">
+          <a href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span ></span></a>
+          <ul class="dropdown-menu " style="width:100px">
+            <li class="dropdown-item nav-link dropdown-toggle"><a href="#">24*7 Customer care</a>
+            </li>
+            <li class="dropdown-item nav-link dropdown-toggle"><a href="#">Adverties</a>
+            </li>
+            <li class="dropdown-item nav-link dropdown-toggle"><a href="#">Wishlist</a>
+            </li>
+          </ul>
         </li>
       </ul>
-      </div>
-  </nav>
-  <router-outlet>
-  </router-outlet>
+      <ul class="dropdown nav navbar-nav navbar-right ">
+        <!-- <li><a class="nav-link glyphicon glyphicon-log-in" (click)="loginshide()"><span style="color:white; font-size:15px;" ></span> Cart</a></li> -->
+        <li class="nav-item ">
+          <a class="nav-link" href="#" style="color:white; font-size:15px;">
+            <img src="../assets/svgicon/shopping-basket.svg" style="width:30px">&nbsp; Cart
+          </a>
+        </li>
+      </ul>
+      <ul class="dropdown nav navbar-nav navbar-right ">
+        <!-- <li><a class="nav-link glyphicon glyphicon-log-in" (click)="loginshide()"><span style="color:white; font-size:15px;" ></span> Cart</a></li> -->
+        <li class="nav-item si-glyph-fill"></li>
+      </ul>
+    </div>
+  </div>  
+</nav>
+ 
 
+
+<div *ngIf="reg==0" [@anm3]="tmp3" class="container logdiv "  >
+  <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-4">
+    <div class="m-3 frmrdiv">
+    <h2 >Login</h2>
+    <form  action="/action_page.php">
+      <div class="imgcnt">
+        <button type="button"class="transparent-style"(click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: 6px;margin-right:7px; float:right">
+          <img src="../assets/images/cancel.png" alt="Avatara" style="width:20px" class="cancel">
+        </button>
+      </div>
+      <div class="imgcontainer">
+        <img src="../assets/images/avtar.png" alt="Avatar" class="avatar">
+      </div>
+    
+      <div class="container" >
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" [(ngModel)]="userid" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw"[(ngModel)]="password" required>
+            
+        <button type="submit" (click)="funlogin()">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me &nbsp;
+        </label>
+        <label>
+            <span class="signup">New to ecom? <a (click)="funregval()">Signup</a></span>
+          </label>
+      </div>
+    
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+    
+    </form>
+   </div> 
+  </div>  
+</div>  
+
+
+<div *ngIf="reg==1" class="container logreg">
+  <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-4">
+      <div class="m-4 frmrdiv"> 
+    <div><h2 style="align-content:center">Create Acount</h2></div>&nbsp;
+    <form>
+      <div class="regimgcnt">
+        <button type="button"class="transparent-style"(click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: -49px;;margin-right:7px; float:right">
+          <img src="../assets/images/cancel.png" alt="Avatara" style="width:20px" class="cancel">
+        </button>
+      </div>
+      
+    
+      <div class="container regcontainer" >
+        <label for="uname"><b>Username</b></label>
+        <input type="text" class="inpreg"placeholder="" name="uname" [(ngModel)]="rusername" required>
+        <label for="uname"><b>Mobile no</b></label>
+        <input type="number"class="inpreg" placeholder="" name="mno" [(ngModel)]="rmno" required>
+        <label for="uname"><b>Email</b></label>
+        <input type="email"class="inpreg" placeholder="" name="email" [(ngModel)]="remail" required>
+    
+        <label for="psw"><b>Password</b></label>
+        <input type="password"class="inpreg" placeholder="" name="psw"[(ngModel)]="rpassword" required>
+        <label for="psw"><b>Re Enter Password</b></label>
+        <input type="password"class="inpreg" placeholder="" name="psw"[(ngModel)]="repassword" required>
+            
+        <button type="submit" (click)="funlreg()">Continue</button>
+       
+      </div>
+    
+      <div class="container" style="background-color:#f1f1f1">
+          <i class="psw">Already have an account? <a (click)="funregvalhide()">Sign in</a></i>
+        <!-- <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button> -->
+        
+      </div>
+    
+    </form>
+      </div>
+  </div>  
+</div> 
+
+<nav class="navbar navbar-expand-md  navbar-default navcolor">
+    <div class="container-fluid">
+      <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </span>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+            <a class="nav-link" href="#" style="color:black; font-size:15px;"></a>
+          </li>
+          <li class="nav-item dropdown" *ngFor="let cat of catdata">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:black; font-size:15px;">
+              {{cat.catname}}
+            </a>
+           
+              <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li class="dropdown-submenu" *ngFor="let subcat of subcatdata" >
+                <a class="dropdown-item" *ngIf="subcat.catid==cat._id">
+                  {{subcat.subcat}}</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item" *ngFor="let subsub of sscat">
+                    <a *ngIf="subsub.scatid==subcat._id" [routerLink]="['product',subsub]">{{subsub.subsubcat}}</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+       
+      </div>
+    </div>  
+  </nav>
+    <router-outlet>
+    </router-outlet>
+  
+  
+  <!-- <div [@anm3]="tmp3" class="container logdiv "  >
+    <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-2">
+      <div class="m-2.5 frmrdiv">
+      <h2 >Login</h2>
+      <form  action="/action_page.php">
+        <div class="imgcnt">
+          <button type="button"class="transparent-style"(click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: 6px;margin-right:7px; float:right">
+            <img src="../assets/images/cancel.png" alt="Avatara" style="width:20px" class="cancel">
+          </button>
+        </div>
+        <div class="imgcontainer">
+          <img src="../assets/images/avtar.png" alt="Avatar" class="avatar">
+        </div>
+      
+        <div class="container" >
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" [(ngModel)]="username" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw"[(ngModel)]="password" required>
+              
+          <button type="submit" (click)="funlogin()">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+      
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+      
+      </form>
+     </div> 
+    </div>  
+  </div>   -->
+   
+  

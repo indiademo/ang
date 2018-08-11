@@ -18,6 +18,7 @@ export class SubcatComponent implements OnInit {
   dropcatt;
   gloobj;
   id;
+  act;
  
   ////////////////////////////// INSERT SUB CAT  ///////////////////////////////////////////////////
   funscat_insert(){
@@ -52,17 +53,18 @@ export class SubcatComponent implements OnInit {
        this.tmp=ob._id;
        this.t1=ob.subcat;
        this.dropcatt=ob.catid;
+       this.act=ob.active;
       
        
        
        alert(this.t1)
-       alert(this.dropcatt)
+       alert(this.act)
 
     }
 
     funsave(){
       
-      var udata={_id:this.tmp,subcat:this.t1,catid:this.dropcatt}
+      var udata={_id:this.tmp,subcat:this.t1,catid:this.dropcatt,active:this.act}
       var arr=[udata]
       this.obj.post("subcats/save_scat",arr).subscribe(this.caback11)
       
@@ -125,7 +127,7 @@ export class SubcatComponent implements OnInit {
 
   ngOnInit() {
     this.funsubcatget();
-    this.obj.get("catgett/getcat").subscribe(this.cb2)
+    this.obj.get("catser/getcat").subscribe(this.cb2)
 
   }
 

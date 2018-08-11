@@ -1,6 +1,6 @@
 import { Component, OnInit ,Inject} from '@angular/core';
 // import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
-
+import * as $ from 'jquery';
 import { Http } from '@angular/http'
 
 const URL = 'products/upload';
@@ -39,11 +39,10 @@ export class ProductComponent implements OnInit {
   
   
 
-
   /////////////////////////////////////////// INSERT PRODUCT ////////////////////////////////////////////////////////
 
   funproductinsert(){
-    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcat:this.dropscatidd,brand:this.dropbrandid,product:this.proname,quanity:this.proquantity,price:this.proprice,procolor:this.procolor,prodesc:this.prodesc}
+    var obj={catid:this.dropcatid,subcatid:this.dropscatid,subsubcatid:this.dropscatidd,brandid:this.dropbrandid,product:this.proname,quanity:this.proquantity,price:this.proprice,procolor:this.procolor,prodesc:this.prodesc}
     this.obj.post("products/ins_product",obj).subscribe(obj=>{
      //alert(obj._body)
      var imgins=<HTMLFormElement>document.getElementById("fm1")
@@ -55,17 +54,42 @@ export class ProductComponent implements OnInit {
   }           
   ////////////////////////////////////////////////////////////////////////////////////////////////
      ////////////////////////////// SUB CAT UPDATE ///////////////////////////////////////////////////
+     duspimg;dropscatidsave; dropsavecatid;upcatid;dupscatid;dropscatids;dropbrandids;pro="";procolors="";quantit="";pric="";desc="";dropsscatidd;dupactive;
      funproupdate(ob){
       //this.gloobj={subcat:ob,catid:cid}
-       this.tmp=ob._id;
-       this.product=ob.subcat;
-       this.droppro=ob.catid;
-      
-       
-       
-       alert(this.tmp)
-      
+      this.tmp=ob._id;
+      //this.dupig=ob.pimg;
+      this.dropsavecatid=ob.catid;
+      this.dropscatidsave=ob.subcatid;
+      this.dropscatids=ob.subsubcatid;
+      this.dropbrandids=ob.brandid;
+      this.pro=ob.product;
+      this.procolors=ob.productcolor;
+      this.quantit=ob.quantity;
+      this.pric=ob.price;
+      this.desc=ob.productdescription;
+      this.dupactive=ob.active;
+      this.duspimg=ob.pimg;
+      alert(this.tmp)
+      alert(this.duspimg)
+      //alert(this.dupprice)
+    }
+    funprosave(){
+      var udata={_id:this.tmp,catid:this.dropsavecatid,subcatid:this.dropscatidsave,
+        subsubcatid:this.dropscatids,brandid:this.dropbrandids,product:this.pro,quantity:this.quantit,price:this.pric,productcolor:this.procolors,productdescription:this.desc,active:this.dupactive,pimg:this.duspimg}
 
+      //var udata={_id:this.tmp,catname:this.dupdesc,active:this.dupdesc}
+      var arr=[udata]
+      this.obj.post("products/save_product",arr).subscribe(this.caback11)
+            
+      this.tmp=0;
+      
+    }
+    caback11=(obj)=>{
+      this.fungetpro();
+      //alert(obj._body)
+      
+      
     }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   funccancel(){
@@ -100,6 +124,20 @@ export class ProductComponent implements OnInit {
     this.subcatdata=JSON.parse(obj._body)
     //alert(obj._body)
   }
+  ////////////////////////////
+  funsubcatgetsave(){
+   
+    var dcat={catid:this.dropsavecatid}
+   
+    this.obj.post("subcats/get_scat",dcat).subscribe(this.c22)
+    
+  }
+  c22=(obj)=>{
+      
+    this.subcatdata=JSON.parse(obj._body)
+    //alert(obj._body)
+  }
+  ////////////////////////////
   ///////////////////////////////////////////   END     /////////////////////////////////////////////////
 
   /////////////////////////////////////////// GET SUB CATEGORY FOR UPDATE AND SAVE/////////////////////////////////////////////////  
@@ -132,6 +170,20 @@ export class ProductComponent implements OnInit {
     this.subcatdataa=JSON.parse(obj._body)
     //alert(this.subcatdataa)
   }
+  //////////////////////////////
+  funsubsubcatgetsave(){
+   
+    var dsscat={scatid:this.dropscatidsave}
+   //alert(this.dropscatid)
+    this.obj.post("products/get_sscat",dsscat).subscribe(this.cba2)
+    
+  }
+  cba2=(obj)=>{
+      
+    this.subcatdataa=JSON.parse(obj._body)
+    alert(obj._body)
+  }
+  //////////////////////////////
   ///////////////////////////////////////////   END ////////////////////////////////////////////////////////
 
   /////////////////////////////////////////// GET BRAND  /////////////////////////////////////////////////  
@@ -159,8 +211,44 @@ this.obj.get("products/getproduct").subscribe(
 }
               
   ///////////////////////////////////////////   END  ////////////////////////////////////////////////////
+
+   /////////////////////////////////////////// ACTIVE ///////////////////////////////////////////
+   funactive(bb1,act){
+    bb1.active=0;
+    var old={_id:bb1._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("products/active",old).subscribe(this.cbac2)
+  
+  }
+  funinactive(bb2,act){
+    bb2.active=1;
+    var old={_id:bb2._id,active:act}
+    // alert(act)
+    // act=this.tmpv;
+    
+    this.obj.post("products/inactive",old).subscribe(this.cbbac2)
+    
+  }
+  cbbac2=(obj)=>{
+      
+  // this.subsubdata=JSON.parse(obj._body)
+    //alert(obj._body)
+  }
+  fundelpro(un){
+    var ob={_id:un}
+    this.obj.post("products/delpro",ob).subscribe(cb22=>{
+      alert(cb22._body)
+      this.fungetpro();
+    })
+    
+    }
+   
+
+//////////////////////////////////////////////END////////////////////////////////////////
   ngOnInit() {
-    alert(this.pno)
+    //alert(this.pno)
     this.fungetpro();
     this.funsbrandget()
 
@@ -182,7 +270,7 @@ this.obj.get("products/getproduct").subscribe(
       }
     } 
 
-    this.obj.get("catgett/getcat").subscribe( pi2=>{
+    this.obj.get("catser/getcat").subscribe( pi2=>{
      
       this.categorydata=JSON.parse(pi2._body)
     })

@@ -27,7 +27,7 @@
         <th>Edit/Update</th>
       </tr>
     </thead>
-    <tbody  *ngFor="let x of subcatdata; let i = index">
+    <tbody  *ngFor="let x of subcatdata | paginate:{itemsPerPage:8,currentPage:pno} let i = index">
       <tr>
         <td>{{i+1}}</td>
         
@@ -60,6 +60,9 @@
     <td ></td>
          
   </ng-template>
+  <div class="fixedpg">
+      <pagination-controls (pageChange)="pno=$event"></pagination-controls> 
+  </div>
 
 
 

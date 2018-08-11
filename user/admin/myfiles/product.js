@@ -9,7 +9,7 @@ app.use(fup())
 
 router.post("/get_sscat",function(req,res){
     ob=req.body
-    console.log(ob)
+    //console.log(ob)
     conn.tbl_subsubcat.find({scatid:ob.scatid}, function(err,result){
         
         res.send(result)
@@ -37,7 +37,7 @@ router.post("/ins_product",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatname:ob.subsubcat,brand:ob.brand,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc,active:1})
+        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatid:ob.subsubcatid,brandid:ob.brandid,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc,active:1})
         res.send("Product added")
     })
     
@@ -108,13 +108,13 @@ router.get("/getproduct",function(req,res){
                             ob=proresult[i]
                             //console.log(ob)
                             for(j=0;j<brandresult.length;j++){
-                                if(proresult[i].brand==brandresult[j]._id){
+                                if(proresult[i].brandid==brandresult[j]._id){
                                     ob.brand=brandresult[j].brand
                                    // console.log(ob.brand)
                                 }
                             }
                             for(k=0;k<ssresult.length;k++){
-                                if(proresult[i].subsubcatname==ssresult[k]._id){
+                                if(proresult[i].subsubcatid==ssresult[k]._id){
                                     ob.subsubcat=ssresult[k].subsubcat
                                  //console.log(ob.subsubcat)
 
@@ -134,6 +134,7 @@ router.get("/getproduct",function(req,res){
                             }
                             arr.push(ob)
                         }
+                        //console.log(arr)
                         res.send(arr)
                         
                     })
@@ -147,18 +148,49 @@ router.get("/getproduct",function(req,res){
 
  ////////////////////////////////// END //////////////////////////////////////////////////////
 
-
- router.get('/getimage', function(req, res) {
-        console.log("Get cake function");
-        tbl_product.find(function (err, doc) {
-            if (err) return next(err);
-        var base64 = (doc[0].img.data.toString('base64'));
-        res.send(base64);        
-        });
+////////////////////////////////// IMAGE  //////////////////////////////////////////////////////
+router.get('/getimage', function(req, res) {
+    console.log("Get cake function");
+    tbl_product.find(function (err, doc) {
+        if (err) return next(err);
+    var base64 = (doc[0].img.data.toString('base64'));
+    res.send(base64);        
     });
+});
+////////////////////////////////// UPDATE PRODUCT //////////////////////////////////////////////////////
 
+router.post("/save_product",function(req,res){
+    x=req.body
+    console.log(x)
+    conn.tbl_product.save(x[0],x[1])
+    res.send("Updated...")
+})
 
+////////////////////////////////// END //////////////////////////////////////////////////////
+//,subcatid:ob.subcatid,subsubcatid:ob.subsubcatid,brandid:ob.brandid,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc,active:1
 
+////////////////////////////////// ACTIVE INACTIVE //////////////////////////////////////////////////////
+
+router.post("/active",function(req,res){
+    act=req.body
+   // console.log(act)
+    conn.tbl_product.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
+router.post("/inactive",function(req,res){
+    act=req.body
+    //console.log(act)
+    conn.tbl_product.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
+router.post("/delpro",function(req,res){
+	reqdata=req.body
+	console.log(reqdata)
+	conn.tbl_product.remove(reqdata)
+	res.send("Deleted")
+})
 
 
 module.exports=router;

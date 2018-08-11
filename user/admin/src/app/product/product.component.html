@@ -1,4 +1,28 @@
-<span *ngIf="show==1"><input type="button" class="btn btn-primary btn-sm" value="Add product" (click)="funaadd(0)"></span>
+<!-- <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" defer></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js" defer></script>
+<style>
+    article, aside, figure, footer, header, hgroup, 
+    menu, nav, section { display: block; }
+  </style> -->
+<!-- <script>
+    function readURL(input) {
+         if (input.files && input.files[0]) {
+             var reader = new FileReader();
+
+             reader.onload = function (e) {
+                 $('#blah')
+                     .attr('src', e.target.result)
+                     .width(150)
+                     .height(200);
+             };
+
+             reader.readAsDataURL(input.files[0]);
+         }
+     }
+</script> -->
+
+<span *ngIf="show==1"><input type="button" class=" btn-primary btn-sm" value="Add product" (click)="funaadd(0)"></span>
 <span *ngIf="show==0"><input type="button" class="btn btn-success btn-sm" value="Back" (click)="funcan(1)"></span>
 
   <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1" *ngIf="!show">
@@ -43,24 +67,13 @@
       <label for="productprice">Price</label>
       <input type="number" class="form-control" id="inputprice"name="proq"[(ngModel)]="proprice" placeholder="Price">
     </div>
-    <!-- <div class="form-group col-md-2">
-      <label for="inputPassword4">Select image</label>
-      <input type="file" name="photo"class="form-control"[(ngModel)]="proimage" ng2FileSelect [uploader]="uploader" />
-      
-    </div> -->
+   
      <div class="form-group col-md-3">
         <label for="inputPassword4">Select image</label>
-      <!-- <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1"> -->
         <input type="file" name="f1" id="t7" class="form-control-file w-50" ><br>      
-      <!-- </form>   -->
     </div> 
 
-    <!-- <div class="form-group col-md-2">
-      <label for="uploadimg">Click to upload image</label><br>
-      <button type="button" class="btn btn-success btn-s"id="upimage" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-        upload
-       </button>
-      </div> -->
+  
       <div class="form-group col-md-2">
         <label for="inputAddress">Select product colour</label>
         <input type="color" class="form-control"id="prcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000">
@@ -72,106 +85,120 @@
     </div>
     
   </div>
-  <!-- <form method="post"class="form-control" action="http://localhost:2222/uploads" enctype="multipart/form-data" name="frm1" id="fm1">
-    <input type="file" name="f1" id="t7" class="form-control-file w-50"><br>
-   -->
+  <!-- <div class="form-group col-md-5">
+  <input type='file'class="form-control-file" (change)="readURL(this)" />
+    <img id="blah" src="#" alt="your image" />
+  </div> -->
   
-  <input type="button" value="Save product" (click)=funproductinsert() class="btn btn-primary">
+  <input type="button" value="Save product" (click)=funproductinsert() class=" btn-primary">
 
 </form> 
+<div class=" table-responsive table-hover">
+  <table class="table"  >
+    <thead class="thead-dark">
+      <tr>
+        <th>s.no</th>
+        <th>image</th>
+        <th>category</th>
+        <th>subcat</th>
+        <th>subsubcat</th>
+        <th>brand</th>
+        <th>product</th>
+        <th>color</th>
+        <th>quantity</th>
+        <th>price</th>
+        <th>description</th>
+        <th>update</th> 
+        
+        
+      </tr>
+    </thead>
+    <tbody  *ngFor="let x of prodata | paginate:{itemsPerPage:4,currentPage:pno} let i = index">
+      <tr>
+        <td>{{i+1}}</td>
+        <td *ngIf="tmp!=x._id;">
+            <img  class="thumbnail-image" src="http://localhost:2244/{{x.pimg}}"
+      onError="this.src='./assets/images/placeholder.jpg';"  alt="Product img" width="auto" height="auto" />
+          <!-- <img class="img-responsive" src="http://localhost:2121/assets/images/{{x.pimg}}" alt="Product img" width="50" height="30">  -->
+        </td>
+        <td *ngIf="tmp!=x._id; else protemplate">{{x.catname}}</td>
+        <td *ngIf="tmp!=x._id;">{{x.subcat}}</td>
+        <td *ngIf="tmp!=x._id;">{{x.subsubcat}}</td>
+        <td *ngIf="tmp!=x._id;">{{x.brand}}</td>
+        <td *ngIf="tmp!=x._id;">{{x.product}}</td>
+        
+        <td *ngIf="tmp!=x._id;"> <input type="color" class="form-control"id="gSprcolor"name="procolor"value={{x.productcolor}} disabled>
+        </td>
+        <td *ngIf="tmp!=x._id;">{{x.quantity}}</td>
+        <td *ngIf="tmp!=x._id;">{{x.price}}</td>
+        <td *ngIf="tmp!=x._id;">{{x.productdescription}}</td>
+        <td *ngIf="tmp!=x._id;"><input type="button"class="btn btn-primary btn-sm" value="Update" (click)="funproupdate(x)">
 
-<table class="table table-responsive table-hover" id="tbl" >
-  <thead class="thead-dark">
-    <tr>
-      <th>s.no</th>
-      <th>image</th>
-      <th>category</th>
-      <th>subcat</th>
-      <th>subsubcat</th>
-      <th>brand</th>
-      <th>product</th>
-      <th>color</th>
-      <th>quantity</th>
-      <th>price</th>
-      <th>description</th>
-      <!-- <th>prating</th>-->
-      <th>update</th> 
-      
-      
-    </tr>
-  </thead>
-  <tbody  *ngFor="let x of prodata | paginate:{itemsPerPage:4,currentPage:pno} let i = index">
-    <tr class="something">
-      <td>{{i+1}}</td>
-      <!-- <td>{{x.pimg}}</td> -->
-      <td *ngIf="tmp!=x._id;"> 
-        <img class="img-responsive" src="http://localhost:2121/assets/images/{{x.pimg}}" alt="Chania" width="100" height="80"> 
-        <!-- <img class="col-md-2" src="./assets/images/{{x.pimg}}"></td> -->
-
-      <td *ngIf="tmp!=x._id; else protemplate">{{x.catname}}</td>
-      <td *ngIf="tmp!=x._id;">{{x.subcat}}</td>
-      <td *ngIf="tmp!=x._id;">{{x.subsubcat}}</td>
-      <td *ngIf="tmp!=x._id;">{{x.brand}}</td>
-      <td *ngIf="tmp!=x._id;">{{x.product}}</td>
-      
-      <td *ngIf="tmp!=x._id;"> <input type="color" class="form-control"id="gSprcolor"name="procolor"value={{x.productcolor}} disabled>
-      </td>
-      <!-- <td>{{x.productcolor}}</td> -->
-      <td *ngIf="tmp!=x._id;">{{x.quantity}}</td>
-      <td *ngIf="tmp!=x._id;">{{x.price}}</td>
-      <td *ngIf="tmp!=x._id;">{{x.productdescription}}</td>
-      <!-- <td>{{x.prating}}</td>
-      <td>{{x.pprice}}</td> -->
-      <td *ngIf="tmp!=x._id;"><input type="button"class="btn btn-primary btn-sm" value="Update" (click)="funproupdate(x)">
-
-      <input type="button"class="btn btn-sm" value="Delete" (click)="fundeletesubcat(x._id)">
-      <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
-      <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
+        <input type="button"class="btn btn-sm" value="Delete" (click)="fundelpro(x._id)">
+        <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
+        <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
 
 
-    </tr>      
-   
-  </tbody>
+      </tr>      
+    
+    </tbody>
 </table>    
-<pagination-controls (pageChange)="pno=$event"></pagination-controls>
+</div>
+
 
 <ng-template #protemplate class="table table-responsive">
-      
-       
-    <td ><input type="file" name="f1" id="t7" class="form-control-file w-50" ><br></td>  
- 
-  <td >
-    <select class="form-control" class="form-control col-12" name="drop1" [(ngModel)]="dropcatt" >
-      <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-    </select> 
-  </td>
-  <td >
-    <select class="form-control"class="form-control col-12"  name="drop1" [(ngModel)]="dropscatt" >
-      <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-    </select> 
-</td>
-<td >
-  <select class="form-control" class="form-control col-12" name="drop1" [(ngModel)]="dropsscatt" >
-    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-  </select> 
-</td>
-<td >
-  <select class="form-control"class="form-control col-12"  name="drop1" [(ngModel)]="dropbrand" >
-    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-  </select> 
-</td>
-<td ><input type="text" class="form-control col-12"[(ngModel)]="pro"></td>
-<td ><input type="color" class="form-control"id="gSprcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000"></td>
+
+      <td>  
+        
+          <div class="image-upload ">
+              <label for="file-input">
+                  <img src="./assets/images/select.png" width="auto" height="auto"/>
+              </label>
+          
+              <input id="file-input" name="f1" type="file" class="form-control-file"/>
+          </div>
+        <!-- <div class="form-group col-md-3">
+            <label for="inputPassword4">Select image</label>
+          <input type="file" name="f1" id="t7" class="form-control-file w-50"><br>   
+        </div>  -->
+      </td>  
+      <td>  
+        <select class="form-control input-xs form-control-inline"  id="upcat" name="drop1"  [(ngModel)]="dropsavecatid" (change)="funsubcatgetsave()">
+          <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+        </select> 
+      </td>
+      <td >
+        <select class="form-control input-xs form-control-inline" id="upcat" name="drop1" [(ngModel)]="dropscatidsave" (change)="funsubsubcatgetsave()">
+          <option *ngFor="let xy of subcatdata" value={{xy._id}}>{{xy.subcat}}</option>
+        </select>
+    </td>
+    <td >
+      <select class="form-control input-xs form-control-inline" id="upcat" name="drop1" [(ngModel)]="dropscatids">
+        <option *ngFor="let xx of subcatdataa" value={{xx._id}}>{{xx.subsubcat}}</option>
+      </select> 
+    </td>
+    <td >
+      <select class="form-control input-xs form-control-inline" id="upcat"name="drop1" [(ngModel)]="dropbrandids">
+        <option *ngFor="let xq of branddata" value={{xq._id}}>{{xq.brand}}</option>
+      </select>  
+    </td>
+    <td ><input type="text" class="form-control input-xs"[(ngModel)]="pro"></td>
+    <td ><input type="color" class="form-control input-xs"id="gSprcolor"name="favcolor"[(ngModel)]="procolors" value="#ff0000"></td>
+        
     
- 
-<td ><input type="text"class="form-control col-12" [(ngModel)]="quantit"></td>
-<td ><input type="text"class="form-control col-12" [(ngModel)]="pric"></td>
-<td ><input type="text"class="form-control col-12" [(ngModel)]="desc"></td>
+    <td ><input type="text"class="form-control input-xs" [(ngModel)]="quantit"></td>
+    <td ><input type="text"class="form-control input-xs" [(ngModel)]="pric"></td>
+    <td ><input type="text"class="form-control input-xs" [(ngModel)]="desc"></td>
 
- 
-<td *ngIf="tmp!=0"><input type="button" value="save" (click)="funsave(x)">
-<input type="button" value="Cancel" (click)="funccancel(x)">
-
+    
+    <td *ngIf="tmp!=0"><input type="button" value="save" (click)="funprosave(x)">
+    <input type="button" value="Cancel" (click)="funccancel(x)">
+    </td>
   <td ></td>
-       
+  
 </ng-template>
+
+<div class="fixedpg">
+<pagination-controls (pageChange)="pno=$event"></pagination-controls> 
+</div>
+

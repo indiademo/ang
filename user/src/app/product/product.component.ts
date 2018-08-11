@@ -16,7 +16,7 @@ export class ProductComponent implements OnInit {
     this.obj.get("products/get_product").subscribe(
       pr=>{
         this.prodata=JSON.parse(pr._body)
-        alert(pr._body)
+       // alert(pr._body)
         
       })
     
@@ -29,10 +29,10 @@ export class ProductComponent implements OnInit {
       
       this.subsubid=x["_id"]
       var obbj={id:this.subsubid}
-      alert(this.subsubid)
+      //alert(this.subsubid)
       this.obj.post("/productser/getproducts",obbj).subscribe(x=>{
         this.prodata=JSON.parse(x._body)
-        alert(x._body)
+       // alert(x._body)
       })
     })
   }

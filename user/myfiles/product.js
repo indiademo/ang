@@ -14,7 +14,7 @@ router.get("/get_product",function(req,res){
 router.post("/getproducts",function(req,res){
     ob=req.body
     console.log(ob)
-    conn.tbl_product.find({subsubcatname:ob.id}, function(err,result){
+    conn.tbl_product.find({subsubcatid:ob.id}, function(err,result){
         
         res.send(result)
       
@@ -22,6 +22,17 @@ router.post("/getproducts",function(req,res){
     })
   
 })
+
+///////////////
+router.post("/prodetails",function(req,res){
+    ob=req.body
+    console.log(ob)
+    conn.tbl_product.find({_id:ob.id}, function(err,result){
+        
+        res.send(result)
+    })
+})
+///////////////
 
     
 module.exports=router;

@@ -1,21 +1,26 @@
 <form class="form-group form-control" >
-    
-  <select class="form-control" style="width:200px;" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
-    
-    <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
-   
-    </select> 
-
-    <select class="form-control" style="width:200px;" name="drop1" [(ngModel)]="dropscatid">
-      <option *ngFor="let x of subcatdata" value={{x._id}}>{{x.subcat}}</option>
-     
-    </select> 
-
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputEmail4">Select category</label>
+      <select class="form-control" id="inputEmail4" name="drop1"  [(ngModel)]="dropcatid" (change)="funsubcatget()">
+        <option *ngFor="let x of categorydata" value={{x._id}}>{{x.catname}}</option>
+      </select> 
+    </div> 
   
-  <input type="text" name="input1"  class="form-control" style="width:200px;" [(ngModel)]="ssubc">
-  <br>
-  <input type="button" value="save" (click)=funssscat_insert() class="btn btn-primary">
+    <div class="form-group col-md-2">
+      <label for="inputPassword4">Select subcategory</label>
+      <select class="form-control" id="inputPassword4" name="drop1" [(ngModel)]="dropscatid" >
+        <option *ngFor="let x of subcatdata" value={{x._id}}>{{x.subcat}}</option>
+      </select> 
+    </div>
+   <div class="form-group col-md-2">
+      <label for="inputproduct">Enter subsub category</label>
+      <input type="text" class="form-control" id="inputPassword4" name="pro" [(ngModel)]="ssubc" placeholder="Enter subsubcat name">
+    </div>
     
+   
+  </div>  
+  <input type="button" value="save" (click)=funssscat_insert() class="btn btn-primary btn-sm">  
 </form>
 
 <table class="table table-responsive">
@@ -29,14 +34,14 @@
       
     </tr>
   </thead>
-  <tbody  *ngFor="let x of sscat; let i = index">
+  <tbody  *ngFor="let x of sscat| paginate:{itemsPerPage:6,currentPage:pno} let i = index">
     <tr class="animate-repeat">
       <td>{{i+1}}</td>
       <td *ngIf="tmp!=x._id; else falsyTemplate">{{x.catname}}</td>
       <td *ngIf="tmp!=x._id">{{x.subcat}}</td>
       <td *ngIf="tmp!=x._id">{{x.subsubcat}}</td>
       <td *ngIf="tmp!=x._id"><input type="button"class="btn btn-primary btn-sm" value="Update" (click)="funsubsubupdate(x)">
-      <input type="button" value="Delete"class="btn btn-danger btn-sm" (click)="fundel(x._id)">
+      <input type="button" value="Delete"class="btn btn-danger btn-sm" (click)="fundelsubsubcat(x._id)">
       <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)"></span>
       <span *ngIf="x.active==0"><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span>
 
@@ -70,3 +75,6 @@
     <td ></td>
          
   </ng-template>
+  <div class="fixedpg">
+  <pagination-controls (pageChange)="pno=$event"></pagination-controls> 
+  </div>

@@ -1,0 +1,23 @@
+.mt-40 {
+    margin-top: 40px !important;
+}
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+  .rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+  }
+  .rating > span:hover:before,
+  .rating > span:hover ~ span:before {
+     content: "\2605";
+     position: absolute;
+  }
+  .w-100 {
+    width: 63%!important;
+    width: 72%!important;
+    margin-top: 66px;
+    height: 315px;
+}

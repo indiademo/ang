@@ -14,6 +14,7 @@ export class CatComponent implements OnInit {
   tmp=0;
   t1;
   act;
+  pno=1;
 
  ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -58,7 +59,7 @@ export class CatComponent implements OnInit {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     fun2(){
      
-      this.obj.get("catgett/getcat").subscribe(this.cback2)
+      this.obj.get("catser/getcat").subscribe(this.cback2)
     }
 
     cback2=(obj)=>{
@@ -80,7 +81,7 @@ export class CatComponent implements OnInit {
     
     fundelcat(un){
       var ob={_id:un}
-      this.obj.post("catgett/delcat",ob).subscribe(this.cb2)
+      this.obj.post("catser/delcat",ob).subscribe(this.cb2)
       this.fun2()
       }
      cb2=(x)=>{
@@ -95,7 +96,7 @@ export class CatComponent implements OnInit {
     // alert(act)
     // act=this.tmpv;
     
-    this.obj.post("catgett/active",old).subscribe(this.cbac2)
+    this.obj.post("catser/active",old).subscribe(this.cbac2)
   
   }
   funinactive(bb2,act){
@@ -104,7 +105,7 @@ export class CatComponent implements OnInit {
     // alert(act)
     // act=this.tmpv;
     
-    this.obj.post("catgett/inactive",old).subscribe(this.cbac3)
+    this.obj.post("catser/inactive",old).subscribe(this.cbac3)
     
   }
   cbac2=(obj)=>{

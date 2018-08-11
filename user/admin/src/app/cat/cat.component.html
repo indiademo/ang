@@ -17,7 +17,7 @@
       
     </tr>
   </thead>
-  <tbody  *ngFor="let x of data; let i = index">
+  <tbody  *ngFor="let x of data | paginate:{itemsPerPage:8,currentPage:pno} let i = index">
     <tr class="something">
       <td>{{i+1}}</td>
       <!-- <td *ngIf="tmp!=x._id">{{x._id}}</td> -->
@@ -40,3 +40,6 @@
   </td>
        
 </ng-template>
+<div class="fixedpg">
+    <pagination-controls (pageChange)="pno=$event"></pagination-controls> 
+</div>

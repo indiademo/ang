@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router'
 import { HttpModule } from '@angular/http'
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from "@angular/forms";
-
+import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
 import { FileSelectDirective } from 'ng2-file-upload';
 import {NgxPaginationModule} from "ngx-pagination"
 
@@ -48,7 +48,7 @@ var router= RouterModule.forRoot(rout)
   
   ],
   imports: [
-    BrowserModule,RouterModule,router,HttpModule,FormsModule,NgxPaginationModule,ReactiveFormsModule
+    BrowserModule,RouterModule,router,HttpModule,FormsModule,NgxPaginationModule,ReactiveFormsModule,Ng2FilterPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

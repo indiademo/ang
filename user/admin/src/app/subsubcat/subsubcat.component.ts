@@ -21,6 +21,7 @@ export class SubsubcatComponent implements OnInit {
   t1;
   tmpv;active;
   act;
+  pno=1;
   ///////////////////////////////// INSERT SUB SUB CATEGORY ///////////////////////////////////////////////////
   funssscat_insert(){
     var obj={subsubcat:this.ssubc,catid:this.dropcatid,scatid:this.dropscatid}
@@ -141,11 +142,23 @@ export class SubsubcatComponent implements OnInit {
     console.log(this.sscat)
   }  
 
+  /////////////////////////////////////DELETE SUBSUB CAT////////////////////////////////////////////////////
+  fundelsubsubcat(un){
+    var ob={_id:un}
+    this.obj.post("subsubcats/delsubsub",ob).subscribe(x=>{
+      alert(x._body)
+      //this.funget()
+      } )
+      this.funsubsubcat();
+    }
+     
+
+    
   ///////////////////////////////////////////  NG INIT  ///////////////////////////////////////////////
-  
+ 
   ngOnInit() {
     this.funsubsubcat();
-    this.obj.get("catgett/getcat").subscribe(this.cb22)
+    this.obj.get("catser/getcat").subscribe(this.cb22)
 
   }
 
@@ -158,5 +171,5 @@ export class SubsubcatComponent implements OnInit {
 
 }
  ///////////////////////////////////////  END   ////////////////////////////////////////////////////////
-                                    
+                              
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

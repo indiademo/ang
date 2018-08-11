@@ -59,6 +59,12 @@ router.get("/getsscat",function(req,res){
     
 })
 
+router.post("/delsubsub",function(req,res){
+	reqdata=req.body
+	console.log(reqdata)
+	conn.tbl_subsubcat.remove(reqdata)
+	res.send("Deleted")
+})
 
 router.post("/savesubsubcat",function(req,res){
     x=req.body

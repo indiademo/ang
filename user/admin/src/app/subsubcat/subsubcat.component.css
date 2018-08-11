@@ -8,7 +8,16 @@
     border: none;
 }
 .table .thead-dark th {
-    color: #fff;
-    background-color: #a8a8a8;
+    color: #675555;
+    background-color: #f7f7f7;
      border-color: #efeded; 
+     font-family: "Times New Roman", Times, serif;
+}
+
+.fixedpg{
+    position: fixed;
+    bottom: 0;
+ 
+    width: auto;
+    /* border: 3px solid #73AD21; */
 }
