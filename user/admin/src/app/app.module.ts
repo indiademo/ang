@@ -16,6 +16,7 @@ import { SubcatComponent } from './subcat/subcat.component';
 import { SubsubcatComponent } from './subsubcat/subsubcat.component';
 import { ProductComponent } from './product/product.component';
 import { BrandComponent } from './brand/brand.component';
+import { CustomersComponent } from './customers/customers.component';
 
 
 
@@ -31,6 +32,8 @@ var rout=[{
   path: 'product', component: ProductComponent 
 },{
   path: 'brand', component: BrandComponent 
+},{
+  path: 'customers', component: CustomersComponent 
 }]
 
 var router= RouterModule.forRoot(rout)
@@ -43,7 +46,8 @@ var router= RouterModule.forRoot(rout)
     SubsubcatComponent,
     ProductComponent,
     BrandComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    CustomersComponent
     
   
   ],

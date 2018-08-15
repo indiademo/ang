@@ -9,7 +9,10 @@ import { ProductComponent } from './product/product.component';
 
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
-import { LandingComponent } from './landing/landing.component'
+import { LandingComponent } from './landing/landing.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
+import { CartComponent } from './cart/cart.component'
+import { CartitemService } from './cartitem.service'
 
 var rout=[{
   path: '', component: LandingComponent 
@@ -20,6 +23,10 @@ var rout=[{
   path:'product',component:ProductComponent
 },{
   path:'productdetails',component:ProductdetailsComponent
+},{
+  path:'userprofile',component:UserprofileComponent
+},{
+  path:'cart',component:CartComponent
 }]
 
 var routr=RouterModule.forRoot(rout) 
@@ -32,12 +39,14 @@ var routr=RouterModule.forRoot(rout)
     CategoryComponent,
     ProductComponent,
     ProductdetailsComponent,
-    LandingComponent
+    LandingComponent,
+    UserprofileComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,HttpModule,routr,RouterModule,FormsModule,BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [CartitemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

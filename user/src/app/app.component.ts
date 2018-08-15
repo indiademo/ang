@@ -1,6 +1,6 @@
 import { Component,Inject,OnInit } from '@angular/core';
 import {trigger,state,style,animate,transition} from "@angular/animations"
-
+import { CartitemService } from './cartitem.service'
 import { Http } from '@angular/http'
 /////////////////////////////////////////  ANIMATION //////////////////////////////////////////////////////////
 var myanimations=[
@@ -24,7 +24,7 @@ var myanimations=[
 
 export class AppComponent implements OnInit {
 
-  constructor(@Inject(Http) public obj) { }
+  constructor(@Inject(Http) public obj,  public cart:CartitemService) { }
   catdata;
   subcatdata;
   sscat;
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   password="";
   logvalue=0;
   reg=0;pro;
-  rusername="";rmno="";remail="";repassword="";regdata;usermail;
+  rusername="";rmno="";remail="";repassword="";regdata;usermail;cartitemlength;
   ////////////////////////////////////////////////  REG & LOGIN SHOW AND HIDE /////////////////////////////////////////////////////////////
 
   funregval(){
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
      var userlogdetaila={email:this.userid,password:this.password}
      this.obj.post("userser/login",userlogdetaila).subscribe(cbudata=>{
         this.udata=JSON.parse(cbudata._body)
-        localStorage.setItem("usertoken",this.udata.tk)
+        localStorage.setItem("usertoken",this.udata.token)
         alert(localStorage.getItem("usertoken"))
         this.tmp3="inv"
         localStorage.setItem("loginvl","1")
@@ -116,6 +116,7 @@ export class AppComponent implements OnInit {
   //////////////////////////////////////////////// LOGOUT /////////////////////////////////////////////////////////////
   funlogout(){
       localStorage.removeItem("loginvl");
+      localStorage.removeItem("usertoken");
       this.logvalue=0;
       
     }
@@ -194,6 +195,18 @@ export class AppComponent implements OnInit {
   ///////////////////////////////////////////// NG ON INIT ////////////////////////////////////////////////////
   username
   ngOnInit() {
+    if(localStorage.getItem('cart_items')!=null){
+      var cartlength=(JSON.parse(localStorage.getItem('cart_items')));
+      this.cart.funchangeinitialitem(cartlength.length.toString());
+  
+      this.cart.currentcartitem.subscribe(citm=>{
+        this.cartitemlength=citm
+        
+      })
+    }
+
+   
+  
     this.funses();
     this.username=(localStorage.getItem("user"));
     //alert(JSON.parse(localStorage.getItem("userem")));

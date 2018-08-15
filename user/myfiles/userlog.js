@@ -45,19 +45,11 @@ rt.post("/login",function(req,res){
   udata=req.body
  
    sess = req.session;
-   //sess.email=udata.email;
-  // console.log(sess.email)
-     conn.tbl_user.find(udata).count(function(err,ress){
-
-      // var tk=jst.sign({id:udata.email},sec.secret)
-      // console.log(tk)
-      // res.send({un:tk})
+       conn.tbl_user.find(udata).count(function(err,ress){
       if(ress==1){
-       
         var tk=jst.sign({id:udata.email},sec.secret)
         sess.email=tk;
-        res.send({tk})
-        //console.log(tk)
+        res.send({token:tk})
       }else{
         console.log("User and password are not match")
       }
@@ -66,6 +58,21 @@ rt.post("/login",function(req,res){
     })
 
 })
+////////////check pf utoken ///////////////
+rt.post("/checkutoken",function(req,res){
+  pftoken=req.body
+  ss=sess.email
+  if(pftoken.utoken==ss){
+   
+    res.send("success")
+  }else{
+    res.send("error")
+   
+  }
+ 
+})
+
+///////////////////////////////////////
 
 rt.post("/userreg",function(req,res){
     
