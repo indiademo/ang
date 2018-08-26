@@ -43,18 +43,31 @@ rt.post("/userprf",function(req,res){
 
 rt.post("/login",function(req,res){
   udata=req.body
- 
+  //console.log(udata)
    sess = req.session;
-       conn.tbl_user.find(udata).count(function(err,ress){
-      if(ress==1){
-        var tk=jst.sign({id:udata.email},sec.secret)
-        sess.email=tk;
-        res.send({token:tk})
+       conn.tbl_user.find({email:udata.email},function(err,ress){
+       
+      if(ress.length!=0){
+        id=ress[0]._id
+         upass=ress[0].password
+         uemail=ress[0].email
+         uname=ress[0].username
+         umobile=ress[0].mobile
+        if(upass!=udata.password){
+          res.send({count:2})
+          console.log("err password")
+         }else{
+          var tk=jst.sign({id:udata.email},sec.secret)
+            sess.email=tk;
+            //console.log(id)
+            
+            res.send({token:tk,userinfo:uname,usermobile:umobile,id:id})
+         }
+
+       
       }else{
-        console.log("User and password are not match")
+        res.send({count:0})
       }
- 
-   
     })
 
 })
@@ -102,5 +115,56 @@ rt.post("/userreg",function(req,res){
  })
 })
 
+////////////////////////////////////////
+rt.post("/placeorder",function(req,res){
+  pro=req.body
+  //console.log(pro)
+  var id=conn.tbl_purchaseorder.find().sort({_id:-1}).limit(1,function(err,result){
+    if (result.length==0)
+    orderid=1
+    else{
+      orderid=(result[0]._id)
+      orderid++
+
+    }
+    conn.tbl_purchaseorder.insert({_id:orderid,orderdate:new Date(),userid:pro.userid,product:pro.product})
+
+  })
+})
+
+
+//////////////////////////////////////////////////// GET WISHLIST //////////////////////
+rt.post("/wishpro",function(req,res){
+  ob=req.body
+  console.log(ob)
+  conn.tbl_wishlist.find({userid:ob.uid}, function(err,result){
+    console.log(result)
+      res.send(result)
+    
+     //console.log(result)
+  })
+
+})
+///////////////////////////////////////////  UPDATE USER IN  WISHLIST PRODUCT //////////////////////
+rt.post("/wishlistup",function(req,res){
+  act=req.body
+  console.log(act)
+  conn.tbl_wishlist.update({userid:null},{$set:{userid:act.userid}},{multi: true});
+  //console.log(res)
+  res.send("Updated...")
+})
+/////////////////////////////////////////////////////// SEARCH PRODUCTS //////////////////////////////////
+
+
+rt.post("/search",function(req,res){
+  objsrch=req.body
+  console.log(objsrch)
+  conn.tbl_product.find({product:{$regex:objsrch.proid}}, function(err,result){
+    // console.log(result)
+  res.send(result)
+    
+
+  })
+})
 
 module.exports=rt;

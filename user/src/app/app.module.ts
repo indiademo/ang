@@ -6,13 +6,19 @@ import { FormsModule } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { CategoryComponent } from './category/category.component';
 import { ProductComponent } from './product/product.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { LandingComponent } from './landing/landing.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { CartComponent } from './cart/cart.component'
-import { CartitemService } from './cartitem.service'
+import { CartitemService } from './cartitem.service';
+import { SucessorderComponent } from './sucessorder/sucessorder.component'
+import {ImageZoomModule} from 'angular2-image-zoom';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { OrdersComponent } from './orders/orders.component';
+
 
 var rout=[{
   path: '', component: LandingComponent 
@@ -24,9 +30,21 @@ var rout=[{
 },{
   path:'productdetails',component:ProductdetailsComponent
 },{
-  path:'userprofile',component:UserprofileComponent
+  path:'userprofile_old',component:UserprofileComponent
 },{
   path:'cart',component:CartComponent
+},{
+  path:'wishlist',component:WishlistComponent
+},{
+  path:'sucessorder',component:SucessorderComponent
+},{
+  path:'orders',component:OrdersComponent
+},{
+  path:'userprofile',component:UserprofileComponent,
+  children: [
+    { path: 'wishlist', component: WishlistComponent },
+    {path:"landing", component:LandingComponent}
+  ]
 }]
 
 var routr=RouterModule.forRoot(rout) 
@@ -41,10 +59,14 @@ var routr=RouterModule.forRoot(rout)
     ProductdetailsComponent,
     LandingComponent,
     UserprofileComponent,
-    CartComponent
+    CartComponent,
+    SucessorderComponent,
+    WishlistComponent,
+    OrdersComponent
   ],
   imports: [
-    BrowserModule,HttpModule,routr,RouterModule,FormsModule,BrowserAnimationsModule,
+    BrowserModule,HttpModule,routr,RouterModule,FormsModule,BrowserAnimationsModule,ImageZoomModule,FilterPipeModule
+   
   ],
   providers: [CartitemService],
   bootstrap: [AppComponent]

@@ -13,6 +13,9 @@
     },
     "/userser/*":{
         "target":"http://localhost:2244"
+    },
+    "/userorders/*":{
+        "target":"http://localhost:2244"
     }
 
     

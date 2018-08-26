@@ -62,7 +62,9 @@ body {
     margin-left: 404px;
 }
 
-
+a:hover {
+    text-decoration: none;
+  }
 
 form {
     /* border: 3px solid #f1f1f1; */

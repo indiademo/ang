@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-md  navbar-default" style="height:56px;">
-  <div class="container-fluid">
-    <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+  <div class="container-fluid" (click)="srchitm=0">
+    <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar1">
       <span class="navbar-toggler-icon"></span>
     </span>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <div class="collapse navbar-collapse" id="collapsibleNavbar1">
         
       <ul class="navbar-nav">
         <li class="nav-item ">
@@ -28,18 +28,36 @@
           </ul>
         </li> -->
         <li class="nav-item">
-            <div class="form-group col input-mysize">
-                <input class="form-control" id="inputsm" type="text">
+            <div class="form-group col input-mysize" (mouseover)="srchitm=1">
+                <input class="form-control" id="inputsm" type="text" [(ngModel)]="search" (keyup)="funsearch()">
                 <span >
                     <button style="margin-top: -43px;margin-left: 404px;"id="btnsrch" class="form-control" type="submit">
                     <img src="../assets/svgicon/magnifying-glass.svg" style="width:20px;margin-left: 65px;margin-top: -17px;">
                    
                   </button>
                 </span>
+                <div *ngIf ="srchitm" style="position: absolute;z-index: 1;box-shadow: 5px 7px 5px gray;" (mouseout)="srchitm=0">
+                  <div style="width: 525px;background-color: white" *ngFor="let pro of searchdata">
+                    <a [routerLink]="['/productdetails',{id:pro._id}]">{{pro.product}}</a>
+                  </div>
+                </div>
               </div>
             
               
           </li>
+          
+<!-- 
+          <li class="nav-item dropdown nav-link">
+            <a href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span ></span></a>
+            <ul *ngFor="let pro of searchdata" class="dropdown-menu " style="width:100px">
+              <li class="dropdown-item nav-link dropdown-toggle"><a href="#">{{pro.product}}</a>
+              </li>
+              <li class="dropdown-item nav-link dropdown-toggle"><a href="#">Adverties</a>
+              </li>
+              <li class="dropdown-item nav-link dropdown-toggle"><a [routerLink]="['wishlist']">Wishlist</a>
+              </li>
+            </ul>
+          </li> -->
 
          
           <!-- <li class="nav-item ">
@@ -74,17 +92,18 @@
           <!-- <li *ngIf="logvalue==1"><a class="nav-link" (click)="funlogout()"><span class="glyphicon glyphicon-log-in" style="color:white; font-size:15px;" ></span> Logout</a></li> -->
         </li>
         <div *ngIf="logvalue==1"> 
-         <div *ngFor="let pro of regdata">  
-            <li  class="dropdown nav-link">
+         <!-- <div *ngFor="let user of usersdet">    -->
+            <div>
+            <li class="dropdown nav-link" >
             
-              <a  href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{pro.username}} ok<span ></span></a>
+              <a  href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{username}}<span ></span></a>
             
               <ul class="dropdown-menu " style="width:100px">
                 <li class="dropdown-item"><a href="#" [routerLink]="['userprofile']">My profile</a>
                 </li>
-                <li class="dropdown-item"><a href="#">Order</a>
+                <li class="dropdown-item"><a [routerLink]="['/orders']" >Order</a>
                 </li>
-                <li class="dropdown-item"><a href="#">Wishlist</a>
+                <li class="dropdown-item"><a  [routerLink]="['wishlist']">Wishlist</a>
                 </li>
                 <!-- <li role="separator" class="divider"></li> -->
                 <li class="dropdown-item"><a href="#">Notificationk</a>
@@ -107,7 +126,7 @@
             </li>
             <li class="dropdown-item nav-link dropdown-toggle"><a href="#">Adverties</a>
             </li>
-            <li class="dropdown-item nav-link dropdown-toggle"><a href="#">Wishlist</a>
+            <li class="dropdown-item nav-link dropdown-toggle"><a [routerLink]="['wishlist']">Wishlist</a>
             </li>
           </ul>
         </li>
@@ -284,5 +303,29 @@
      </div> 
     </div>  
   </div>   -->
-   
+  <!-- <ngx-image-zoom
+  [thumbImage]=myThumbnail
+  [fullImage]=myFullresImage
+  [imgSrc]="imgSrc" 
+  [imgStyle]="'width:400px; height:400px'" 
+  [resultStyle]="'width:300px; height:300px'"
+  [lensStyle]="'width:50px; height:60px'"
+  [containerStyle]=""
+></ngx-image-zoom> -->
+
+<!-- <h1>
+  {{title}}
+</h1>
+<ngx-image-zoom
+    [thumbImage]=myThumbnail
+    [fullImage]=imgSrc
+></ngx-image-zoom>
+
+
+
+<button (click)="imgSrc = 'http://icons.iconarchive.com/icons/aha-soft/large-business/512/Zoom-icon.png'">Click to change image</button>
+
+
+<img src="../assets/svgicon/icons8-love-filled_2.png"class="w-25" >
   
+<button (click)="myThumbnail = '../assets/svgicon/icons8-love-filled_2.png'" class="w-25">Click to change image</button> -->

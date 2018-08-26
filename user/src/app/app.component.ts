@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   password="";
   logvalue=0;
   reg=0;pro;
-  rusername="";rmno="";remail="";repassword="";regdata;usermail;cartitemlength;
+  rusername="";rmno="";remail="";repassword="";regdata;usermail;cartitemlength;usersdet;lguid;
   ////////////////////////////////////////////////  REG & LOGIN SHOW AND HIDE /////////////////////////////////////////////////////////////
 
   funregval(){
@@ -44,26 +44,47 @@ export class AppComponent implements OnInit {
     this.reg=0;
   }
   //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
-
+  mobile;
   funlogin(){
-   
+  
      var userlogdetaila={email:this.userid,password:this.password}
+     //alert(userlogdetaila)
      this.obj.post("userser/login",userlogdetaila).subscribe(cbudata=>{
         this.udata=JSON.parse(cbudata._body)
-        localStorage.setItem("usertoken",this.udata.token)
-        alert(localStorage.getItem("usertoken"))
-        this.tmp3="inv"
-        localStorage.setItem("loginvl","1")
+      //  var uname=this.udata.userinfo[0].username
+      //  this.mobile=this.udata.userinfo[0].mobile
+      
+      if(this.udata.count!=0 && this.udata.count!=2){
+        
+         localStorage.setItem("usertoken",this.udata.token)
+         localStorage.setItem("userpf",this.udata.userinfo)
+         localStorage.setItem("umobile",this.udata.usermobile)
+      
+         localStorage.setItem("uid",this.udata.id)
+      
+         localStorage.setItem("loginvl","1")
          this.logvalue=1;
-      // if(this.udata.un==1){
-      //   //alert("Login sucessfully")
-      //   this.fungetuser()
-      //   localStorage.setItem("loginvl","1")
-      //   this.tmp3="inv"
-      //   this.logvalue=1;
-      // }else{
-      //   alert("Invalid login and password")
-      // }
+         this.tmp3="inv"
+        
+         location.reload();
+         this.insertwishlist();
+      }else if(this.udata.count==2){
+        alert("Invalid password")
+      }else{
+        alert("Invalid user name")
+      }
+    })
+   
+  }
+
+  /////////////////////////////// UPDATE USER ID IN WISHLIST AFTR LOGIN ////////////////////////////
+
+  insertwishlist(){
+    var curentuid=this.udata.id
+   alert(curentuid)
+     var wishprr={userid:curentuid}
+    this.obj.post("userser/wishlistup",wishprr).subscribe(obj=>{
+      alert(obj._body)
     })
   }
 
@@ -78,17 +99,36 @@ export class AppComponent implements OnInit {
      
     })
   }
+////////////////////////////////////////////////// SEARCH ///////////////////////////////////////////////
+searchdata;search;srchitm=0;
+funsearch(){
+  console.log(this.search)
 
+  if(this.search == 0){
+    this.srchitm=0
+  }else{
+    this.srchitm=1
+  var srch={proid:this.search}
+  this.obj.post("userser/search",srch).subscribe(reg=>{
+    this.searchdata=JSON.parse(reg._body)
+    console.log(this.searchdata)
+   
+ })
+}
+
+}
 
 //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
-  funses(){
+ 
+// funses(){
    
-    this.obj.get("/funs").subscribe(reg=>{
-      // this.regdata=JSON.parse(reg._body)
-      alert(reg._body)
+//     this.obj.get("/funs").subscribe(reg=>{
+//       this.regdata=JSON.parse(reg._body)
+//       alert(reg._body)
      
-    })
-  }
+//     })
+//   }
+
 ////////////////////
 // checkloguserid(){
 //   if(localStorage.getItem("user")){
@@ -117,7 +157,11 @@ export class AppComponent implements OnInit {
   funlogout(){
       localStorage.removeItem("loginvl");
       localStorage.removeItem("usertoken");
+      localStorage.removeItem("userpf");
+      localStorage.removeItem("uid");
       this.logvalue=0;
+      location.reload();
+      //window.location.href="/"
       
     }
   //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
@@ -195,6 +239,13 @@ export class AppComponent implements OnInit {
   ///////////////////////////////////////////// NG ON INIT ////////////////////////////////////////////////////
   username
   ngOnInit() {
+    
+   this.username=localStorage.getItem("userpf");
+   if(localStorage.getItem('uid')!=null){
+   this.lguid=localStorage.getItem("uid");
+
+   }
+
     if(localStorage.getItem('cart_items')!=null){
       var cartlength=(JSON.parse(localStorage.getItem('cart_items')));
       this.cart.funchangeinitialitem(cartlength.length.toString());
@@ -204,11 +255,11 @@ export class AppComponent implements OnInit {
         
       })
     }
-
+// alert(this.cartitemlength)
    
   
-    this.funses();
-    this.username=(localStorage.getItem("user"));
+    // this.funses();
+    //this.username=(localStorage.getItem("user"));
     //alert(JSON.parse(localStorage.getItem("userem")));
   this.fungetuser();
   

@@ -2,10 +2,12 @@
 <div class="container promaindiv">
 <div *ngFor="let pro of prodetails" class = "row">
    
-        <div class = "col-sm-6 col-md-3 col-lg-6 ">
+        <div class = "col-lg-4 col-md-12 col-sm-12">
        
             <div class = "thumbnail proimg">
-              <img class="proimgs" src = "http://localhost:2244/{{pro.pimg}}" width="60%" alt = "Generic placeholder thumbnail">
+                <img src="http://localhost:2244/{{pro.pimg}}" class="center" [imageZoom]="" style="width:auto" [lensHeight]="300" width="100" [minZoomLevel]=".2" [maxZoomLevel]=".2">
+
+              <!-- <img class="proimgs" src = "http://localhost:2244/{{pro.pimg}}" width="60%" alt = "Generic placeholder thumbnail"> -->
            </div>
            
            <ul class = "row  probtn list-unstyled">
@@ -22,7 +24,7 @@
          
         </div>
         
-        <div class = "col-sm-6 col-md-3 col-lg-6">
+        <div class = "col-lg-8 col-md-12 col-sm-12">
            <!-- <div class = "thumbnail">
               <img src = "/bootstrap/images/kittens.jpg" alt = "Generic placeholder thumbnail">
            </div>
@@ -46,7 +48,7 @@
                   <span class="value-button" id="decrease" (click)="decreaseValue()" ><button class="button button5">-</button></span>&nbsp;
                   <input class="w-12 inpbtn" type="number" id="number" value="1"  name="qty"   readonly [(ngModel)]="value">&nbsp;
                   <span class="value-button" id="increase" (click)="increaseValue(pro.quantity)" >
-                      <button class="button button5">+</button>
+                      <button class="button button5">+</button><span style="background-color:greenyellow">{{qtymsg}}</span>
                     <!-- <img src="/assets/+.png" width="20px"> -->
                   </span>
                   
@@ -83,7 +85,9 @@
            </div>
         </div> -->
         
-     
+<!--      
         </div>
+        <img src="http://localhost:2244/img1532709240_applei6.jpg" [imageZoom]="" style="width:auto" [lensHeight]="120" width="210" [minZoomLevel]=".2" [maxZoomLevel]=".4">
+
         </div>
-       
+        -->

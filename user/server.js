@@ -13,6 +13,7 @@ subcatfile=require("./myfiles/sub_cat")
 sscat=require("./myfiles/sub_subcat")
 pro=require("./myfiles/product")
 userd=require("./myfiles/userlog")
+orde=require("./myfiles/orders")
 
 app.use(exp.static('src/assets/images'))
 
@@ -21,6 +22,7 @@ app.use("/subcatser",subcatfile)
 app.use("/subsubcatser",sscat)
 app.use("/productser",pro)
 app.use("/userser",userd)
+app.use("/userorders",orde)
 app.listen(2244)
 console.log("2244")
 

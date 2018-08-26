@@ -41,6 +41,7 @@ export class ProductdetailsComponent implements OnInit {
   updata;arr
   tot_cart_items=0
   funaddcart(pd){
+    
     console.log(pd)
     var abc = [];var newarr=[]
               if(localStorage.getItem("cart_items")!=null)
@@ -74,7 +75,7 @@ export class ProductdetailsComponent implements OnInit {
                 //this.servar.changeMessage(newarr.length.toString())
               }
 else{
-  pd.selqty=this.value
+   pd.selqty=this.value
   newarr.push(JSON.stringify(pd));
   alert("Product added in your cart")
   this.item.funchangeinitialitem(newarr.length.toString())
@@ -112,14 +113,14 @@ console.log(JSON.parse(localStorage.getItem('cart_items')))
   /////////////////////
 
   /////////////////////////
-
+  qtymsg;
   increaseValue(dt){
     if(this.value==dt)
-   // alert("Exceed....")
-   alert('We re sorry! Only ' + this.value + ' units for each customer.');
-
+  //  alert('We re sorry! Only ' + this.value + ' units for each customer.');
+    this.qtymsg='We re sorry! Only ' + this.value + ' units for each customer.'
     else
     {
+    
       this.value++;
     }
   }
@@ -128,6 +129,7 @@ console.log(JSON.parse(localStorage.getItem('cart_items')))
     if(this.value>1)
     {
       this.value--;
+      this.qtymsg=""
     }
   }
   ///////////////////////////
