@@ -8,6 +8,7 @@ bc=require("bcrypt")
   ses=require("express-session")
   app.use(ses({secret:"gfg",saveUninitialized:true,resave:true}))
   sec=require("./encript")
+  require("./otp")
 
 //////////////////////// GET USER PROFILE/////////////////
 // rt.get("/fun1",function(req,res){
@@ -18,7 +19,14 @@ bc=require("bcrypt")
 
 
 
-app.get("/funs",function(req,res){
+rt.get("/funsotp",function(req,res){
+  var totpObj = new TOTP();
+  var otp = totpObj.getOTP("3micy2hguz5j2p6smnnoelcngpchn4sq",1000);
+  console.log(otp)
+  res.send(otp)
+})
+
+rt.get("/funs",function(req,res){
   //console.log("hiiii")
   var tk=jst.sign({id:"123"},sec.secret)
   console.log(tk)
@@ -167,4 +175,63 @@ rt.post("/search",function(req,res){
   })
 })
 
+///////////////////////////////////////////  OTP GENERATE FOR FORGETPASSWORD //////////////////////
+rt.post("/generateotp",function(req,res){
+  omail=req.body
+  ses=req.session
+  var totpObj = new TOTP();
+  var otp = totpObj.getOTP("3micy2hguz5j2p6smnnoelcngpchn4sq");
+ 
+  var id=conn.tbl_user.find({email:omail.useremail}).limit(1,function(err,result){
+    if (result.length!=0){
+      email=result[0].email
+      var tk=jst.sign({id:omail.useremail},sec.secret)
+      ses.email=tk;
+     
+
+      var id=conn.tbl_user.update({email:email},{$set:{otp:otp,otpaccesstoken:tk}},function(err,result){
+        // console.log(tk)
+         res.send({otp:tk})
+      })
+
+      
+   //console.log(email)
+  //  conn.tbl_user.update({email:omail.useremail},{$set:{otp:otp}},function(err,result){
+  //     console.log(count(result.length))
+    
+  
+  //    });
+   
+  
+   } else{
+      // orderid=(result[0]._id)
+      // orderid++
+      console.log("wrong email id please your email")
+      console.log("hiiii")
+      res.send({count:0})
+    }
+
+  })
+ 
+  //  conn.tbl_user.update({email:omail.useremail},{$set:{otp:otp}},function(err,result){
+  //   console.log(count(result.length))
+  
+
+  //  });
+   
+  
+})
+/////////////////////////////////////////////////////// SEARCH PRODUCTS //////////////////////////////////
+
+/////////////////////////////////////////// UPDATE PASSWORD ///////////////////////////////////////////////
+rt.post("/updatepassword",function(req,res){
+  eotp=req.body
+ 
+  console.log(eotp.eaccstoken)
+  conn.tbl_user.update({ otpaccesstoken:eotp.eaccstoken},{$set:{password:eotp.newpassword}});
+ 
+  res.send("Updated...")
+})
+
+//$and: [ { otpaccesstoken:eotp.eaccstoken },{otp:eotp.emailotp}]
 module.exports=rt;

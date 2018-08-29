@@ -21,6 +21,21 @@
          }
      }
 </script> -->
+<!--    date pecker-->
+<div class="row">
+  <div class="col-xs-12 col-12 col-md-4 form-group">
+    <input type="text"
+           placeholder="Datepicker"
+           class="form-control"
+           bsDatepicker>
+  </div>
+  <div class="col-xs-12 col-12 col-md-4 form-group">
+    <input type="text"
+           placeholder="Daterangepicker"
+           class="form-control"
+           bsDaterangepicker>
+  </div>
+</div>
 
 <span *ngIf="show==1"><input type="button" class=" btn-primary btn-sm" value="Add product" (click)="funaadd(0)"></span>
 <span *ngIf="show==0"><input type="button" class="btn btn-success btn-sm" value="Back" (click)="funcan(1)"></span>
@@ -76,7 +91,9 @@
   
       <div class="form-group col-md-2">
         <label for="inputAddress">Select product colour</label>
-        <input type="color" class="form-control"id="prcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000">
+        <!--<input type="color" class="form-control"id="prcolor"name="favcolor"[(ngModel)]="procolor" value="#ff0000"> -->
+        <strong >
+        <input [(colorPicker)]="color" [style.background]="color" [(ngModel)]="procolor" name="colorp"  /> </strong>
         
       </div>
     <div class="form-group col-md-5">
@@ -200,5 +217,7 @@
 
 <div class="fixedpg">
 <pagination-controls (pageChange)="pno=$event"></pagination-controls> 
+
 </div>
+
 

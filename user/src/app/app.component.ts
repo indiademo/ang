@@ -2,14 +2,17 @@ import { Component,Inject,OnInit } from '@angular/core';
 import {trigger,state,style,animate,transition} from "@angular/animations"
 import { CartitemService } from './cartitem.service'
 import { Http } from '@angular/http'
+import { LowerCasePipe } from '@angular/common';
+declare var $:any
+
 /////////////////////////////////////////  ANIMATION //////////////////////////////////////////////////////////
 var myanimations=[
   
   trigger("anm3",[
     state("inv",style({
-      top:"-470px"
+      display:"none"
     })),
-    state("vis",style({top:"744px"})),
+    state("vis",style({display:"block"})),
 
   transition("*=>*",animate("200ms"))
   ])
@@ -117,6 +120,45 @@ funsearch(){
 }
 
 }
+/////////////////////////////////////////////// FORGET PASSWORD ////////////////////////////////////////////
+uemailid;otpuser;eidcount=0;
+
+sendotp(){
+ 
+  alert(this.uemailid)
+  var uemail={useremail:this.uemailid}
+  this.obj.post("userser/generateotp",uemail).subscribe(ott=>{
+    this.otpuser=JSON.parse(ott._body)
+    this.eidcount=this.otpuser.count
+   
+     if(this.eidcount!=0){
+      localStorage.setItem("userotp",this.otpuser.otp)
+     
+     }else{
+      console.log(this.eidcount)
+      alert("wrong email id please give correct email id o send OTP")
+     }
+    
+    
+  })
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+emailotp;otp;newpsw
+funsavenew(){
+  var otpaccstoken=localStorage.getItem("userotp")
+  alert(otpaccstoken)
+
+   var eotp={eaccstoken:otpaccstoken,emailotp:this.otp,newpassword:this.newpsw}
+   this.obj.post("userser/updatepassword",eotp).subscribe(reg=>{
+     alert("password updated")
+   })
+}
+
+
+////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
  
@@ -236,9 +278,26 @@ funsearch(){
   }
   //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
  
+ 
   ///////////////////////////////////////////// NG ON INIT ////////////////////////////////////////////////////
-  username
+  username;otpaccstoken
   ngOnInit() {
+    
+    
+    // alert(JSON.parse(localStorage.getItem("userotp")))
+ 
+    // product slider in main page /////////////
+
+  //   (function($) {
+  //     "use strict";
+  
+  //     // manual carousel controls
+  //     $('.next').click(function(){ $('.carousel').carousel('next');return false; });
+  //     $('.prev').click(function(){ $('.carousel').carousel('prev');return false; });
+      
+  // })(jquery);
+
+  //////////////////////////////////////////////////////////////////////////////////////
     
    this.username=localStorage.getItem("userpf");
    if(localStorage.getItem('uid')!=null){
@@ -250,11 +309,16 @@ funsearch(){
       var cartlength=(JSON.parse(localStorage.getItem('cart_items')));
       this.cart.funchangeinitialitem(cartlength.length.toString());
   
-      this.cart.currentcartitem.subscribe(citm=>{
-        this.cartitemlength=citm
-        
-      })
+     
     }
+    else
+    {
+    this.cart.funchangeinitialitem("0");
+    }
+    this.cart.currentcartitem.subscribe(citm=>{
+      this.cartitemlength=citm
+      
+    })
 // alert(this.cartitemlength)
    
   

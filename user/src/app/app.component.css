@@ -40,9 +40,16 @@ body {
     margin-top: 56px;
 }
 
+.search-img{
+    width: 20px;
+    position: absolute;
+    right: 5%;
+    top: 35%;
+}
+
 
 #inputsm{
-    margin-top: 23px;
+    margin-top: 10px;
 
     
         padding: 0 16px;
@@ -51,7 +58,8 @@ body {
         outline: 0 none;
         font-size: 14px;
         height: 36px;
-        width: 309%;
+        width: 100%;
+        float: left;
     
 }
 #btnsrch{
@@ -159,13 +167,7 @@ span.psw {
    overflow-y: auto;
 } */
 
-.logdiv{
-    position: fixed;
-    margin-top:-700px;
-    top: 82px;
-    z-index: 1000;
-    
-}
+
 .logfrm{
     float:none !important;
     margin: 0 auto;
@@ -186,7 +188,7 @@ span.psw {
 
 .navcolor{
     background-color:#fff;
-    height: 41px;
+    /* height: 41px; */
 }
 /* .search{
 
@@ -213,7 +215,7 @@ span.psw {
     display: inline-block;
     box-sizing: border-box;
 }
-.input-mysize { width: 200px }
+.input-mysize { width: 550px; float: left; }
 
 .serchbtn {
     width: 170px;
@@ -241,4 +243,88 @@ span.psw {
     line-height: 21px;
     font-size: 14px;
 }
+
+/* FOOTER  */
+
+.context-dark, .bg-gray-dark, .bg-primary {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-classic a, .footer-classic a:focus, .footer-classic a:active {
+    color: #ffffff;
+}
+.nav-list li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.nav-list li a:hover:before {
+    margin-left: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.social-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 23px;
+    font: 900 13px/1 "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+}
+.social-container .col {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.nav-list li a:before {
+    content: "\f14f";
+    font: 400 21px/1 "Material Design Icons";
+    color: #4d6de6;
+    display: inline-block;
+    vertical-align: baseline;
+    margin-left: -28px;
+    margin-right: 7px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .22s ease;
+}
+
+/*=====NEW STYLES====*/
+.frmrdiv {
+    z-index: 1000;
+    border-radius: 2px;
+    border: 0px solid black;
+    background-color: white;
+    padding: 15px;
+    margin: 0px !important;
+}
+
+.logdiv{
+    /*position: fixed;
+    margin-top:-700px;
+    top: 82px;
+    z-index: 1000;*/
+    position: absolute;
+    z-index: 10000;
+    top:82px;
+    display: none;
+    
+}
+.logdiv a, .psw a{
+cursor: pointer;
+color:#009656;
+}
+.nav-link{cursor: pointer;}
+
+
+
+
+/* emailpopup */
 

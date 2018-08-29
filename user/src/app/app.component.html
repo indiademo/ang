@@ -1,14 +1,15 @@
-<nav class="navbar navbar-expand-md  navbar-default" style="height:56px;">
+<nav class="navbar navbar-expand-md  navbar-default top-nav" style="padding:0">
   <div class="container-fluid" (click)="srchitm=0">
-    <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar1">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </span>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar1">
+  </button>
+  <div class="collapse navbar-collapse nc-new" id="navbarCollapse">
         
       <ul class="navbar-nav">
         <li class="nav-item ">
-          <a class="nav-link font-italic" href="#" style="color:white; font-size:15px; color: white;margin-top: 12px;font-size: 23px;">Haatcart</a>
-          <img src="../assets/svgicon/telegram.svg"style="width:30px;margin-top: -70px;margin-left: 99px; ">
+          <a class="nav-link font-italic nav-blink" href="#" style="color:white; font-size:15px; color: white;margin-top: 0px;font-size: 23px;padding:0px">Haatcart
+          <img src="../assets/svgicon/telegram.svg"style="width:30px;margin-top: 0px;margin-left: 9px; float: right; ">
+        </a>
         </li>
         <!-- <li class="nav-item dropdown" *ngFor="let cat of catdata">
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:white; font-size:15px;">
@@ -28,17 +29,18 @@
           </ul>
         </li> -->
         <li class="nav-item">
-            <div class="form-group col input-mysize" (mouseover)="srchitm=1">
+            <div class="form-group col input-mysize" >
                 <input class="form-control" id="inputsm" type="text" [(ngModel)]="search" (keyup)="funsearch()">
                 <span >
-                    <button style="margin-top: -43px;margin-left: 404px;"id="btnsrch" class="form-control" type="submit">
+                    <img src="../assets/svgicon/magnifying-glass.svg" class="search-img">
+                   <!-- <button style="margin-top: -43px;margin-left: 404px;"id="btnsrch" class="form-control" type="submit">
                     <img src="../assets/svgicon/magnifying-glass.svg" style="width:20px;margin-left: 65px;margin-top: -17px;">
                    
-                  </button>
+                  </button>-->
                 </span>
-                <div *ngIf ="srchitm" style="position: absolute;z-index: 1;box-shadow: 5px 7px 5px gray;" (mouseout)="srchitm=0">
+                <div *ngIf ="srchitm" style="position: absolute;z-index: 1000;box-shadow: 5px 7px 5px gray;margin-top: 46px;" >
                   <div style="width: 525px;background-color: white" *ngFor="let pro of searchdata">
-                    <a [routerLink]="['/productdetails',{id:pro._id}]">{{pro.product}}</a>
+                    <a [routerLink]="['/productdetails',{id:pro._id}]">{{pro.product | lowercase}}}}</a>
                   </div>
                 </div>
               </div>
@@ -134,7 +136,7 @@
       <ul class="dropdown nav navbar-nav navbar-right ">
         <!-- <li><a class="nav-link glyphicon glyphicon-log-in" (click)="loginshide()"><span style="color:white; font-size:15px;" ></span> Cart</a></li> -->
         <li class="nav-item ">
-          <a class="nav-link" href="#" style="color:white; font-size:15px;" [routerLink]="['cart']"><span class="_2bVfmg">{{cartitemlength}}</span>
+          <a class="nav-link" href="#" style="color:white; font-size:15px;" [routerLink]="['cart']"><span *ngIf="cartitemlength!=0" class="_2bVfmg">{{cartitemlength}}</span>
             <img src="../assets/svgicon/shopping-basket.svg" style="width:30px">&nbsp; Cart
           </a>
         </li>
@@ -148,7 +150,7 @@
 </nav>
  
 
-
+<div class="container" >
 <div *ngIf="reg==0" [@anm3]="tmp3" class="container logdiv "  >
   <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-4">
     <div class="m-3 frmrdiv">
@@ -181,15 +183,104 @@
     
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>
-        <span class="psw">Forgot <a href="#">password?</a></span>
+        <span class="psw">Forgot <a (click)="funforgetpsw()" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal">password?</a></span>
       </div>
     
     </form>
    </div> 
   </div>  
 </div>  
+</div>
+<!-------------------------OTP MODEL ----------------------------------------------->
+<div class="container" >
+  
+  <!-- The Modal -->
+  <div class="modal" id="myModal" style="z-index: 100012;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Enter Email</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <label for="uname"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email id" name="otp" [(ngModel)]="uemailid" required>
+   
+    
+            <!-- POPUP END -->
+        <button type="submit" data-toggle="modal" data-target="#myModal2" (click)="sendotp()">SUBMIT</button>
+      
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- RESTE PASSWORD -->
+
+<div class="container" >
+  
+  <!-- The Modal *ngIf="eidcount==1"  -->
+  <div  id="myModal2" class="modal" style="z-index: 100012;">
+    <div class="modal-dialog">
+      <div class="modal-content" style="z-index: 80000000;">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">RESET PASSWORD</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+        <label for="psw"><b>Enter OTP</b></label>
+        <input type="password" placeholder="Enter OTP" name="otpp"[(ngModel)]="otp" required>
+        
+        
+          <label for="uname"><b>New password</b></label>
+        <input type="text" placeholder="Enter new password" name="pass" [(ngModel)]="newpsw" required>
+    <!-- POPUP  -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+      Open modal
+    </button> -->
+  
+    
+            <!-- POPUP END -->
+        <button type="submit" data-toggle="modal" data-target="#myModal2" (click)="funsavenew()">SAVE</button>
+      
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-------------------------OTP MODEL END ----------------------------------------------->
+
+<!-------------------------LOGIN NEW  MODEL  ----------------------------------------------->
 
 
+<!-------------------------LOGIN NEW  MODEL END ----------------------------------------------->
+
+
+
+<div class="container" >
 <div *ngIf="reg==1" class="container logreg">
   <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-4">
       <div class="m-4 frmrdiv"> 
@@ -221,7 +312,7 @@
     
       <div class="container" style="background-color:#f1f1f1">
           <i class="psw">Already have an account? <a (click)="funregvalhide()">Sign in</a></i>
-        <!-- <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button> -->
+        <!-- <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>navcolor -->
         
       </div>
     
@@ -229,13 +320,13 @@
       </div>
   </div>  
 </div> 
-
-<nav class="navbar navbar-expand-md  navbar-default navcolor">
-    <div class="container-fluid">
-      <span class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </span>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+</div>
+<nav class="navbar navbar-expand-md  navbar-default navcolor" style="margin-top: -56px;">
+  <!-- <div class="container-fluid" (click)="srchitm=0">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse2" aria-controls="navbarCollapse2" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse2"> -->
           
         <ul class="navbar-nav">
           <li class="nav-item ">
@@ -260,72 +351,67 @@
           </li>
         </ul>
        
-      </div>
-    </div>  
+      <!-- </div>
+    </div>   -->
   </nav>
+  <div (mouseout)="srchitm=0">
     <router-outlet>
     </router-outlet>
+    </div>
   
-  
-  <!-- <div [@anm3]="tmp3" class="container logdiv "  >
-    <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-2">
-      <div class="m-2.5 frmrdiv">
-      <h2 >Login</h2>
-      <form  action="/action_page.php">
-        <div class="imgcnt">
-          <button type="button"class="transparent-style"(click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: 6px;margin-right:7px; float:right">
-            <img src="../assets/images/cancel.png" alt="Avatara" style="width:20px" class="cancel">
-          </button>
+  <!-- <script>(function($) {
+    "use strict";
+
+    // manual carousel controls
+    $('.next').click(function(){ $('.carousel').carousel('next');return false; });
+    $('.prev').click(function(){ $('.carousel').carousel('prev');return false; });
+    
+})(jQuery);</script> -->
+ <!------------------------------ FOOTER -------------------------------------------------------------->
+<br>
+
+<footer class="section footer-classic context-dark bg-image" style="background: #2d3246; ">
+  <div class="container">
+    <div class="row row-30">
+      <div class="col-md-4 col-xl-5">
+        <div class="pr-xl-4"><a class="brand" href="index.html"><img class="brand-logo-light" src="images/agency/logo-inverse-140x37.png" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
+          <p>We are an award-winning creative agency, dedicated to the best result in web design, promotion, business consulting, and marketing.</p>
+          <!-- Rights-->
+          <p class="rights"><span>©  </span><span class="copyright-year">2018</span><span> </span><span>Waves</span><span>. </span><span>All Rights Reserved.</span></p>
         </div>
-        <div class="imgcontainer">
-          <img src="../assets/images/avtar.png" alt="Avatar" class="avatar">
-        </div>
-      
-        <div class="container" >
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="uname" [(ngModel)]="username" required>
-      
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw"[(ngModel)]="password" required>
-              
-          <button type="submit" (click)="funlogin()">Login</button>
-          <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>
-        </div>
-      
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
-      
-      </form>
-     </div> 
-    </div>  
-  </div>   -->
-  <!-- <ngx-image-zoom
-  [thumbImage]=myThumbnail
-  [fullImage]=myFullresImage
-  [imgSrc]="imgSrc" 
-  [imgStyle]="'width:400px; height:400px'" 
-  [resultStyle]="'width:300px; height:300px'"
-  [lensStyle]="'width:50px; height:60px'"
-  [containerStyle]=""
-></ngx-image-zoom> -->
-
-<!-- <h1>
-  {{title}}
-</h1>
-<ngx-image-zoom
-    [thumbImage]=myThumbnail
-    [fullImage]=imgSrc
-></ngx-image-zoom>
-
-
-
-<button (click)="imgSrc = 'http://icons.iconarchive.com/icons/aha-soft/large-business/512/Zoom-icon.png'">Click to change image</button>
-
-
-<img src="../assets/svgicon/icons8-love-filled_2.png"class="w-25" >
-  
-<button (click)="myThumbnail = '../assets/svgicon/icons8-love-filled_2.png'" class="w-25">Click to change image</button> -->
+      </div>
+      <div class="col-md-4">
+        <h5>Contacts</h5>
+        <dl class="contact-list">
+          <dt>Address:</dt>
+          <dd>798 South Park Avenue, Jaipur, Raj</dd>
+        </dl>
+        <dl class="contact-list">
+          <dt>email:</dt>
+          <dd><a href="mailto:#">abhishek03094@gmail.com</a></dd>
+        </dl>
+        <dl class="contact-list">
+          <dt>phones:</dt>
+          <dd><a href="tel:#">+91 6202690566</a> <span>or</span> <a href="tel:#">+91 6202690566</a>
+          </dd>
+        </dl>
+      </div>
+      <div class="col-md-4 col-xl-3">
+        <h5>Links</h5>
+        <ul class="nav-list">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contacts</a></li>
+          <li><a href="#">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row no-gutters social-container">
+    <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-facebook"></span><span>Facebook</span></a></div>
+    <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-instagram"></span><span>instagram</span></a></div>
+    <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-twitter"></span><span>twitter</span></a></div>
+    <div class="col"><a class="social-inner" href="#"><span class="icon mdi mdi-youtube-play"></span><span>google</span></a></div>
+  </div>
+</footer>

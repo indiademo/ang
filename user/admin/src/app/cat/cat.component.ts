@@ -1,6 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { Http } from '@angular/http'
 
+
 @Component({
   selector: 'app-cat',
   templateUrl: './cat.component.html',
@@ -15,6 +16,8 @@ export class CatComponent implements OnInit {
   t1;
   act;
   pno=1;
+
+  ///////////////////////////////////
 
  ///////////////////////////////////////////////////////////////////////////////////////////////////
 

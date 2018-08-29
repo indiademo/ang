@@ -18,7 +18,23 @@ export class LandingComponent implements OnInit {
     })
   }
 
+   //  GET PRODUCTS FOR LANDING PAGE
+
+  ///////////////////////////////////// 
+  prodat
+  fungetpro(){
+    this.obj.get("productser/get_product").subscribe(
+      pr=>{
+        this.prodat=JSON.parse(pr._body)
+       // alert(pr._body)
+        
+      })
+    
+    }
+    ////////////////////////////////////////////////
+
   ngOnInit() {
+    this. fungetpro()
   }
 
 }

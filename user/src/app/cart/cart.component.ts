@@ -124,6 +124,7 @@ funremoveitem(itm){
 
   ngOnInit() {
 
+    
     this.umobileno=localStorage.getItem("umobile")
    
    alert(this.umobileno)
@@ -132,12 +133,13 @@ funremoveitem(itm){
       var cartlength=(JSON.parse(localStorage.getItem('cart_items')));
       this.item.funchangeinitialitem(cartlength.length.toString());
   
-      this.item.currentcartitem.subscribe(citm=>{
-        this.cartitemlength=citm
-        
-      })
+    }else
+    {
+    this.item.funchangeinitialitem("0");
     }
-    
+    this.item.currentcartitem.subscribe(citm=>{
+      this.cartitemlength=citm
+    })
    
     var arr=localStorage.getItem("cart_items")
     
@@ -158,24 +160,9 @@ funremoveitem(itm){
         for(var j=0;j<cost.length;j++){
           this.costarr +=parseInt(cost[j])
         }
-        
-    
-   
-    
-     
-    //  var sum = 0;
-    //  var abc=['100','300','400','60','40'];    
-    //  for(var i=0; i < abc.length; i++){
-     
-    //      sum += parseInt(abc[i]);
-     
-    //  }
-    //  console.log(sum)
-    //  alert(sum);
 
-    // this.cartda = localStorage.getItem("cart_items");
-    // this.cartdata = JSON.parse(this.cartda);
-   
+      
   }
+
 
 }

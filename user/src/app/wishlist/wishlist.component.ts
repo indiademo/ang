@@ -17,7 +17,7 @@ funwishlist(){
     alert(this.userid)
     this.obj.post("/userser/wishpro",obbj).subscribe(x=>{
       this.wishpro=JSON.parse(x._body)
-      alert(x._body)
+      // alert(x._body)
     })
   
     
@@ -29,7 +29,7 @@ funwishlist(){
 
   ngOnInit() {
     this.userid=localStorage.getItem("uid");
-    //this.funwishlist();
+    this.funwishlist();
     
 
   }

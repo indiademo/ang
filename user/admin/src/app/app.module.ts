@@ -8,6 +8,12 @@ import { ReactiveFormsModule, FormGroup, FormControl, Validators } from "@angula
 import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
 import { FileSelectDirective } from 'ng2-file-upload';
 import {NgxPaginationModule} from "ngx-pagination"
+import { ColorPickerModule } from 'ngx-color-picker';
+
+import { BsDatepickerModule,AlertModule } from 'ngx-bootstrap';
+//import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+
 
 
 import { AppComponent } from './app.component';
@@ -52,6 +58,11 @@ var router= RouterModule.forRoot(rout)
   
   ],
   imports: [
+  
+    BsDatepickerModule.forRoot(),
+    AlertModule.forRoot(),
+    ColorPickerModule,
+   
     BrowserModule,RouterModule,router,HttpModule,FormsModule,NgxPaginationModule,ReactiveFormsModule,Ng2FilterPipeModule
   ],
   providers: [],

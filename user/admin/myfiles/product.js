@@ -37,7 +37,7 @@ router.post("/ins_product",function(req,res){
             }
        
         console.log(iid)
-        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatid:ob.subsubcatid,brandid:ob.brandid,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc,active:1})
+        conn.tbl_product.insert({_id:iid,catid:ob.catid,subcatid:ob.subcatid,subsubcatid:parseInt(ob.subsubcatid),brandid:ob.brandid,product:ob.product,quantity:ob.quanity,price:ob.price,productcolor:ob.procolor,productdescription:ob.prodesc,active:1})
         res.send("Product added")
     })
     
