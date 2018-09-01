@@ -55,7 +55,7 @@ router.post("/getproducts",function(req,res){
     rss=req.body
     conn.tbl_product.find({subsubcatid:rss.id},function(req,proresult){       
         conn.tbl_wishlist.find(function(req,brandresult){    
-           
+          // console.log(rss)
                         arr=[]
                         
                         for(i=0;i<proresult.length;i++){
@@ -181,14 +181,14 @@ router.post("/product",function(req,res){
 
 router.post("/wishactive",function(req,res){
     act=req.body
-    console.log(act)
+   // console.log(act)
     conn.tbl_wishlist.update({_id:act._id},{$set:{active:act.active}})
     res.send("Updated...")
 })
 
 router.post("/wishinactive",function(req,res){
     act=req.body
-    console.log(act)
+    //console.log(act)
     conn.tbl_wishlist.update({_id:act._id},{$set:{active:act.active}})
     res.send("Updated...")
 })

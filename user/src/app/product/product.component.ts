@@ -38,7 +38,7 @@ export class ProductComponent implements OnInit {
   funcat_insert(){
     var obj={maxamo:this.slideValue1}
     this.obj.post("products/proamount",obj).subscribe(obj=>{
-      alert(obj._body)
+     // alert(obj._body)
       
     })
 
@@ -52,7 +52,7 @@ export class ProductComponent implements OnInit {
 
 
 funwishlist(proid){
-  alert(proid)
+  //alert(proid)
  
   var obbj={id:proid}
   //alert(this.subsubid)
@@ -68,17 +68,17 @@ funwishlist(proid){
 
 ///////////////////////////////////// INSERT WISH PRODUCTS //////////////////////////////
 insertwishlist(){
-  alert(this.userid)
+  //alert(this.userid)
    var wishprr={wishpr:this.wishpro,userid:parseInt(this.userid)}
   this.obj.post("productser/wishlist",wishprr).subscribe(obj=>{
-    alert(obj._body)
+    //alert(obj._body)
   })
 }
  /////////////////////////////////////////// ACTIVE ///////////////////////////////////////////
  active=1;
 
  funactive(bb1,act){
-   alert(act)
+  // alert(act)
   bb1.active=0;
   var old={_id:bb1._id,active:act}
  
@@ -86,7 +86,7 @@ insertwishlist(){
 
 }
 funinactive(bb2,act){
-  alert(act)
+ // alert(act)
   bb2.active=1;
   var old={_id:bb2._id,active:act}
  
@@ -95,11 +95,11 @@ funinactive(bb2,act){
 }
 cbac2=(obj)=>{
    
-  alert(obj._body)
+  //alert(obj._body)
 }
 cbac3=(obj)=>{
 
-    alert(obj._body)
+   // alert(obj._body)
   }
 //////////////////////////////////////////////END////////////////////////////////////////
 
@@ -121,7 +121,7 @@ cbac3=(obj)=>{
     ///////////////////////////////////// GET WISHLIST PRODUCT USER WISE /////////////////////
     wishlistpr;wishactv;
   fungetwishpro(){
-    alert(this.userid)
+    //alert(this.userid)
     var user={userid:parseInt(this.userid)}
     console.log(user)
     this.obj.post("productser/getwishpro",user).subscribe(
@@ -176,11 +176,12 @@ cbac3=(obj)=>{
     this.ar.params.subscribe(x=>{
       
       this.subsubid=x["_id"]
-      var obbj={id:parseInt(this.subsubid)}
+      var obbj={id:parseInt(this.subsubid),user:this.userid}
       //alert(this.subsubid)
       this.obj.post("/productser/getproducts",obbj).subscribe(x=>{
         this.prodata=JSON.parse(x._body)
       console.log(this.prodata)
+      
         //alert(x._body)
       })
     })
