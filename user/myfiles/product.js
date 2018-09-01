@@ -14,17 +14,75 @@ router.get("/get_product",function(req,res){
     })
 })
 
-router.post("/getproducts",function(req,res){
+router.post("/getproductss",function(req,res){
     ob=req.body
     //console.log(ob)
     conn.tbl_product.find({subsubcatid:ob.id}, function(err,result){
+        conn.tbl_wishlist.find(function(err,wishprores){
+            //console.log(wishprores)
+            arr=[]
+            obb={}
+               // console.log(result[i])
+                
+            for(i=0;i<result.length;i++){
+                obb=result[i]
+                //console.log(ob)
+                for(j=0;j<wishprores.length;j++){
+                    if(result[i]._id==wishprores[j]._id){
+                        obb.aactive=wishprores[j]._id
+                         console.log(obb.aactive)
+                    }
+                }
+                
+                //arr.push(ob)
+                //console.log(obb)
+            }
+           // console.log(arr)
+           // res.send(arr)
+
+        })
         
-        res.send(result)
+        // function(err,res){}
       
        
     })
   
 })
+////////////////////////////////////////////////////////////////////
+
+
+router.post("/getproducts",function(req,res){
+    rss=req.body
+    conn.tbl_product.find({subsubcatid:rss.id},function(req,proresult){       
+        conn.tbl_wishlist.find(function(req,brandresult){    
+           
+                        arr=[]
+                        
+                        for(i=0;i<proresult.length;i++){
+                            ob={}
+                           // console.log(proresult[i])
+                            ob=proresult[i]
+                            //console.log(ob)
+                            for(j=0;j<brandresult.length;j++){
+                                if(proresult[i]._id==brandresult[j]._id){
+                                    ob.active=brandresult[j].active
+                                   // console.log(ob.brand)
+                                }
+                            }
+                           // console.log(ob)
+                            arr.push(ob)
+                        }
+                        //console.log(arr)
+                        res.send(arr)
+                
+            
+        })    
+    })  //  
+     
+     
+ })
+
+ ///////////////////////////////////////////////////////////////////////
 
 ///////////////
 router.post("/prodetails",function(req,res){
@@ -62,7 +120,7 @@ router.post("/wishlist",function(req,res){
     var id=conn.tbl_wishlist.find().sort({_id:-1}).limit(1,function(err,result){
     
          
-        conn.tbl_wishlist.insert({_id:proo[0]._id,userid:ob.userid,catid:proo[0].catid,subcatid:proo[0].subcatid,subsubcatid:proo[0].subsubcatid,brandid:proo[0].brandid,product:proo[0].product,quantity:proo[0].quanity,price:proo[0].price,productcolor:proo[0].procolor,pimg:proo[0].pimg,active:1})
+        conn.tbl_wishlist.insert({_id:proo[0]._id,userid:ob.userid,catid:proo[0].catid,subcatid:proo[0].subcatid,subsubcatid:proo[0].subsubcatid,brandid:proo[0].brandid,product:proo[0].product,quantity:proo[0].quanity,price:proo[0].price,productcolor:proo[0].procolor,pimg:proo[0].pimg,active:0})
         res.send("Inserted")
     })
     
@@ -90,7 +148,7 @@ router.post("/wishlist",function(req,res){
         router.post("/getwishpro",function(req,res){
            
             ob=req.body
-                console.log(ob)
+               // console.log(ob)
                 conn.tbl_wishlist.find({userid:ob.userid}, function(err,result){
                     
                     res.send(result)
@@ -111,12 +169,28 @@ router.post("/product",function(req,res){
     ob=req.body
       
         conn.tbl_purchaseorder.find({userid:ob.uid}, function(err,result){
-            console.log(result)
+            //console.log(result)
             res.send(result)
         
         
         })
   
+})
+
+///////////////////////////// ACTIVE WISH CART //////////////////////////////////////////////////
+
+router.post("/wishactive",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_wishlist.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
+})
+
+router.post("/wishinactive",function(req,res){
+    act=req.body
+    console.log(act)
+    conn.tbl_wishlist.update({_id:act._id},{$set:{active:act.active}})
+    res.send("Updated...")
 })
 
     

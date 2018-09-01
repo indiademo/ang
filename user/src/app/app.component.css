@@ -323,8 +323,26 @@ color:#009656;
 }
 .nav-link{cursor: pointer;}
 
-
-
+.close-styles{
+    cursor: pointer;
+    font-size: 30px;
+}
+.close-styles:hover{
+    color: #f44336;
+}
 
 /* emailpopup */
 
+.sdt:hover{
+background-color:silver;
+}
+
+.errmsj{
+    position: absolute;
+    /* float: left; */
+    /* z-index: 500000; */
+    margin-top: 11px;
+    /* margin-bottom: auto; */
+    margin-left: -144px;
+    color: #d45b5b;
+}

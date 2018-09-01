@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
 
   constructor (@Inject (ActivatedRoute) public ar, @Inject(Http) private obj,@Inject(ElementRef) elementRef: ElementRef) { this.elementRef = elementRef;}
   prodata;
-  subsubid;wishpro;userid;
+  subsubid;wishpro;userid;xyz=1;
 
 
   elementRef: ElementRef;
@@ -53,22 +53,19 @@ export class ProductComponent implements OnInit {
 
 funwishlist(proid){
   alert(proid)
-
+ 
   var obbj={id:proid}
   //alert(this.subsubid)
   this.obj.post("/productser/wishpro",obbj).subscribe(x=>{
     this.wishpro=JSON.parse(x._body)
   
-    this.insertwishlist();
+     this.insertwishlist();
   })
-  // var prodata=this.prodata
-  // // var obj={maxamo:this.slideValue1}
-  // this.obj.post("productser/wishlist",prodata).subscribe(obj=>{
-  //   alert(obj._body)
-    
-  // })
+
 
 }
+
+
 ///////////////////////////////////// INSERT WISH PRODUCTS //////////////////////////////
 insertwishlist(){
   alert(this.userid)
@@ -77,7 +74,34 @@ insertwishlist(){
     alert(obj._body)
   })
 }
+ /////////////////////////////////////////// ACTIVE ///////////////////////////////////////////
+ active=1;
 
+ funactive(bb1,act){
+   alert(act)
+  bb1.active=0;
+  var old={_id:bb1._id,active:act}
+ 
+  this.obj.post("productser/wishactive",old).subscribe(this.cbac2)
+
+}
+funinactive(bb2,act){
+  alert(act)
+  bb2.active=1;
+  var old={_id:bb2._id,active:act}
+ 
+  this.obj.post("productser/wishinactive",old).subscribe(this.cbac3)
+  
+}
+cbac2=(obj)=>{
+   
+  alert(obj._body)
+}
+cbac3=(obj)=>{
+
+    alert(obj._body)
+  }
+//////////////////////////////////////////////END////////////////////////////////////////
 
 
 
@@ -95,15 +119,16 @@ insertwishlist(){
     }
 
     ///////////////////////////////////// GET WISHLIST PRODUCT USER WISE /////////////////////
-    wishlistpr;
+    wishlistpr;wishactv;
   fungetwishpro(){
     alert(this.userid)
-    var user={userid:this.userid}
+    var user={userid:parseInt(this.userid)}
     console.log(user)
     this.obj.post("productser/getwishpro",user).subscribe(
       pr=>{
         this.wishlistpr=JSON.parse(pr._body)
-        alert(pr._body)
+        this.wishactv=this.wishlistpr[0].active
+        //alert(this.wishactv)
         
       })
     
@@ -155,7 +180,7 @@ insertwishlist(){
       //alert(this.subsubid)
       this.obj.post("/productser/getproducts",obbj).subscribe(x=>{
         this.prodata=JSON.parse(x._body)
-      
+      console.log(this.prodata)
         //alert(x._body)
       })
     })

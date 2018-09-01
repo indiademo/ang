@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   password="";
   logvalue=0;
   reg=0;pro;
-  rusername="";rmno="";remail="";repassword="";regdata;usermail;cartitemlength;usersdet;lguid;
+  rusername="";rmno="";remail="";repassword="";regdata;usermail;cartitemlength;usersdet;lguid;rpassword;
   ////////////////////////////////////////////////  REG & LOGIN SHOW AND HIDE /////////////////////////////////////////////////////////////
 
   funregval(){
@@ -80,6 +80,13 @@ export class AppComponent implements OnInit {
    
   }
 
+  ////////////// re password ///////////
+  repsw(){
+    if(this.rpassword!=this.repassword){
+      alert("enter same password")
+    }
+    
+  }
   /////////////////////////////// UPDATE USER ID IN WISHLIST AFTR LOGIN ////////////////////////////
 
   insertwishlist(){
@@ -120,9 +127,15 @@ funsearch(){
 }
 
 }
+///////////////////////////////////////////////closeresetpwd///////////////////////////////////////////////
+closeresetpwd(){
+  this.rspw1=1;
+  this.rspw=0;
+}
+
 /////////////////////////////////////////////// FORGET PASSWORD ////////////////////////////////////////////
 uemailid;otpuser;eidcount=0;
-
+rspw=0;rspw1=1
 sendotp(){
  
   alert(this.uemailid)
@@ -132,16 +145,28 @@ sendotp(){
     this.eidcount=this.otpuser.count
    
      if(this.eidcount!=0){
+       this.rspw=1;
+      this.rspw1=0;
       localStorage.setItem("userotp",this.otpuser.otp)
-     
+      this.funemailotp()
      }else{
       console.log(this.eidcount)
+      this.rspw=0
       alert("wrong email id please give correct email id o send OTP")
      }
     
     
   })
 
+}
+/////////////////// SEND EMAIL OTP //////////////////
+
+funemailotp(){
+  var otpaccstoken=localStorage.getItem("userotp")
+  var ee={useremail:this.uemailid,eaccstoken:otpaccstoken}
+  this.obj.post("userser/mail",ee).subscribe(emai=>{
+    alert("password updated")
+  })
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -184,13 +209,28 @@ funsavenew(){
 
 /////////////////////
 //////////////////////////////////////////////// LOGOUT /////////////////////////////////////////////////////////////
- funlreg(){
-  var regobj={username:this.rusername,mobile:this.rmno,email:this.remail,password:this.repassword}
-  this.obj.post("userser/userreg",regobj).subscribe(reg=>{
-    // this.regdata=JSON.parse(reg._body)
-    alert(reg._body)
-    this.reg=0;
-  })
+valied=1; 
+funlreg(form1){
+   if(form1.valid){
+    if(this.rpassword==this.repassword){
+      var regobj={username:this.rusername,mobile:this.rmno,email:this.remail,password:this.repassword}
+    this.obj.post("userser/userreg",regobj).subscribe(reg=>{
+      // this.regdata=JSON.parse(reg._body)
+      alert(reg._body)
+      this.reg=0;
+      this.obj.post("userser/activationlink",regobj).subscribe(reg=>{
+        alert("activation link sended")
+      })
+    })
+    }else{
+      alert("enter same password")
+    }
+   
+   }else{
+     this.valied=0
+   }
+
+
 }
 //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
 
@@ -282,6 +322,14 @@ funsavenew(){
   ///////////////////////////////////////////// NG ON INIT ////////////////////////////////////////////////////
   username;otpaccstoken
   ngOnInit() {
+
+    // var url=document.URL;
+    // var dt=(url.split(";"))
+    // var av=(dt[1].split("="))
+    // var ob={active:av[1]}
+    // this.obj.post("userser/activeuser",ob).subscribe(res=>{
+    //   alert(res._body)
+    // })
     
     
     // alert(JSON.parse(localStorage.getItem("userotp")))

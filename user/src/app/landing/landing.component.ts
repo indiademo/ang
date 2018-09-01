@@ -35,6 +35,14 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     this. fungetpro()
+
+      var url=document.URL;
+    var dt=(url.split(";"))
+    var av=(dt[1].split("="))
+    var ob={active:av[1]}
+    this.obj.post("userser/activeuser",ob).subscribe(res=>{
+      alert(res._body)
+    })
   }
 
 }

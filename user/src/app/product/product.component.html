@@ -11,7 +11,7 @@
             
     <div class="row" >
         <div class="col-md-3" style="margin-top: 10px;">
-            <div style="background-color: white;margin-top: 1px;width: 106%;">
+            <div style="background-color: white;margin-top: 1px;">
             <!-- <div><span>price</span>
 
             </div>&nbsp;&nbsp;
@@ -43,10 +43,25 @@
             <div>
                    
 
-                <ul *ngFor="let x of prodata | filterBy: userFilter" style="margin-top: 11px; width:320px;background-color: white;float: left;">
+                <ul *ngFor="let x of prodata | filterBy: userFilter" style="margin-top: 11px; width:290px;background-color: white;float: left;">
                   
                         <div class="card bg-light" style="border: none" >
-                          <div style="background-color: white; " class="pl-2"> <a (click)="funwishlist(x._id)"><img src="../assets/svgicon/icons8-love-filled_2.png"class="w-25" data-toggle="tooltip" title="Add to wishlist " > </a></div>
+                          <div style="background-color: white; " class="pl-2">
+                            
+                            <a *ngIf="x.active==1"><img src="../assets/svgicon/icons8-love-filled_2.png" style="width: 36px;" data-toggle="tooltip" title="Add to wishlist " (click)="funactive(x,0)" (click)="funwishlist(x._id)"> </a>
+                               
+                                <a  *ngIf="x.active==0"><img src="../assets/svgicon/w3.png" style="width: 50px;" data-toggle="tooltip" title="Remove to wishlist " (click)="funinactive(x,1)"> </a>
+                              
+                                <div >
+                                    <!-- {{wishactv}} -->
+
+                            <!-- <span *ngIf="x.active==1"><input type="button" class="btn btn-danger btn-sm" value="inactive" (click)="funactive(x,0)" (click)="funwishlist(x._id)"></span>
+                             <span *ngIf="x.active==0" ><input type="button" class="btn btn-success btn-sm" value="active" (click)="funinactive(x,1)"></span> 
+                              -->
+                             
+                          
+                            </div> 
+                        </div>
                           <div class="card-body text-center " style="background-color: #fff;">
                             <a [routerLink]="['/productdetails',{id:x._id}]">
                              <div class="_3BTv9X"style="height: 150px;width: 150px;">
@@ -78,7 +93,4 @@
       {{title}}
       <!-- <img src="../assets/svgicon/icons8-love-filled_2.png"class="w-25" > -->
     </h1>
-   
-       
-     
-    
+  

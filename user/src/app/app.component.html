@@ -7,8 +7,8 @@
         
       <ul class="navbar-nav">
         <li class="nav-item ">
-          <a class="nav-link font-italic nav-blink" href="#" style="color:white; font-size:15px; color: white;margin-top: 0px;font-size: 23px;padding:0px">Haatcart
-          <img src="../assets/svgicon/telegram.svg"style="width:30px;margin-top: 0px;margin-left: 9px; float: right; ">
+          <a class="nav-link font-italic nav-blink" href="#" style="color:white; font-size:15px; color: white;margin-top: 0px;font-size: 23px;padding:0px">
+          <img src="../assets/svgicon/logo1.jpg"style="margin-top: 0px; float: right; ">
         </a>
         </li>
         <!-- <li class="nav-item dropdown" *ngFor="let cat of catdata">
@@ -39,8 +39,8 @@
                   </button>-->
                 </span>
                 <div *ngIf ="srchitm" style="position: absolute;z-index: 1000;box-shadow: 5px 7px 5px gray;margin-top: 46px;" >
-                  <div style="width: 525px;background-color: white" *ngFor="let pro of searchdata">
-                    <a [routerLink]="['/productdetails',{id:pro._id}]">{{pro.product | lowercase}}}}</a>
+                  <div style="width: 525px;background-color: white;color:black;" *ngFor="let pro of searchdata" class=" p-2">
+                    <a style="color:black"   [routerLink]="['/productdetails',{id:pro._id}]">{{pro.product | lowercase}}</a>
                   </div>
                 </div>
               </div>
@@ -152,7 +152,7 @@
 
 <div class="container" >
 <div *ngIf="reg==0" [@anm3]="tmp3" class="container logdiv "  >
-  <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-4">
+  <div class="col-lg-6 col-sm-12 col-md-6 logfrm p-4">
     <div class="m-3 frmrdiv">
     <h2 >Login</h2>
     <form  action="/action_page.php">
@@ -183,7 +183,7 @@
     
       <div class="container" style="background-color:#f1f1f1">
         <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>
-        <span class="psw">Forgot <a (click)="funforgetpsw()" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal">password?</a></span>
+        <span class="psw">Forgot <a data-backdrop="static"(click)="closelogin($event)" data-keyboard="false" data-toggle="modal" data-target="#myModal" >password?</a></span>
       </div>
     
     </form>
@@ -198,27 +198,59 @@
   <div class="modal" id="myModal" style="z-index: 100012;">
     <div class="modal-dialog">
       <div class="modal-content">
+
+          <div class="modal-header">
+              <h4 class="modal-title">Forgot password</h4>
+              <span class="fa fa-times float-right close-styles" data-dismiss="modal" (click)="closeresetpwd()"></span>
+              <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+      <div *ngIf="rspw==0">
+         <!-- Modal Header -->
+         
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <label for="uname"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email id" name="otp" [(ngModel)]="uemailid" required>
+     
       
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Enter Email</h4>
-          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-        </div>
+              <!-- POPUP END -->
+          <button type="submit"  (click)="sendotp()">SUBMIT</button>
         
-        <!-- Modal body -->
-        <div class="modal-body">
-          <label for="uname"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email id" name="otp" [(ngModel)]="uemailid" required>
-   
+          </div>
+      </div>
+      <div *ngIf="rspw1==0">
+        
+        <!-- Modal Header -->
+        <!-- <div class="modal-header">
+            <h4 class="modal-title">RESET PASSWORD</h4>
+
+          </div> -->
+          <!-- Modal body -->
+          <div class="modal-body">
+          <label for="psw"><b>Enter OTP</b></label>
+          <input type="password" placeholder="Enter OTP" name="otpp"[(ngModel)]="otp" required>
+          
+          
+            <label for="uname"><b>New password</b></label>
+          <input type="text" placeholder="Enter new password" name="pass" [(ngModel)]="newpsw" required>
+      <!-- POPUP  -->
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+        Open modal
+      </button> -->
     
-            <!-- POPUP END -->
-        <button type="submit" data-toggle="modal" data-target="#myModal2" (click)="sendotp()">SUBMIT</button>
       
-        </div>
+              <!-- POPUP END -->
+          <button type="submit" data-toggle="modal" data-target="#myModal2" (click)="funsavenew()">SAVE</button>
+        
+          </div>
+          
+      </div>
+       
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeresetpwd()">Close</button>
         </div>
         
       </div>
@@ -282,10 +314,10 @@
 
 <div class="container" >
 <div *ngIf="reg==1" class="container logreg">
-  <div class="col-sm-6 col-md-4 col-ls-6 logfrm p-4">
+  <div class="col-sm-6 col-md-4 col-lg-6 logfrm p-4">
       <div class="m-4 frmrdiv"> 
     <div><h2 style="align-content:center">Create Acount</h2></div>&nbsp;
-    <form>
+    <form #form1="ngForm">
       <div class="regimgcnt">
         <button type="button"class="transparent-style"(click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: -49px;;margin-right:7px; float:right">
           <img src="../assets/images/cancel.png" alt="Avatara" style="width:20px" class="cancel">
@@ -295,18 +327,27 @@
     
       <div class="container regcontainer" >
         <label for="uname"><b>Username</b></label>
-        <input type="text" class="inpreg"placeholder="" name="uname" [(ngModel)]="rusername" required>
-        <label for="uname"><b>Mobile no</b></label>
-        <input type="number"class="inpreg" placeholder="" name="mno" [(ngModel)]="rmno" required>
+        <input type="text" class="inpreg"placeholder="" name="uname" [(ngModel)]="rusername" required #uname="ngModel">
+        <span class="errmsj" *ngIf="(uname.touched && uname.errors && uname.errors.required) || (valied==0 && uname.errors && uname.errors.required)">enter user name</span>
+        <label  for="uname"><b>Mobile no</b></label>
+        <input type="text" class="inpreg"  name="mno" [(ngModel)]="rmno"  #mobileno="ngModel" maxlength="10" required  pattern ="[0-9]*">
+        <span class="errmsj" *ngIf="(mobileno.touched && mobileno.errors && mobileno.errors.required) || (valied==0 && mobileno.errors && mobileno.errors.required)">enter mobile no</span>
+        <span class="errmsj" *ngIf="mobileno.touched && mobileno.errors && mobileno.errors.maxlength">enter 10 digit number</span>
+        <span class="errmsj" *ngIf="mobileno.errors && mobileno.errors.pattern">enter number only</span>
+
         <label for="uname"><b>Email</b></label>
-        <input type="email"class="inpreg" placeholder="" name="email" [(ngModel)]="remail" required>
+        <input type="text"class="inpreg" placeholder="" name="email" [(ngModel)]="remail" required #emaill="ngModel" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$">
+        <span class="errmsj" *ngIf="(emaill.touched && emaill.errors && emaill.errors.required) || (valied==0 && emaill.errors && emaill.errors.required)">enter email</span>
+        <span class="errmsj" *ngIf="emaill.touched && emaill.errors && emaill.errors.pattern">enter valied email</span>
     
         <label for="psw"><b>Password</b></label>
-        <input type="password"class="inpreg" placeholder="" name="psw"[(ngModel)]="rpassword" required>
+        <input type="password"class="inpreg" placeholder="" name="rp"[(ngModel)]="rpassword" required #password="ngModel">
+        <span class="errmsj" *ngIf="(password.touched && password.errors && password.errors.pattern) || (valied==0 && password.errors && password.errors.required)">enter password</span>
+
         <label for="psw"><b>Re Enter Password</b></label>
-        <input type="password"class="inpreg" placeholder="" name="psw"[(ngModel)]="repassword" required>
+        <input type="password"class="inpreg" placeholder="" name="psw"[(ngModel)]="repassword" (blur)="repsw()" required>
             
-        <button type="submit" (click)="funlreg()">Continue</button>
+        <button type="submit" (click)="funlreg(form1)">Continue</button>
        
       </div>
     
@@ -342,8 +383,8 @@
                 <a class="dropdown-item" *ngIf="subcat.catid==cat._id">
                   {{subcat.subcat}}</a>
                 <ul class="dropdown-menu">
-                  <li class="dropdown-item" *ngFor="let subsub of sscat">
-                    <a *ngIf="subsub.scatid==subcat._id" [routerLink]="['product',subsub]">{{subsub.subsubcat}}</a>
+                  <li  *ngFor="let subsub of sscat">
+                    <a *ngIf="subsub.scatid==subcat._id" class="p-2 ml-2" [routerLink]="['product',subsub]">{{subsub.subsubcat}}</a>
                   </li>
                 </ul>
               </li>
@@ -375,7 +416,7 @@
     <div class="row row-30">
       <div class="col-md-4 col-xl-5">
         <div class="pr-xl-4"><a class="brand" href="index.html"><img class="brand-logo-light" src="images/agency/logo-inverse-140x37.png" alt="" width="140" height="37" srcset="images/agency/logo-retina-inverse-280x74.png 2x"></a>
-          <p>We are an award-winning creative agency, dedicated to the best result in web design, promotion, business consulting, and marketing.</p>
+          <p>We are an award-winning creative agency, dedicated to the best result in e-commrece, promotion, business consulting, and marketing.</p>
           <!-- Rights-->
           <p class="rights"><span>©  </span><span class="copyright-year">2018</span><span> </span><span>Waves</span><span>. </span><span>All Rights Reserved.</span></p>
         </div>
