@@ -58,7 +58,7 @@ funremoveitem(itm){
  
   callOtherDomain(){
     
-    alert(this.umobileno)
+    // alert(this.umobileno)
     this.obj.post("http://www.onlinebulksmslogin.com/spanelv2/api.php?username=nalax&password=nalax@123&to=+"+this.umobileno+"&from=TESTIN&message=your order is sucessfully").subscribe(function(res) {
       if(res) {
           this.sms = "sucess";
@@ -84,6 +84,7 @@ funremoveitem(itm){
 /////////////////////////////////////////////////// PLACE ORDER ///////////////////////////
 
   funplaceorder(){
+    this.callOtherDomain();
     var cartitm;
     if(localStorage.getItem('cart_items')!=null){
       cartitm=localStorage.getItem('cart_items')
@@ -92,7 +93,7 @@ funremoveitem(itm){
       cartitm=cartitm.replace(/}"/g,"}")
       cartitm=JSON.parse(cartitm)
      
-      var userid=localStorage.getItem('user')  //////////////////   pending  i have to store user info in local storage
+      var userid=localStorage.getItem('uid')  //////////////////   pending  i have to store user info in local storage
       var prodetails=[]
       for (var i=0; i<cartitm.length;i++){
           var pro:any={};
@@ -106,7 +107,7 @@ funremoveitem(itm){
           prodetails.push(pro)
          
         }
-
+        alert(userid)
         var prodet ={userid:userid,product:prodetails}
        this.obj.post("userser/placeorder",prodet).subscribe(suc=>{
         alert(suc._body)

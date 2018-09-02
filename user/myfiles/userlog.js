@@ -84,6 +84,7 @@ rt.post("/login",function(req,res){
 rt.post("/checkutoken",function(req,res){
   pftoken=req.body
   ss=sess.email
+  console.log(ss)
   if(pftoken.utoken==ss){
    
     res.send("success")
