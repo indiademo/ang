@@ -16,6 +16,9 @@
     },
     "/userorders/*":{
         "target":"http://localhost:2244"
+    },
+    "/payment/*":{
+        "target":"http://localhost:2244"
     }
 
     

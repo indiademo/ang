@@ -18,6 +18,7 @@ import { SucessorderComponent } from './sucessorder/sucessorder.component'
 import {ImageZoomModule} from 'angular2-image-zoom';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ActivateuserComponent } from './activateuser/activateuser.component';
 
 
 var rout=[{
@@ -40,6 +41,8 @@ var rout=[{
 },{
   path:'orders',component:OrdersComponent
 },{
+  path:'activateuser',component:ActivateuserComponent
+},{
   path:'userprofile',component:UserprofileComponent,
   children: [
     { path: 'wishlist', component: WishlistComponent },
@@ -47,9 +50,9 @@ var rout=[{
   ]
 }]
 
-var routr=RouterModule.forRoot(rout) 
+var routr=RouterModule.forRoot(rout, { useHash: true }) 
 
-
+//RouterModule.forRoot(yourRoutesHere, { useHash: true })
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ var routr=RouterModule.forRoot(rout)
     CartComponent,
     SucessorderComponent,
     WishlistComponent,
-    OrdersComponent
+    OrdersComponent,
+    ActivateuserComponent
   ],
   imports: [
     BrowserModule,HttpModule,routr,RouterModule,FormsModule,BrowserAnimationsModule,ImageZoomModule,FilterPipeModule

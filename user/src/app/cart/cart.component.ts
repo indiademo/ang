@@ -59,7 +59,7 @@ funremoveitem(itm){
   callOtherDomain(){
     
     // alert(this.umobileno)
-    this.obj.post("http://www.onlinebulksmslogin.com/spanelv2/api.php?username=nalax&password=nalax@123&to=+"+this.umobileno+"&from=TESTIN&message=your order is sucessfully").subscribe(function(res) {
+    this.obj.post("http://www.onlinebulksmslogin.com/spanelv2/api.php?username=nalax&password=nalax@123&to=+"+this.umobileno+"&from=TESTIN&message=Hi+"+this.username+" your order is sucessfully we will dilever your product shortely").subscribe(function(res) {
       if(res) {
           this.sms = "sucess";
           alert(this.sms)
@@ -84,6 +84,7 @@ funremoveitem(itm){
 /////////////////////////////////////////////////// PLACE ORDER ///////////////////////////
 
   funplaceorder(){
+    this.payment();
     this.callOtherDomain();
     var cartitm;
     if(localStorage.getItem('cart_items')!=null){
@@ -118,17 +119,31 @@ funremoveitem(itm){
 
   }
 
+  ////////////////////////////////// PAYMENT ////////////////////////////////////////
+
+  payment(){
+ 
+    var userpayinf ={totalamount:this.costarr,usermobileno:this.umobileno,customernam:this.username,custemail:this.useremail}
+    this.obj.post("payment/customerpayment",userpayinf).subscribe(suc=>{
+     
+     var  purl=suc._body;
+     
+      location=purl
+     }) 
+  }
+
   /////////////////////////////////////////////////////////////////////////////////////////
   costarr=0;umobileno;
   
-  tot_cart_items;arr;
+  tot_cart_items;arr;username;useremail;
 
   ngOnInit() {
 
     
     this.umobileno=localStorage.getItem("umobile")
-   
-   alert(this.umobileno)
+    this.username=localStorage.getItem("userpf");
+    this.useremail=localStorage.getItem("cusemail");
+   //alert(this.username)
     this.locit=localStorage.getItem("cart_items")
     if(localStorage.getItem('cart_items')!=null){
       var cartlength=(JSON.parse(localStorage.getItem('cart_items')));

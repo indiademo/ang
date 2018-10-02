@@ -21,7 +21,7 @@ lwt;
 fungetorders(){
   
   this.lwt=localStorage.getItem("usertoken")
-  alert(this.lwt)
+  //alert(this.lwt)
   var utk={utoken:this.lwt}
   this.obj.post("userser/checkutoken",utk).subscribe(ut=>{
     //alert(ut._body)

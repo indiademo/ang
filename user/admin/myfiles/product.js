@@ -2,7 +2,9 @@ exp = require("express")
 router = exp.Router()
 fup=require("express-fileupload")
 mj=require("mongojs")
-conn=mj("mongodb://localhost:27017/demo")
+// conn=mj("mongodb://localhost:27017/demo")
+conn=mj("mongodb://pathakabhishek:1.jaanabhi@ds021741.mlab.com:21741/demo")
+
 app.use(fup())
 
 ///////////////////////////////////////// GET SUB SUB CATEGORY /////////////////////////////////////////////////////////////////////
@@ -14,7 +16,6 @@ router.post("/get_sscat",function(req,res){
         
         res.send(result)
       
-       
     })
   
 })

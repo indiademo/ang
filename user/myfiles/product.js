@@ -4,7 +4,8 @@ mj=require("mongojs")
 
 ses=require("express-session")
 app.use(ses({secret:"gfg",saveUninitialized:true,resave:true}))
-conn=mj("mongodb://localhost:27017/demo")
+// conn=mj("mongodb://localhost:27017/demo")
+conn=mj("mongodb://pathakabhishek:1.jaanabhi@ds021741.mlab.com:21741/demo")
 
 
 
@@ -30,7 +31,7 @@ router.post("/getproductss",function(req,res){
                 for(j=0;j<wishprores.length;j++){
                     if(result[i]._id==wishprores[j]._id){
                         obb.aactive=wishprores[j]._id
-                         console.log(obb.aactive)
+                        // console.log(obb.aactive)
                     }
                 }
                 
@@ -105,7 +106,7 @@ router.post("/proamount",function(req,res){
  conn.tbl_product.find( { $and: [ { subsubcatid:ob.subsub }, { price: { $gte:ob.min } },{ price: { $lte:ob.maxamo } } ] } , function(err,result){
 
 //  })
-         console.log(result)
+        // console.log(result)
         res.send(result)
         //console.log(result),price:{$gte:ob.maxamo}//{subsubcatid:ob.subsub,price:{$gte:ob.maxamo}}
     })

@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
 
   funregval(){
     this.reg=1;
+    
   }
   funregvalhide(){
     this.reg=0;
@@ -56,12 +57,13 @@ export class AppComponent implements OnInit {
         this.udata=JSON.parse(cbudata._body)
       //  var uname=this.udata.userinfo[0].username
       //  this.mobile=this.udata.userinfo[0].mobile
-      
+      alert(this.udata.uemail)
       if(this.udata.count!=0 && this.udata.count!=2){
         
          localStorage.setItem("usertoken",this.udata.token)
          localStorage.setItem("userpf",this.udata.userinfo)
          localStorage.setItem("umobile",this.udata.usermobile)
+         localStorage.setItem("cusemail",this.udata.uemail)
       
          localStorage.setItem("uid",this.udata.id)
       
@@ -94,7 +96,7 @@ export class AppComponent implements OnInit {
    alert(curentuid)
      var wishprr={userid:curentuid}
     this.obj.post("userser/wishlistup",wishprr).subscribe(obj=>{
-      alert(obj._body)
+     // alert(obj._body)
     })
   }
 
@@ -120,7 +122,7 @@ funsearch(){
     this.srchitm=1
   var srch={proid:this.search}
   this.obj.post("userser/search",srch).subscribe(reg=>{
-    this.searchdata=JSON.parse(reg._body)
+    (this.searchdata)=JSON.parse(reg._body)
     console.log(this.searchdata)
    
  })
@@ -182,8 +184,26 @@ funsavenew(){
 }
 
 
-////////////////////////////////////////////////////////
-
+//////////////////////////////////////////////////////// SEND MOBILE OTP FOR SIGNUP //////////////////////
+umobile="";smsotp
+sendmobileotp(){
+  var motp={mobilno:this.umobile}
+  this.obj.post("userser/signupotp",motp).subscribe(reg=>{
+    this.smsotp=reg._body
+    alert(this.smsotp)
+   this.obj.post("http://www.onlinebulksmslogin.com/spanelv2/api.php?username=nalax&password=nalax@123&to=+"+this.umobile+"&from=TESTIN&message=Hi Use this OTP to create your Ekart4u OTP NO:+"+this.smsotp+"")
+   .subscribe(function(res) {
+    if(res) {
+        this.sms = "sucess";
+        alert(this.sms)
+    } 
+   
+  });
+    
+    this.rspw=1;
+    this.rspw1=0;
+  })
+}
 
 //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
  
@@ -209,18 +229,19 @@ funsavenew(){
 
 /////////////////////
 //////////////////////////////////////////////// LOGOUT /////////////////////////////////////////////////////////////
-valied=1; 
+valied=1; usmsotp="";
 funlreg(form1){
+  alert(this.usmsotp)
    if(form1.valid){
     if(this.rpassword==this.repassword){
-      var regobj={username:this.rusername,mobile:this.rmno,email:this.remail,password:this.repassword}
+      var regobj={username:this.rusername,mobile:this.rmno,email:this.remail,password:this.repassword,uotp:this.usmsotp}
     this.obj.post("userser/userreg",regobj).subscribe(reg=>{
       // this.regdata=JSON.parse(reg._body)
       alert(reg._body)
       this.reg=0;
-      this.obj.post("userser/activationlink",regobj).subscribe(reg=>{
-        alert("activation link sended")
-      })
+      // this.obj.post("userser/activationlink",regobj).subscribe(reg=>{
+      //   alert("activation link sended")
+      // })
     })
     }else{
       alert("enter same password")
@@ -241,9 +262,11 @@ funlreg(form1){
       localStorage.removeItem("usertoken");
       localStorage.removeItem("userpf");
       localStorage.removeItem("uid");
+      localStorage.removeItem("cusemail");
+      localStorage.removeItem("umobile");
       this.logvalue=0;
       location.reload();
-      //window.location.href="/"
+      window.location.href="#"
       
     }
   //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////
@@ -261,11 +284,13 @@ funlreg(form1){
  ////////////////////////////////////////////////SHOW & CLOSE LOGIN EVEND WITH ANIMATION  /////////////////////////////////////////////////////////////
 
   closelogin(event) {
+    alert("abhi")
     this.tmp3="inv"
   
   }
 
   loginshide(){
+    alert("hi")
     this.tmp3="vis"
   }
   //////////////////////////////////////////////// END /////////////////////////////////////////////////////////////

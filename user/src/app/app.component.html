@@ -30,7 +30,7 @@
         </li> -->
         <li class="nav-item">
             <div class="form-group col input-mysize" >
-                <input class="form-control" id="inputsm" type="text" [(ngModel)]="search" (keyup)="funsearch()">
+                <input class="form-control" id="inputsm" type="text"  [(ngModel)]="search" (keyup)="funsearch()">
                 <span >
                     <img src="../assets/svgicon/magnifying-glass.svg" class="search-img">
                    <!-- <button style="margin-top: -43px;margin-left: 404px;"id="btnsrch" class="form-control" type="submit">
@@ -107,9 +107,9 @@
                 </li>
                 <li class="dropdown-item"><a  [routerLink]="['wishlist']">Wishlist</a>
                 </li>
-                <!-- <li role="separator" class="divider"></li> -->
-                <li class="dropdown-item"><a href="#">Notificationk</a>
-                </li>
+               
+                <!-- <li class="dropdown-item"><a href="#">Notificationk</a>
+                </li> -->
                 <li>
                   <!-- <form>
                     <button type="submit" class="btn btn-link btn-logout">Logout</button>
@@ -122,7 +122,7 @@
        </div>
 
         <li class="nav-item dropdown nav-link">
-          <a href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span ></span></a>
+          <!-- <a href="#" class="nav-link dropdown-toggle"style="margin-right: auto;color:white; font-size:15px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More <span ></span></a> -->
           <ul class="dropdown-menu " style="width:100px">
             <li class="dropdown-item nav-link dropdown-toggle"><a href="#">24*7 Customer care</a>
             </li>
@@ -177,7 +177,7 @@
           <input type="checkbox" checked="checked" name="remember"> Remember me &nbsp;
         </label>
         <label>
-            <span class="signup">New to ecom? <a (click)="funregval()">Signup</a></span>
+            <span class="signup">New to ecom? <a (click)="closelogin($event)"data-toggle="modal" data-target="#myModal1">Signup</a></span>
           </label>
       </div>
     
@@ -308,18 +308,110 @@
 <!-------------------------LOGIN NEW  MODEL  ----------------------------------------------->
 
 
-<!-------------------------LOGIN NEW  MODEL END ----------------------------------------------->
-
-
+<!-------------------------SIGNUP NEW  MODEL  ----------------------------------------------->
 
 <div class="container" >
+  
+  <!-- The Modal -->
+  <div class="modal" id="myModal1" style="z-index: 100012;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <h4 class="modal-title">Signup</h4>
+              <span class="fa fa-times float-right close-styles" data-dismiss="modal" (click)="closeresetpwd()"></span>
+              <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+      <div *ngIf="rspw==0">
+         <!-- Modal Header -->
+         
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <label for="uname"><b>Mobile No</b></label>
+          <input type="text" placeholder="Enter mobile no" name="motp" [(ngModel)]="umobile" required>
+     
+      
+              <!-- POPUP END -->
+          <button type="submit"  (click)="sendmobileotp()">SUBMIT</button>
+        
+          </div>
+      </div>
+      <div class="container">
+      <div *ngIf="rspw1==0">
+        
+        <!-- Modal Header -->
+        <!-- <div class="modal-header">
+            <h4 class="modal-title"></h4>
+
+          </div> -->
+          <!-- Modal body -->
+          <div class="modal-body"style="margin-top: 20px;">
+        
+          <form #form1="ngForm">
+            
+            <br><label for="psw"><b>Enter OTP</b></label>
+          <input type="password" placeholder="Enter OTP" name="otpp"[(ngModel)]="usmsotp" required>
+
+          <label for="uname"><b>Username</b></label>
+          <input type="text" class="inpreg"placeholder="" name="uname" [(ngModel)]="rusername" required #uname="ngModel">
+          <span class="errmsj" *ngIf="(uname.touched && uname.errors && uname.errors.required) || (valied==0 && uname.errors && uname.errors.required)">enter user name</span>
+          <!-- <label  for="uname"><b>Mobile no</b></label> -->
+          <!-- <input type="text" class="inpreg"  name="mno" [(ngModel)]="rmno"  #mobileno="ngModel" maxlength="10" required  pattern ="[0-9]*">
+          <span class="errmsj" *ngIf="(mobileno.touched && mobileno.errors && mobileno.errors.required) || (valied==0 && mobileno.errors && mobileno.errors.required)">enter mobile no</span>
+          <span class="errmsj" *ngIf="mobileno.touched && mobileno.errors && mobileno.errors.maxlength">enter 10 digit number</span>
+          <span class="errmsj" *ngIf="mobileno.errors && mobileno.errors.pattern">enter number only</span>
+   -->
+          <label for="uname"><b>Email</b></label>
+          <input type="text"class="inpreg" placeholder="" name="email" [(ngModel)]="remail" required #emaill="ngModel" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$">
+          <span class="errmsj" *ngIf="(emaill.touched && emaill.errors && emaill.errors.required) || (valied==0 && emaill.errors && emaill.errors.required)">enter email</span>
+          <span class="errmsj" *ngIf="emaill.touched && emaill.errors && emaill.errors.pattern">enter valied email</span>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password"class="inpreg" placeholder="" name="rp"[(ngModel)]="rpassword" required #password="ngModel">
+          <span class="errmsj" *ngIf="(password.touched && password.errors && password.errors.pattern) || (valied==0 && password.errors && password.errors.required)">enter password</span>
+  
+          <label for="psw"><b>Re Enter Password</b></label>
+          <input type="password"class="inpreg" placeholder="" name="psw"[(ngModel)]="repassword" (blur)="repsw()" required>
+        </form>
+          <!-- POPUP  -->
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+        Open modal
+      </button> -->
+    
+      
+              <!-- POPUP END -->
+          <button type="submit" (click)="funlreg(form1)">Continue</button>
+          <!-- <button type="submit" (click)="funlreg(form1)">Continue</button> -->
+          </div>
+          
+      </div>
+       </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeresetpwd()"></button>  -->
+          <div class="container" style="background-color:#f1f1f1">
+            <i class="psw">Already have an account? <a data-dismiss="modal" (click)="closeresetpwd()" (click)="loginshide()">Sign in</a></i>
+          
+        </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+<!-- <div class="container" >
 <div *ngIf="reg==1" class="container logreg">
   <div class="col-sm-6 col-md-4 col-lg-6 logfrm p-4">
       <div class="m-4 frmrdiv"> 
     <div><h2 style="align-content:center">Create Acount</h2></div>&nbsp;
     <form #form1="ngForm">
       <div class="regimgcnt">
-        <button type="button"class="transparent-style"(click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: -49px;;margin-right:7px; float:right">
+        <button type="button"class="transparent-style" (click)="closelogin($event)" style="background-color:#fff;width: 20px;margin-top: -49px;;margin-right:7px; float:right">
           <img src="../assets/images/cancel.png" alt="Avatara" style="width:20px" class="cancel">
         </button>
       </div>
@@ -353,7 +445,6 @@
     
       <div class="container" style="background-color:#f1f1f1">
           <i class="psw">Already have an account? <a (click)="funregvalhide()">Sign in</a></i>
-        <!-- <button type="button" (click)="closelogin($event)" class="cancelbtn">Cancel</button>navcolor -->
         
       </div>
     
@@ -361,7 +452,7 @@
       </div>
   </div>  
 </div> 
-</div>
+</div> -->
 <nav class="navbar navbar-expand-md  navbar-default navcolor" style="margin-top: -56px;">
   <!-- <div class="container-fluid" (click)="srchitm=0">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse2" aria-controls="navbarCollapse2" aria-expanded="false" aria-label="Toggle navigation">

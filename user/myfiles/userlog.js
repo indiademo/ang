@@ -15,7 +15,7 @@ bc=require("bcrypt")
 // rt.get("/fun1",function(req,res){
 //   sess=req.session
 //   sess.x=100
-//   console.log(sess.x)
+//   //console.log(sess.x)
 // })
 
 
@@ -23,17 +23,17 @@ var otp  ;
 rt.get("/funsotp",function(req,res){
   var totpObj = new TOTP();
   otp = totpObj.getOTP("3micy2hguz5j2p6smnnoelcngpchn4sq",1000);
-  console.log(otp)
+  //console.log(otp)
   res.send(otp)
 })
 
 rt.get("/funs",function(req,res){
-  //console.log("hiiii")
+  ////console.log("hiiii")
   var tk=jst.sign({id:"123"},sec.secret)
-  console.log(tk)
+  //console.log(tk)
   sess=req.session
   sess.x=100
-  console.log(sess.x)
+  //console.log(sess.x)
 })
 ////////////////////////////////////////////////////
 rt.post("/userprf",function(req,res){
@@ -42,7 +42,7 @@ rt.post("/userprf",function(req,res){
       
       res.send(result)
     
-     //console.log(ob.catid)
+     ////console.log(ob.catid)
   })
 
 })
@@ -52,10 +52,10 @@ rt.post("/userprf",function(req,res){
 
 rt.post("/login",function(req,res){
   udata=req.body
-  //console.log(udata)
+  ////console.log(udata)
    sess = req.session;
        conn.tbl_user.find({email:udata.email,active:1},function(err,ress){
-       
+        console.log(ress.length)
       if(ress.length!=0){
         id=ress[0]._id
          upass=ress[0].password
@@ -64,13 +64,13 @@ rt.post("/login",function(req,res){
          umobile=ress[0].mobile
         if(upass!=udata.password){
           res.send({count:2})
-          console.log("err password")
+          //console.log("err password")
          }else{
           var tk=jst.sign({id:udata.email},sec.secret)
             sess.email=tk;
-            //console.log(id)
+            ////console.log(id)
             
-            res.send({token:tk,userinfo:uname,usermobile:umobile,id:id})
+            res.send({token:tk,userinfo:uname,usermobile:umobile,id:id,uemail:uemail})
          }
 
        
@@ -84,7 +84,7 @@ rt.post("/login",function(req,res){
 rt.post("/checkutoken",function(req,res){
   pftoken=req.body
   ss=sess.email
-  console.log(ss)
+  //console.log(ss)
   if(pftoken.utoken==ss){
    
     res.send("success")
@@ -98,43 +98,56 @@ rt.post("/checkutoken",function(req,res){
 ///////////////////////////////////////
 
 rt.post("/userreg",function(req,res){
-    
+    //$and: [ { mobile:ob.subsub },{ mobileotp:ob.subsub }]
   ob=req.body
-  
-  var id=conn.tbl_user.find({email:ob.email}).sort({_id:-1}).limit(1,function(err,result){
-  
-    if (result.length==1){
-      res.send("Email id is allready registerd");
+  mobileno=mno
+  //console.log(mobileno)
+  var id=conn.tbl_user.find({ mobileotp:ob.uotp}).sort({_id:-1}).limit(1,function(err,otp){
+    if (otp.length==0){
+     console.log("Invalid OTP")
+     res.send("Invalid OTP");
     }else{
-      var id=conn.tbl_user.find().sort({_id:-1}).limit(1,function(err,re){
-
-        if (re.length==0)
-        iid=1
-        else{
-            iid=(re[0]._id)
-            iid++
-
-        }
-        var random=Math.random()
-        random=random*10000;
-        var rmdn=Math.round(random)
-        rmdn=ob.username+rmdn;
+      var id=conn.tbl_user.find({email:ob.email}).sort({_id:-1}).limit(1,function(err,result){
       
-    
-        console.log(iid)
-        conn.tbl_user.insert({_id:iid,username:ob.username,mobile:ob.mobile,email:ob.email,password:ob.password,active:rmdn})
-        res.send("Regesterd sucessfully plese login")
+        if (result.length==1){
+          res.send("Email id is allready registerd");
+        }else{
+          var id=conn.tbl_user.find().sort({_id:-1}).limit(1,function(err,re){
 
-      })
+            if (re.length==0)
+            iid=1
+            else{
+              iid=(re[0]._id)
+              iid++
+            }
+            // var random=Math.random()
+            // random=random*10000;
+            // var rmdn=Math.round(random)
+            // rmdn=ob.username+rmdn;
+          
         
+        
+            //conn.tbl_user.insert({_id:iid,username:ob.username,mobile:ob.mobile,email:ob.email,password:ob.password})
+            conn.tbl_user.update({ mobileotp:ob.uotp },{username:ob.username,mobile:mobileno,email:ob.email,password:ob.password,active:1})
+            // conn.tbl_product.find( { $and: [ { subsubcatid:ob.subsub }, { price: { $gte:ob.min } },{ price: { $lte:ob.maxamo } } ] } , function(err,result){})
+
+            res.send("Regesterd sucessfully plese login")
+
+          })
+            
+        }
+     })
     }
- })
+
+  })
+
+     
 })
 
 ////////////////////////////////////////
 rt.post("/placeorder",function(req,res){
   pro=req.body
-  //console.log(pro)
+  ////console.log(pro)
   var id=conn.tbl_purchaseorder.find().sort({_id:-1}).limit(1,function(err,result){
     if (result.length==0)
     orderid=1
@@ -152,21 +165,21 @@ rt.post("/placeorder",function(req,res){
 //////////////////////////////////////////////////// GET WISHLIST //////////////////////
 rt.post("/wishpro",function(req,res){
   ob=req.body
-  console.log(ob)
+  //console.log(ob)
   conn.tbl_wishlist.find({userid:ob.uid}, function(err,result){
-    console.log(result)
+    //console.log(result)
       res.send(result)
     
-     //console.log(result)
+     ////console.log(result)
   })
 
 })
 ///////////////////////////////////////////  UPDATE USER IN  WISHLIST PRODUCT //////////////////////
 rt.post("/wishlistup",function(req,res){
   act=req.body
-  console.log(act)
+  //console.log(act)
   conn.tbl_wishlist.update({userid:null},{$set:{userid:act.userid}},{multi: true});
-  //console.log(res)
+  ////console.log(res)
   res.send("Updated...")
 })
 /////////////////////////////////////////////////////// SEARCH PRODUCTS //////////////////////////////////
@@ -174,9 +187,9 @@ rt.post("/wishlistup",function(req,res){
 
 rt.post("/search",function(req,res){
   objsrch=req.body
-  console.log(objsrch)
+  //console.log(objsrch)
   conn.tbl_product.find({product:{$regex:objsrch.proid}}, function(err,result){
-    // console.log(result)
+    // //console.log(result)
   res.send(result)
     
 
@@ -190,10 +203,10 @@ rt.post("/generateotp",function(req,res){
   ses=req.session
   var totpObj = new TOTP();
    otp = totpObj.getOTP("3micy2hguz5j2p6smnnoelcngpchn4sq");
-   console.log("frst"+otp)
+   //console.log("frst"+otp)
   ses.emailotp=otp
 
- console.log(req.session.emailotp)
+ //console.log(req.session.emailotp)
   var id=conn.tbl_user.find({email:omail.useremail}).limit(1,function(err,result){
     if (result.length!=0){
       email=result[0].email
@@ -202,14 +215,14 @@ rt.post("/generateotp",function(req,res){
      
 
       var id=conn.tbl_user.update({email:email},{$set:{otp:otp,exptime:new Date(),otpaccesstoken:tk}},function(err,result){
-        // console.log(tk)
+        // //console.log(tk)
          res.send({otp:tk})
       })
 
       
-   //console.log(email)
+   ////console.log(email)
   //  conn.tbl_user.update({email:omail.useremail},{$set:{otp:otp}},function(err,result){
-  //     console.log(count(result.length))
+  //     //console.log(count(result.length))
     
   
   //    });
@@ -218,15 +231,15 @@ rt.post("/generateotp",function(req,res){
    } else{
       // orderid=(result[0]._id)
       // orderid++
-      console.log("wrong email id please your email")
-      console.log("hiiii")
+      //console.log("wrong email id please your email")
+      //console.log("hiiii")
       res.send({count:0})
     }
   })
  
  
   //  conn.tbl_user.update({email:omail.useremail},{$set:{otp:otp}},function(err,result){
-  //   console.log(count(result.length))
+  //   //console.log(count(result.length))
   
 
   //  });
@@ -247,9 +260,9 @@ rt.post("/updatepassword",function(req,res){
    et=new Date(result[0].exptime)
    res=(dt.getTime()-et.getTime())
    res=res/1000
-   console.log(res)
+   //console.log(res)
  })
-  console.log(eotp.eaccstoken)
+  //console.log(eotp.eaccstoken)
   conn.tbl_user.update({ otpaccesstoken:eotp.eaccstoken},{$set:{password:eotp.newpassword}});
  
   res.send("Updated...")
@@ -261,7 +274,7 @@ rt.post("/updatepassword",function(req,res){
 rt.post("/mail",function(req,res){
   var dt=req.body
   // usereotp=req.session.emailotp
-  console.log("this id global"+otp)
+  //console.log("this id global"+otp)
  
  
   var transporter = nodemailer.createTransport({
@@ -282,9 +295,9 @@ rt.post("/mail",function(req,res){
     
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
-        console.log(error);
+        //console.log(error);
       } else {
-        console.log('Email sent: ' + info.response);
+        //console.log('Email sent: ' + info.response);
       }
     });
 })
@@ -292,8 +305,9 @@ rt.post("/mail",function(req,res){
 //////////////////////////////////////////////////////////////////////
 rt.post("/activationlink",function(req,res){
   var dt=req.body
+  //console.log(dt)
   conn.tbl_user.find({email:dt.email},function(err,result){
-    var str="http://localhost:4200/#;activate="+ result[0].active
+    var str="http://localhost:4200/activateuser;activate="+ result[0].active
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -312,9 +326,9 @@ rt.post("/activationlink",function(req,res){
     
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
-        console.log(error);
+        //console.log(error);
       } else {
-        console.log('Email sent: ' + info.response);
+        //console.log('Email sent: ' + info.response);
       }
     });
   })
@@ -325,11 +339,54 @@ rt.post("/activationlink",function(req,res){
 
 rt.post("/activeuser",function(req,res){
   ob=req.body
-  console.log(ob.active)
+  //console.log(ob.active)
   conn.tbl_user.update({active:ob.active},{$set:{active:1}})
   conn.tbl_user.find(function(err,result){
-      console.log(result)
+      //console.log(result)
   })
   res.send("activated")
+})
+
+///////////////////////////////////////////// SEND SIGNUP OTP THROUGH MOBILE ////////////////////////
+
+rt.post("/signupotp",function(req,res){
+  ob=req.body
+  mno=req.session
+  mno=ob.mobilno
+     
+  
+
+  var totpmobile = new TOTP();
+  smsotp = totpmobile.getOTP("3micy2hguz5j2p6smnnoelcngpchn4sq");
+
+ 
+
+
+  var id=conn.tbl_user.find({mobile:ob.mobilno}).sort({_id:-1}).limit(1,function(err,result){
+   
+        if (result.length==1){
+          res.send("Mobile no allready registerd");
+        //  console.log("Mobile no allready registerd")
+        }else{
+          var id=conn.tbl_user.find().sort({_id:-1}).limit(1,function(err,re){
+           
+            if (re.length==0)
+            iid=1
+            else{
+                iid=(re[0]._id)
+                iid++
+
+            }
+          // console.log("sucess insert otp")
+             conn.tbl_user.insert({_id:iid,mobile:ob.mobilno,mobileotp:smsotp})
+             
+            res.send(smsotp)
+           })
+            
+        }
+     })
+
+
+  
 })
 module.exports=rt;
